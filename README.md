@@ -1,2 +1,6 @@
-# credential-manifest
-Format that normalizes the definition of requirements for the issuance of a credential
+# DID Credential Manifest
+
+The DID Credential Manifest allows an Issuer of a specific credential to specify their verification requirements to Subjects.
+
+Details can be found in the [Explainer](explainer.md).
+

@@ -32,7 +32,7 @@ A Credential Manifest should be able to fulfill the following functional require
     - Unverified data elements "input": Data that has not been previously verified by another (trusted) party, but is used by the validator to either verify independently OR use it as input for the credential(s) that are to be issued.
     - Verifiable Claims elements "credential": Previously verified credential(s) by a (trusted) third party that is required as an input for issuing the new credential(s). (**Note**: The request format for existing credentials should be reused in a verifier-subject relationship.)
 - Defined credentials are identified by unique URIs or (prefixed) DIDs
-- Provided credentiala within the ProofSet can be optional or only a subset is required. (Modeled by a Group Abstraction)
+- Provided credentials within the ProofSet can be optional or only a subset is required. (Modeled by a Group Abstraction)
     - Use Case: Step-Up Verification. 
 - Provide UI/UX definitions that standardize the visual and dynamic validation process for the Subject. This can contain:
     - Logos, Layouts, Color and Fonts

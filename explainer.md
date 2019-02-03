@@ -10,6 +10,7 @@ The DID Credential Manifest is a format that aims to normalize the process of cr
 
 ## Assumptions
 
+- Credential Manifests should not be bound to a particular credential output format, and should be able to support all reasonable credential types in its input descriptors.
 
 ## Glossary of Terms (WIP)
 

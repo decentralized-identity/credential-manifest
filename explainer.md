@@ -45,7 +45,7 @@ A Credential Manifest should be able to fulfill the following functional require
 {
     "@context": "https://identity.foundation/schemas/credentials",
     "@type": "CredentialManifest",
-    "credential": "AcmeLoanAuthorization", // Standard type or custom - how should we differentiate?
+    "credential": "LoanAuthorization", // Standard type or custom - how should we differentiate?
     "preconditions": {
         "@type": "ProofSet",
         // Groups are arbitrary, issuer-specified, string desigations that

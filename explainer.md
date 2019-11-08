@@ -53,7 +53,7 @@ A Credential Manifest should be able to fulfill the following functional require
         // 
         // The following 'group' expression would mean:
         // - All from A & B
-        // - One from Group B
+        // - One from Group C
         "groups": [
           {
             "rule": "all",

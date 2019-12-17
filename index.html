@@ -285,6 +285,31 @@
           ]
           </pre></code>
         </div>
+
+        <p>
+          Input Descriptor objects support the following properties:
+        </p>
+        
+        <ul>
+          <li>
+            `type` - MUST be present, and MUST be of one of the following values:
+            <ul>
+              <li>
+                `data` - Indicates the requested input is raw data, which must validate against the JSON Schema requirements described in the `value` property.
+              </li>
+              <li>
+                `vc` - Indicates the requested input is a Verifiable Credentials.
+              </li>
+              <li>
+                `openid` - Indicates the requested input is an OpenID token/claim set.
+              </li>
+            </ul>
+          </li>
+          <li>
+            `group` - Optional, but if present, MUST be an array that MAY include strings that match the grouping strings specified in the Credential Manifest's included Input Selection Rule objects. 
+          </li>
+        </ul>
+
       </section>
 
       <section id="issuer_styles">
@@ -313,6 +338,12 @@
         <p>
           The `background` property MAY include an object with any of the following sub-properties:
         </p>
+          
+        <ul>
+          <li>
+            `color` - MUST be present, and the DID string MUST match the DID string specified in the `iss` property of the assertion's decoded `jwt` value
+          </li>
+        </ul>
 
       </section>
     </section>

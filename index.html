@@ -28,6 +28,12 @@
           url: "https://www.linkedin.com/in/dbuchner/",
           company: "Microsoft",
           companyURL: "https://www.microsoft.com/en-us/security/technology/own-your-identity"
+        },
+        {
+          name: "Brent Zundel",
+          url: "https://www.linkedin.com/in/bzundel/",
+          company: "Evernym",
+          companyURL: "https://www.evernym.com/"
         }],
         github: "https://github.com/decentralized-identity/credential-manifest",
         edDraftURI: "https://identity.foundation/credential-manifest",
@@ -48,7 +54,9 @@
 
     <section id='sotd'>
       <p>
-        Credential Manifest is a draft specification being developed within the <a href="https://identity.foundation">Decentralized Identity Foundation</a> (DIF), and intended for registration with IANA as a Well-Known resource. This spec will be updated to reflect relevant changes, and participants are encouraged to contribute at the following repository location: <a href="https://github.com/decentralized-identity/.well-known">https://github.com/decentralized-identity/.well-known</a>
+        Credential Manifest is a draft specification being developed within the <a href="https://identity.foundation">Decentralized Identity Foundation</a> (DIF), 
+        and intended for ratification as a DIF recommended data format. This spec will be updated to reflect relevant changes, and participants are encouraged to 
+        contribute at the following repository location: <a href="https://github.com/decentralized-identity/credential-manifest">https://github.com/decentralized-identity/credential-manifest</a>
       </p>
     </section>
 
@@ -63,20 +71,20 @@
           </thead>
               <tbody>
               <tr>
-                <td id="decentralized-identifier">Decentralized Identifier (DID)</td>
+                <td id="decentralized_identifier_definition">Decentralized Identifier (DID)</td>
                 <td>Unique ID string and PKI metadata document format for describing the cryptographic keys and other fundamental PKI values linked to a unique, user-controlled, self-sovereign identifier in a target system (i.e. blockchain, distributed ledger).</td>
               </tr>
               <tr>
-                <td id="decentralized-identifier">Issuer</td>
+                <td id="issuer_definition">Issuer</td>
                 <td>An entity that issues a credential to a Subject.</td>
               </tr>
               <tr>
-                <td id="decentralized-identifier">Subject</td>
+                <td id="subject_definition">Subject</td>
                 <td>The target entity to whom a credential is issued.</td>
               </tr>
               <tr>
-                <td id="credential-manifest-inputs">Credential Manifest Inputs</td>
-                <td>Issuer-specified inputs required for the Issuer to engage in the process of evaluation and issuance of a credential.</td>
+                <td id="proof_description_definition">Proof Description</td>
+                <td>An object that describes proof requirements, formatted in accordance with the Proof Description specification.</td>
               </tr>
               <tr>
                 <td id="input-selection-rules">Input Selection Rules</td>
@@ -95,64 +103,67 @@
   </div>
 <code><pre>
     {
-      "credential_schema": HASH_OF_SCHEMA,
-      "input_selection": [
-        {
-          "rule": "all",
-          "from": ["A"]
-        },
-        {
-          "rule": "pick",
-          "count": 1,
-          "from": ["B"]
-        }
-      ],
-      "input_descriptors": [
-        {
-          "type": "data",
-          "group": ["A"],
-          "field": "routing_number",
-          "value": {
-              "type": "string",
-              "maxLength": 9
+      "issuer": "did:example:123",
+      "credential_schema": "ipfs:QmPXME1oRtoT627YKaDPDQ3PwA8tdP9rWuAAweLzqSwAWT",
+      "proof_description": {
+        "selection_rules": [
+          {
+            "rule": "all",
+            "from": ["A"]
+          },
+          {
+            "rule": "pick",
+            "count": 1,
+            "from": ["B"]
           }
-        },
-        {
-          "type": "data",
-          "group": ["A"],
-          "field": "account_number",
-          "value": {
-            "type": "integer",
-            "maxLength": 17,
-            "required": true
+        ],
+        "inputs": [
+          {
+            "type": "data",
+            "group": ["A"],
+            "field": "routing_number",
+            "value": {
+                "type": "string",
+                "maxLength": 9
+            }
+          },
+          {
+            "type": "data",
+            "group": ["A"],
+            "field": "account_number",
+            "value": {
+              "type": "integer",
+              "maxLength": 17,
+              "required": true
+            }
+          },
+          {
+            "type": "idtoken",
+            "group": ["A"],
+            "redirect": "https://acmebank.com/oauth",
+            "parameters": {
+              "client_id": "dhfiuhsdre",
+              "scope": "openid+profile"
+            }
+          },
+          {
+            "type": "vc",
+            "group": ["B"],
+            "schema": "https://eu.com/claims/IDCard",
+            "constraints": {
+              "issuers": ["did:foo:gov1", "did:bar:gov2"]
+            }
+          },
+          {
+            "type": "vc",
+            "group": ["B"],
+            "schema": "hub://did:foo:123/Collections/schema.us.gov/Passport",
+            "constraints": {
+              "issuers": ["did:foo:gov1", "did:bar:gov2"]
+            }  
           }
-        },
-        {
-          "type": "openid",
-          "group": ["A"],
-          "redirect": "https://acmebank.com/oauth"
-          "parameters": {
-            "client_id": "dhfiuhsdre",
-            "scope": "openid+profile"
-          }
-        },
-        {
-          "type": "vc",
-          "group": ["B"],
-          "schema": "https://eu.com/claims/IDCard",
-          "constraints": {
-            "issuers": ["did:foo:gov1", "did:bar:gov2"]
-          }
-        },
-        {
-          "type": "vc",
-          "group": ["B"],
-          "schema": "hub://did:foo:123/Collections/schema.us.gov/Passport",
-          "constraints": {
-            "issuers": ["did:foo:gov1", "did:bar:gov2"]
-          }  
-        }
-      ],
+        ]
+      },
       "issuer_styles": {
         "logo": {
           "url": "https://acme.com/logo.png",
@@ -194,21 +205,21 @@
               <th style="min-width: 10em;">Description</th>
             </tr>
           </thead>
-              <tbody>
+            <tbody>
+              <tr>
+                <td id="issuer_property"><code>issuer</code></td>
+                <td><i>String</i></td>
+                <td>MUST be populated, and MUST be a valid Decentralized Identifier URI.</td>
+              </tr>
               <tr>
                 <td id="credential_schema_property"><code>credential_schema</code></td>
                 <td><i>String</i></td>
-                <td>MUST be populated, and MUST be a SHA256 hash of the credential output schema the Credential Manifest is describing preconditions for.</td>
+                <td>MUST be populated, and MUST be a valid URI for the credential schema the Credential Manifest is associated with.</td>
               </tr>
               <tr>
-                <td id="input_selection_property"><code>input_selection</code></td>
-                <td><i>Array</i></td>
-                <td>Optional, but if populated, it MUST be an array composed of Input Selection Rule objects.</td>
-              </tr>
-              <tr>
-                <td id="input_descriptors_property"><code>input_descriptors</code></td>
-                <td><i>Array</i></td>
-                <td>MUST be populated, and its value MUST be an array of one or more Input Descriptor objects.</td>
+                <td id="proof_description_property"><code>proof_description</code></td>
+                <td><i>Object</i></td>
+                <td>MUST be present, and its value MUST conform to the format and requirements specified in the Proof Description specification.</td>
               </tr>
               <tr>
                 <td id="issuer_styles_property"><code>issuer_styles</code></td>

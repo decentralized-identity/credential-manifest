@@ -1,0 +1,14 @@
+{
+  "name": "dif-credential-manifest",
+  "description": "DIF Credential Manifest specification",
+  "version": "0.0.1",
+  "homepage": "http://identity.foundation/credential-manifest",
+  "license": "Apache 2",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/decentralized-identity/credential-manifest"
+  },
+  "dependencies": {
+    "spec-up": "0.9.20"
+  }
+}

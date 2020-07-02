@@ -39,7 +39,7 @@ Verifier | The entity that defines what proofs they require from a Subject (via 
 Proof Definition | An object that describes proof requirements, formatted in accordance with the Proof Presentation specification.
 Input Selection Rules | Syntax for describing input selection optionality among the list of specified inputs an Issuers encodes in a Credential Manifest.
 
-## `Resource Definition`
+## Resource Definition
 
 A Credential Manifest is a JSON document that contains preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.
 

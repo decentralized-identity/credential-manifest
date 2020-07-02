@@ -7,18 +7,34 @@
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
             <title>DIF Credential Manifest</title>
-            <link href="./spec-up/css/index.css" rel="stylesheet">
-            <link href="./spec-up/css/prism.css" rel="stylesheet">
-            <link href="./spec-up/css/font-awesome.css" rel="stylesheet">
+            <link href="./spec-up/compiled/head.css" rel="stylesheet"/>
+                <script src="./spec-up/compiled/head.js"></script>
           </head>
-          <body>
+          <body features="source logo">
+            
+            <svg id="svg" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="github" viewBox="0 0 20 20">
+    <path d="M10 0.247c-5.522 0-10 4.477-10 10 0 4.418 2.865 8.167 6.839 9.489 0.5 0.093 0.683-0.217 0.683-0.481 0-0.238-0.009-1.026-0.014-1.862-2.782 0.605-3.369-1.18-3.369-1.18-0.455-1.156-1.11-1.463-1.11-1.463-0.907-0.621 0.069-0.608 0.069-0.608 1.004 0.071 1.533 1.031 1.533 1.031 0.892 1.529 2.339 1.087 2.91 0.831 0.090-0.646 0.349-1.087 0.635-1.337-2.221-0.253-4.556-1.11-4.556-4.942 0-1.092 0.391-1.984 1.030-2.684-0.104-0.252-0.446-1.269 0.097-2.646 0 0 0.84-0.269 2.751 1.025 0.798-0.222 1.653-0.333 2.503-0.337 0.85 0.004 1.706 0.115 2.505 0.337 1.909-1.294 2.747-1.025 2.747-1.025 0.544 1.378 0.202 2.395 0.098 2.646 0.641 0.7 1.029 1.592 1.029 2.684 0 3.841-2.339 4.687-4.566 4.934 0.359 0.31 0.678 0.919 0.678 1.852 0 1.338-0.012 2.415-0.012 2.744 0 0.266 0.18 0.578 0.687 0.48 3.971-1.324 6.833-5.071 6.833-9.488 0-5.523-4.477-10-10-10z"></path>
+  </symbol>
+  <symbol id="nested_list" viewBox="0 0 37 32">
+    <path d="M0 2.286c0-1.262 1.023-2.286 2.286-2.286s2.286 1.023 2.286 2.286c0 1.262-1.023 2.286-2.286 2.286s-2.286-1.023-2.286-2.286zM9.143 0h27.429v4.571h-27.429zM9.143 11.429c0-1.262 1.023-2.286 2.286-2.286s2.286 1.023 2.286 2.286c0 1.262-1.023 2.286-2.286 2.286s-2.286-1.023-2.286-2.286zM18.286 9.143h18.286v4.571h-18.286zM9.143 29.714c0-1.262 1.023-2.286 2.286-2.286s2.286 1.023 2.286 2.286c0 1.262-1.023 2.286-2.286 2.286s-2.286-1.023-2.286-2.286zM18.286 27.429h18.286v4.571h-18.286zM18.286 20.571c0-1.262 1.023-2.286 2.286-2.286s2.286 1.023 2.286 2.286c0 1.262-1.023 2.286-2.286 2.286s-2.286-1.023-2.286-2.286zM27.429 18.286h9.143v4.571h-9.143z"></path>
+  </symbol>
+</svg>
+
             <main>
-              <header id="header">
+
+              <header id="header" class="panel-header">
+                <span id="toc_toggle" panel-toggle="toc">
+                  <svg icon><use xlink:href="#nested_list"></use></svg>
+                </span>
                 <a id="logo" href="https://identity.foundation">
                   <img src="https://rawcdn.githack.com/decentralized-identity/decentralized-identity.github.io/a3ca39717e440302d1fd99a796e7f00e1c42eb2d/images/logo-flat.svg" />
                 </a>
-                <a id="sidebar_toggle" href="#sidebar">Table of Contents</a>
+                <span issue-count animate panel-toggle="repo_issues">
+                  <svg icon><use xlink:href="#github"></use></svg>
+                </span>
               </header>
+
               <article id="content">
                 <h1 id="credential-manifest"><a class="toc-anchor" href="#credential-manifest">§</a> Credential Manifest</h1>
 <p><strong>Specification Status:</strong> Strawman</p>
@@ -79,176 +95,104 @@
 </table>
 <h2 id="resource-definition"><a class="toc-anchor" href="#resource-definition">§</a> <code>Resource Definition</code></h2>
 <p>A Credential Manifest is a JSON document that contains preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.</p>
-<div id="example-credential-manifest---all-features-exercised" class="notice example"><a class="notice-link" href="#example-credential-manifest---all-features-exercised"></a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="credential-manifest---all-features-exercised-27" class="notice example"><a class="notice-link" href="#credential-manifest---all-features-exercised-27">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:example:123"</span><span class="token punctuation">,</span>
-  <span class="token property">"credential_schema"</span><span class="token operator">:</span> <span class="token string">"ipfs:QmPXME1oRtoT627YKaDPDQ3PwA8tdP9rWuAAweLzqSwAWT"</span><span class="token punctuation">,</span>
-  <span class="token property">"proof_definition"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"selection_rules"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"rule"</span><span class="token operator">:</span> <span class="token string">"all"</span><span class="token punctuation">,</span>
-        <span class="token property">"from"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"A"</span><span class="token punctuation">]</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"rule"</span><span class="token operator">:</span> <span class="token string">"pick"</span><span class="token punctuation">,</span>
-        <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-        <span class="token property">"from"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"B"</span><span class="token punctuation">]</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token property">"inputs"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"data"</span><span class="token punctuation">,</span>
-        <span class="token property">"group"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"A"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token property">"field"</span><span class="token operator">:</span> <span class="token string">"routing_number"</span><span class="token punctuation">,</span>
-        <span class="token property">"value"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-            <span class="token property">"maxLength"</span><span class="token operator">:</span> <span class="token number">9</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"data"</span><span class="token punctuation">,</span>
-        <span class="token property">"group"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"A"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token property">"field"</span><span class="token operator">:</span> <span class="token string">"account_number"</span><span class="token punctuation">,</span>
-        <span class="token property">"value"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"integer"</span><span class="token punctuation">,</span>
-          <span class="token property">"maxLength"</span><span class="token operator">:</span> <span class="token number">17</span><span class="token punctuation">,</span>
-          <span class="token property">"required"</span><span class="token operator">:</span> <span class="token boolean">true</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"idtoken"</span><span class="token punctuation">,</span>
-        <span class="token property">"group"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"A"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token property">"redirect"</span><span class="token operator">:</span> <span class="token string">"https://acmebank.com/oauth"</span><span class="token punctuation">,</span>
-        <span class="token property">"parameters"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"client_id"</span><span class="token operator">:</span> <span class="token string">"dhfiuhsdre"</span><span class="token punctuation">,</span>
-          <span class="token property">"scope"</span><span class="token operator">:</span> <span class="token string">"openid+profile"</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"vc"</span><span class="token punctuation">,</span>
-        <span class="token property">"group"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"B"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token string">"https://eu.com/claims/IDCard"</span><span class="token punctuation">,</span>
-        <span class="token property">"constraints"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"issuers"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"did:foo:gov1"</span><span class="token punctuation">,</span> <span class="token string">"did:bar:gov2"</span><span class="token punctuation">]</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"vc"</span><span class="token punctuation">,</span>
-        <span class="token property">"group"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"B"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token string">"hub://did:foo:123/Collections/schema.us.gov/Passport"</span><span class="token punctuation">,</span>
-        <span class="token property">"constraints"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"issuers"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"did:foo:gov1"</span><span class="token punctuation">,</span> <span class="token string">"did:bar:gov2"</span><span class="token punctuation">]</span>
-        <span class="token punctuation">}</span>  
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span>
+  <span class="token property">"credential"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Washington State Class A Commercial Driver License"</span><span class="token punctuation">,</span>
+    <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."</span><span class="token punctuation">,</span>
+    <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token string">"ipfs:QmPXME1oRtoT627YKaDPDQ3PwA8tdP9rWuAAweLzqSwAWT"</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"locale"</span><span class="token operator">:</span> <span class="token string">"en-US"</span><span class="token punctuation">,</span>
+  <span class="token property">"presentation_definition"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// As defined in the Presentation Exchange specification</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token property">"issuer_styles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"logo"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"url"</span><span class="token operator">:</span> <span class="token string">"https://acme.com/logo.png"</span><span class="token punctuation">,</span>
+      <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://dol.wa.com/logo.png"</span><span class="token punctuation">,</span>
+      <span class="token property">"alt"</span><span class="token operator">:</span> <span class="token string">"Washington State Seal"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
     <span class="token property">"background"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"color"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">247</span><span class="token punctuation">,</span> <span class="token number">247</span><span class="token punctuation">,</span> <span class="token number">247</span><span class="token punctuation">]</span>
+      <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#ff0000"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"form_label"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"color"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">180</span><span class="token punctuation">,</span> <span class="token number">55</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"form_input_border"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"color"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">180</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">]</span>
+    <span class="token property">"text"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#d4d400"</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </div>
-<h3 id="top-level-properties"><a class="toc-anchor" href="#top-level-properties">§</a> Top-Level Properties</h3>
-<p>The following properties are defined for use at the top-level of the resource - all other properties that are not defined below MUST be ignored:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Property</th>
-<th style="text-align:left">Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>issuer</code></td>
-<td style="text-align:left"><em>string</em></td>
-<td>MUST be populated, and MUST be a valid Decentralized Identifier URI.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>credential_schema</code></td>
-<td style="text-align:left"><em>string</em></td>
-<td>MUST be populated, and MUST be a valid URI for the credential schema the Credential Manifest is associated with.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>proof_definition</code></td>
-<td style="text-align:left"><em>object</em></td>
-<td>MUST be present, and its value MUST conform to the <code>Proof Definition</code> format and requirements specified in the <code>Proof Presentation</code> specification.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>issuer_styles</code></td>
-<td style="text-align:left"><em>object</em></td>
-<td>Optional, MAY be populated with supported Issuer Style Properties.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="issuer-styles"><a class="toc-anchor" href="#issuer-styles">§</a> Issuer Styles</h3>
-<p>Issuers may desire to express stylistic preferences to User Agents for skinning forms and other UI views rendered based on the contents of a Credential Manifest. These optional stylistic preferences are intended to provide a common means to achieve basic experiential differentiation tailored to the Issuer’s brand or recognizable styles. This section defines the supported style properties Issuers MAY utilize within the issuer_styles property of a Credential Manifest.</p>
-<div id="example-issuer_styles---all-style-options" class="notice example"><a class="notice-link" href="#example-issuer_styles---all-style-options"></a><pre class="language-json"><code class="language-json"><span class="token property">"issuer_styles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-  <span class="token property">"logo"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"url"</span><span class="token operator">:</span> <span class="token string">"https://acme.com/logo.png"</span><span class="token punctuation">,</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">"background"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"color"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">247</span><span class="token punctuation">,</span> <span class="token number">247</span><span class="token punctuation">,</span> <span class="token number">247</span><span class="token punctuation">]</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">"form_label"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"color"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">180</span><span class="token punctuation">,</span> <span class="token number">55</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">]</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">"form_input_border"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"color"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token number">180</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">]</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-</div>
-<h4 id="logo-property"><a class="toc-anchor" href="#logo-property">§</a> <code>logo</code> property</h4>
-<h4 id="background-property"><a class="toc-anchor" href="#background-property">§</a> <code>background</code> property</h4>
-<h4 id="form_label-property"><a class="toc-anchor" href="#form_label-property">§</a> <code>form_label</code> property</h4>
-<h4 id="form_input_border-property"><a class="toc-anchor" href="#form_input_border-property">§</a> <code>form_input_border</code> property</h4>
+<p><em>Input Descriptors</em> are objects that describe what type of input data/credential, or sub-fields thereof, is required for submission to the Verifier. <em>Input Descriptor Objects</em> are composed as follows:</p>
+<ul>
+<li>The object <strong><strong>MUST</strong></strong> contain an <code>issuer</code> property, and its value <strong><strong>MUST</strong></strong> be a valid URI string that identifies who the issuer of the credential will be.</li>
+<li>The object <strong><strong>MUST</strong></strong> contain a <code>credential</code> property, and its value <strong><strong>MUST</strong></strong> be an object composed as follows:
+<ul>
+<li>The object <strong><strong>MUST</strong></strong> contain a <code>schema</code> property, and its value <strong><strong>MUST</strong></strong> be a valid URI string for the schema of the credential that is available for issuance via the containing Credential Manifest.</li>
+<li>The object <strong><strong>MAY</strong></strong> contain a <code>name</code> property, and if present its value <strong><strong>SHOULD</strong></strong> be a human-friendly name that describes what the credential represents.</li>
+<li>The object <strong><strong>MAY</strong></strong> contain a <code>description</code> property, and if present its value <strong><strong>MUST</strong></strong> be a string that describes what the credential is in greater detail.</li>
+</ul>
+</li>
+<li>The object <strong><strong>MAY</strong></strong> contain a <code>presentation_definition</code> object, and its value <strong><strong>MUST</strong></strong> be a <a href="https://identity.foundation/presentation-exchange/#presentation-definition">Presentation Definition</a> object, as defined by the <a href="https://identity.foundation/presentation-exchange">DIF Presentation Exchange</a> specification.</li>
+<li>The object <strong><strong>MAY</strong></strong> contain an <code>issuer_styles</code> property, and its value <strong><strong>MUST</strong></strong> be an object composed as follows:
+<ul>
+<li>The object <strong><strong>MAY</strong></strong> contain a <code>logo</code> property, and if present, its value <strong><strong>MUST</strong></strong> be an object with the following optional properties:
+<ul>
+<li>The object <strong><strong>MAY</strong></strong> contain a <code>uri</code> property, and if present its value <strong><strong>MUST</strong></strong> a valid URI string to an image resource.</li>
+<li>The object <strong><strong>MAY</strong></strong> contain an <code>alt</code> property, and if present its value <strong><strong>MUST</strong></strong> a string that describes the alternate text for the logo image.</li>
+</ul>
+</li>
+<li>The object <strong><strong>MAY</strong></strong> contain a <code>background</code> property, and if present, its value <strong><strong>MUST</strong></strong> be an object with the following optional properties:
+<ul>
+<li>The object <strong><strong>MAY</strong></strong> contain a <code>color</code> property, and if present its value <strong><strong>MUST</strong></strong> a HEX string color value (e.g. #000000).</li>
+</ul>
+</li>
+<li>The object <strong><strong>MAY</strong></strong> contain a <code>text</code> property, and if present, its value <strong><strong>MUST</strong></strong> be an object with the following optional properties:
+<ul>
+<li>The object <strong><strong>MAY</strong></strong> contain a <code>color</code> property, and if present its value <strong><strong>MUST</strong></strong> a HEX string color value (e.g. #000000).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="resource-location"><a class="toc-anchor" href="#resource-location">§</a> Resource Location</h2>
-<p>Credential Manifests should be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers SHOULD make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).</p>
+<p>Credential Manifests <strong><strong>should</strong></strong> be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers <strong><strong>SHOULD</strong></strong> make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).</p>
 
-              </article>
-              <aside id="sidebar">
-                <a id="sidebar_closer" href="#_"></a>
-                <section>
-                  <header>
-                    <a href="#_"></a>
-                  </header>
+              </article>    
+
+            </main>
+
+            <slide-panels id="slidepanels">
+              <slide-panel id="repo_issues" options="right">
+                <header class="panel-header">
+                  <span>
+                    <svg icon><use xlink:href="#github"></use></svg>
+                    <span issue-count></span>
+                  </span>
+                  <span class="repo-issue-toggle" panel-toggle="repo_issues">✕</span>
+                </header>
+                <ul id="repo_issue_list"></ul>
+              </slide-panel>
+
+              <slide-panel id="toc">
+                <header class="panel-header">
+                  <span>Table of Contents</span>
+                  <span panel-toggle="toc">✕</span>
+                </header>
+                <div id="toc_list">
                   <ul class="toc">
 <li><a href="#abstract">Abstract</a></li>
 <li><a href="#status-of-this-document">Status of This Document</a></li>
 <li><a href="#terminology">Terminology</a></li>
-<li><a href="#resource-definition"><code>Resource Definition</code></a>
-<ul>
-<li><a href="#top-level-properties">Top-Level Properties</a></li>
-<li><a href="#issuer-styles">Issuer Styles</a>
-<ul>
-<li><a href="#logo-property"><code>logo</code> property</a></li>
-<li><a href="#background-property"><code>background</code> property</a></li>
-<li><a href="#form_label-property"><code>form_label</code> property</a></li>
-<li><a href="#form_input_border-property"><code>form_input_border</code> property</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a href="#resource-definition"><code>Resource Definition</code></a></li>
 <li><a href="#resource-location">Resource Location</a></li>
 </ul>
 
-                </section>
-              </aside>
-            </main>
+                </div>
+              </slide-panel>
+              
+            </slide-panels>
+
           </body>
-          <script src="./spec-up/js/mermaid.js"></script>
-          <script>mermaid.initialize({ startOnLoad: true, theme: "neutral" });</script>
-          <script src="./spec-up/js/index.js"></script>
+          <script>window.specConfig = {"title":"DIF Credential Manifest","spec_directory":"./spec/","output_path":"./","logo":"https://rawcdn.githack.com/decentralized-identity/decentralized-identity.github.io/a3ca39717e440302d1fd99a796e7f00e1c42eb2d/images/logo-flat.svg","logo_link":"https://identity.foundation","source":{"host":"github","account":"decentralized-identity","repo":"credential-manifest"},"destination":"./","rootResourcePrefix":"./","destinationResourcePrefix":"./"}</script>
+          <script src="./spec-up/compiled/body.js" data-manual></script>
         </html>
       

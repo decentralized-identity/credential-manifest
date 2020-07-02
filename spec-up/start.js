@@ -1,36 +1,95 @@
 
 const gulp = require('gulp');
-const fs = require('fs');
+const fs = require('fs-extra');
 const pkg = require('pkg-dir');
-const globby = require('globby');
 
 function getRelativePrefix(location){
-  return (location.match(/[a-zA-Z0-9-\._]+/g) || []).map(() => '../').join('');
+  return (location.match(/\/[a-zA-Z0-9-\._]+/g) || []).map(() => '../').join('') || './';
 }
 
-/* FILE DISCOVERY & CHANGE WATCHING */
+function normalizePath(path){
+  return path.trim().replace(/\/$/g, '') + '/';
+}
 
-let init = new Promise(async (resolve, reject) => {
-  var projectPath = await pkg(__dirname);
-  var moduleLocation = __dirname.replace(projectPath, ''); 
-  var rootRelativePrefix = getRelativePrefix(moduleLocation);
-  (await globby(['./**/spec.md', `!./node_modules`])).forEach(match => {
-    let path = match.replace('/spec.md', '');
-    fs.readFile(path + '/spec.json', function(err, data) {
-      if (err) return reject(err);
-      let config = JSON.parse(data);
-          config.path = path;
-          config.rootRelativePrefix = rootRelativePrefix;
-          config.assetRelativePrefix = getRelativePrefix(config.output_path || path);
-      gulp.watch(
-        [path + '/**/*', '!' + path + '/index.html'],
-        { ignoreInitial: false },
-        render.bind(null, config)
-      )
+var assets = {
+  head: {
+    css: [
+      'spec-up/css/custom-elements.css',
+      'spec-up/css/prism.css',
+      'spec-up/css/chart.css',
+      'spec-up/css/font-awesome.css',
+      'spec-up/css/index.css'
+    ],
+    js: [
+      'spec-up/js/utils.js',
+      'spec-up/js/custom-elements.js'
+    ]
+  },
+  body: {
+    js: [
+      'spec-up/js/markdown-it.js',
+      'spec-up/js/prism.js',
+      'spec-up/js/mermaid.js',
+      'spec-up/js/chart.js',
+      'spec-up/js/index.js'
+    ]
+  }
+};
+
+process.on('disconnect', () => process.exit(0));
+
+let init = async () => {
+  try {
+    let projectPath = await pkg(__dirname);
+    let options = JSON.parse(process.argv[2]);
+    let json = await fs.readJson(projectPath + '/specs.json');
+    json.specs.forEach(async config => {
+      config.spec_directory = normalizePath(config.spec_directory);    
+      config.destination = normalizePath(config.output_path || config.spec_directory);
+      await fs.ensureDir(config.destination).catch(err => {
+        console.error(err)
+      });
+      config.rootResourcePrefix = './';
+      let assetPrefix = config.destinationResourcePrefix = getRelativePrefix(normalizePath(config.destination).replace(normalizePath(json.public_root || '') || null, '/'));
+      if (options.dev) {
+        var assetTags = {
+          head: assets.head.css.map(path => {
+            return `<link href="${assetPrefix + path}" rel="stylesheet"/>`;
+          }).join('') + assets.head.js.map(path => {
+            return `<script src="${assetPrefix + path}"></script>`;
+          }).join(''),
+          body: assets.body.js.map(path => {
+            return `<script src="${assetPrefix + path}" data-manual></script>`;
+          }).join('')
+        }
+      }
+      else {
+        var assetTags = {
+          head:`<link href="${assetPrefix}spec-up/compiled/head.css" rel="stylesheet"/>
+                <script src="${assetPrefix}spec-up/compiled/head.js"></script>`,
+          body: `<script src="${assetPrefix}spec-up/compiled/body.js" data-manual></script>`
+        }
+      }
+      if (json.resource_path) {
+        config.rootResourcePrefix = normalizePath(json.resource_path);
+      }
+      if (!options.nowatch) {
+        gulp.watch(
+          [config.spec_directory + '**/*', '!' + config.destination + 'index.html'],
+          render.bind(null, config, assetTags)
+        )
+      }
+      render.call(null, config, assetTags).then(() => {
+        if (options.nowatch) process.exit(0)
+      }).catch(() => process.exit(1));
     });
-  });
+  }
+  catch (e) {
+    console.log(e);
+  }
+};
 
-});
+init();
 
 /* RENDERING */
 
@@ -39,8 +98,10 @@ var noticeTypes = {
   note: 1,
   issue: 1,
   example: 1,
-  warning: 1
+  warning: 1,
+  todo: 1
 };
+var noticeTitles = {};
 var noticeParser = {
   validate: function(params) {
     let matches = params.match(/(\w+)\s?(.*)?/);
@@ -49,9 +110,15 @@ var noticeParser = {
   render: function (tokens, idx) {
     let matches = tokens[idx].info.match(/(\w+)\s?(.*)?/);
     if (matches && tokens[idx].nesting === 1) {
+      let id;
       let type = matches[1];
-      let id = type + '-' + (matches[2] ? matches[2].trim().replace(/\s/g , '-').toLowerCase() : noticeTypes[type]++);
-      return `<div id="${id}" class="notice ${type}"><a class="notice-link" href="#${id}"></a>`;
+      if (matches[2]) {
+        id = matches[2].trim().replace(/\s+/g , '-').toLowerCase();
+        if (noticeTitles[id]) id += '-' + noticeTitles[id]++;
+        else noticeTitles[id] = 1;
+      }
+      else id = type + '-' + noticeTypes[type]++;
+      return `<div id="${id}" class="notice ${type}"><a class="notice-link" href="#${id}">${type.toUpperCase()}</a>`;
     }
     else return '</div>\n';
   }
@@ -73,7 +140,7 @@ const md = require('markdown-it')({
   .use(require('markdown-it-ins'))
   .use(require('markdown-it-latex').default)
   .use(require('markdown-it-mark'))
-  .use(require('markdown-it-mermaid').default)
+  .use(require('markdown-it-textual-uml'))
   .use(require('markdown-it-multimd-table'), {
     multiline:  true,
     rowspan:    true,
@@ -92,13 +159,21 @@ const md = require('markdown-it')({
     anchorClassName: 'toc-anchor'
   })
 
-async function render(config) {
+function readMDFile(path, reject) {
+  return fs.readFile(path, 'utf8').catch(e => reject(e));
+}
+
+async function render(config, assets) {
   console.log('Rendering: ' + config.title);
-  return new Promise((resolve, reject) => {
-    fs.readFile(config.path + '/spec.md', 'utf8', function(err, doc) {
-      if (err) return reject(err);
-      var basePath = config.output_path || config.assetRelativePrefix;
-      fs.writeFile(basePath + 'index.html', `
+  return new Promise(async (resolve, reject) => {
+    Promise.all((config.markdown_paths || ['spec.md']).map(path => {
+      return readMDFile(config.spec_directory + path, reject)
+    })).then(async docs => {
+      let doc = docs.join("\n");
+      var features = (({ source, logo }) => ({ source, logo }))(config);
+      var assetPrefix = config.destinationResourcePrefix;
+      var svg = await fs.readFile(config.rootResourcePrefix + 'spec-up/icons.svg', 'utf8') || '';
+      fs.writeFile(config.destination + 'index.html', `
         <!DOCTYPE html>
         <html lang="en">
           <head>
@@ -107,35 +182,59 @@ async function render(config) {
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
             <title>${config.title}</title>
-            <link href="${basePath}spec-up/css/index.css" rel="stylesheet">
-            <link href="${basePath}spec-up/css/prism.css" rel="stylesheet">
-            <link href="${basePath}spec-up/css/font-awesome.css" rel="stylesheet">
+            ${assets.head}
           </head>
-          <body>
+          <body features="${Object.keys(features).join(' ')}">
+            
+            ${svg}
+
             <main>
-              <header id="header">
+
+              <header id="header" class="panel-header">
+                <span id="toc_toggle" panel-toggle="toc">
+                  <svg icon><use xlink:href="#nested_list"></use></svg>
+                </span>
                 <a id="logo" href="${config.logo_link ? config.logo_link : '#_'}">
                   <img src="${config.logo}" />
                 </a>
-                <a id="sidebar_toggle" href="#sidebar">Table of Contents</a>
+                <span issue-count animate panel-toggle="repo_issues">
+                  <svg icon><use xlink:href="#github"></use></svg>
+                </span>
               </header>
+
               <article id="content">
                 ${md.render(doc)}
-              </article>
-              <aside id="sidebar">
-                <a id="sidebar_closer" href="#_"></a>
-                <section>
-                  <header>
-                    <a href="#_"></a>
-                  </header>
-                  ${toc}
-                </section>
-              </aside>
+              </article>    
+
             </main>
+
+            <slide-panels id="slidepanels">
+              <slide-panel id="repo_issues" options="right">
+                <header class="panel-header">
+                  <span>
+                    <svg icon><use xlink:href="#github"></use></svg>
+                    <span issue-count></span>
+                  </span>
+                  <span class="repo-issue-toggle" panel-toggle="repo_issues">✕</span>
+                </header>
+                <ul id="repo_issue_list"></ul>
+              </slide-panel>
+
+              <slide-panel id="toc">
+                <header class="panel-header">
+                  <span>Table of Contents</span>
+                  <span panel-toggle="toc">✕</span>
+                </header>
+                <div id="toc_list">
+                  ${toc}
+                </div>
+              </slide-panel>
+              
+            </slide-panels>
+
           </body>
-          <script src="${basePath}spec-up/js/mermaid.js"></script>
-          <script>mermaid.initialize({ startOnLoad: true, theme: "neutral" });</script>
-          <script src="${basePath}spec-up/js/index.js"></script>
+          <script>window.specConfig = ${JSON.stringify(config)}</script>
+          ${assets.body}
         </html>
       `, function(err, data){
         if (err) reject(err);
@@ -144,5 +243,3 @@ async function render(config) {
     });
   });
 }
-
-// Mermaid CDN version: https://cdn.jsdelivr.net/npm/mermaid@8.4.5/dist/mermaid.min.js

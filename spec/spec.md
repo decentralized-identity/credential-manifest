@@ -47,126 +47,48 @@ A Credential Manifest is a JSON document that contains preconditional requiremen
 ```json
 {
   "issuer": "did:example:123",
-  "credential_schema": "ipfs:QmPXME1oRtoT627YKaDPDQ3PwA8tdP9rWuAAweLzqSwAWT",
-  "proof_definition": {
-    "selection_rules": [
-      {
-        "rule": "all",
-        "from": ["A"]
-      },
-      {
-        "rule": "pick",
-        "count": 1,
-        "from": ["B"]
-      }
-    ],
-    "inputs": [
-      {
-        "type": "data",
-        "group": ["A"],
-        "field": "routing_number",
-        "value": {
-            "type": "string",
-            "maxLength": 9
-        }
-      },
-      {
-        "type": "data",
-        "group": ["A"],
-        "field": "account_number",
-        "value": {
-          "type": "integer",
-          "maxLength": 17,
-          "required": true
-        }
-      },
-      {
-        "type": "idtoken",
-        "group": ["A"],
-        "redirect": "https://acmebank.com/oauth",
-        "parameters": {
-          "client_id": "dhfiuhsdre",
-          "scope": "openid+profile"
-        }
-      },
-      {
-        "type": "vc",
-        "group": ["B"],
-        "schema": "https://eu.com/claims/IDCard",
-        "constraints": {
-          "issuers": ["did:foo:gov1", "did:bar:gov2"]
-        }
-      },
-      {
-        "type": "vc",
-        "group": ["B"],
-        "schema": "hub://did:foo:123/Collections/schema.us.gov/Passport",
-        "constraints": {
-          "issuers": ["did:foo:gov1", "did:bar:gov2"]
-        }  
-      }
-    ]
+  "credential": {
+    "name": "Washington State Class A Commercial Driver License",
+    "description": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds.",
+    "schema": "ipfs:QmPXME1oRtoT627YKaDPDQ3PwA8tdP9rWuAAweLzqSwAWT",
+  },
+  "locale": "en-US",
+  "presentation_definition": {
+    // As defined in the Presentation Exchange specification
   },
   "issuer_styles": {
     "logo": {
-      "url": "https://acme.com/logo.png",
+      "uri": "https://dol.wa.com/logo.png",
+      "alt": "Washington State Seal"
     },
     "background": {
-      "color": [247, 247, 247]
+      "color": "#ff0000"
     },
-    "form_label": {
-      "color": [180, 55, 20]
-    },
-    "form_input_border": {
-      "color": [200, 180, 10]
+    "text": {
+      "color": "#d4d400"
     }
   }
 }
 ```
 :::
 
-### Top-Level Properties
+_Input Descriptors_ are objects that describe what type of input data/credential, or sub-fields thereof, is required for submission to the Verifier. _Input Descriptor Objects_ are composed as follows:
 
-The following properties are defined for use at the top-level of the resource - all other properties that are not defined below MUST be ignored:
-
-Property | Type | Description
-:--- | :---------
-`issuer` | _string_ | MUST be populated, and MUST be a valid Decentralized Identifier URI.
-`credential_schema` | _string_ | MUST be populated, and MUST be a valid URI for the credential schema the Credential Manifest is associated with.
-`proof_definition` | _object_ | MUST be present, and its value MUST conform to the `Proof Definition` format and requirements specified in the `Proof Presentation` specification.
-`issuer_styles` | _object_ | Optional, MAY be populated with supported Issuer Style Properties.
-
-### Issuer Styles
-
-Issuers may desire to express stylistic preferences to User Agents for skinning forms and other UI views rendered based on the contents of a Credential Manifest. These optional stylistic preferences are intended to provide a common means to achieve basic experiential differentiation tailored to the Issuer's brand or recognizable styles. This section defines the supported style properties Issuers MAY utilize within the issuer_styles property of a Credential Manifest.
-
-::: example issuer_styles - all style options
-```json
-"issuer_styles": {
-  "logo": {
-    "url": "https://acme.com/logo.png",
-  },
-  "background": {
-    "color": [247, 247, 247]
-  },
-  "form_label": {
-    "color": [180, 55, 20]
-  },
-  "form_input_border": {
-    "color": [200, 180, 10]
-  }
-}
-```
-:::
-
-#### `logo` property
-
-#### `background` property
-
-#### `form_label` property
-
-#### `form_input_border` property
+  - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be a valid URI string that identifies who the issuer of the credential will be.
+  - The object ****MUST**** contain a `credential` property, and its value ****MUST**** be an object composed as follows:
+      - The object ****MUST**** contain a `schema` property, and its value ****MUST**** be a valid URI string for the schema of the credential that is available for issuance via the containing Credential Manifest.
+      - The object ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
+      - The object ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
+  - The object ****MAY**** contain a `presentation_definition` object, and its value ****MUST**** be a [Presentation Definition](https://identity.foundation/presentation-exchange/#presentation-definition) object, as defined by the [DIF Presentation Exchange](https://identity.foundation/presentation-exchange) specification.
+  - The object ****MAY**** contain an `issuer_styles` property, and its value ****MUST**** be an object composed as follows: 
+      - The object ****MAY**** contain a `logo` property, and if present, its value ****MUST**** be an object with the following optional properties:
+          - The object ****MAY**** contain a `uri` property, and if present its value ****MUST**** a valid URI string to an image resource.
+          - The object ****MAY**** contain an `alt` property, and if present its value ****MUST**** a string that describes the alternate text for the logo image.
+      - The object ****MAY**** contain a `background` property, and if present, its value ****MUST**** be an object with the following optional properties:
+          - The object ****MAY**** contain a `color` property, and if present its value ****MUST**** a HEX string color value (e.g. #000000).
+      - The object ****MAY**** contain a `text` property, and if present, its value ****MUST**** be an object with the following optional properties:
+          - The object ****MAY**** contain a `color` property, and if present its value ****MUST**** a HEX string color value (e.g. #000000).
 
 ## Resource Location
 
-Credential Manifests should be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers SHOULD make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
+Credential Manifests ****should**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).

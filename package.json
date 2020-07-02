@@ -9,6 +9,9 @@
     "url": "git://github.com/decentralized-identity/credential-manifest"
   },
   "dependencies": {
-    "spec-up": "0.9.20"
+    "spec-up": "^0.9.78"
+  },
+  "scripts": {
+    "edit": "node -e \"require('spec-up')()\""
   }
 }

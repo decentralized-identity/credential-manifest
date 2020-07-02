@@ -19,9 +19,9 @@ Credential Manifest
 
 ## Abstract
 
-For User Agents (e.g. wallets) and other service that wish to engage with Issuers to acquire credentials, there must exist a mechanism for assessing what inputs are required from a Subject to process a request for credential issuance. The Credential Manifest is a common data format for describing the inputs a Subject must provide to an Issuer for subsequent evaluation and issuance of the credential indicated in the Credential Manifest.
+For User Agents (e.g. wallets) and other service that wish to engage with Issuers to acquire credentials, there must exist a mechanism for assessing what inputs are required from a Subject to process a request for credential issuance. The _Credential Manifest_ is a common data format for describing the inputs a Subject must provide to an Issuer for subsequent evaluation and issuance of the credential indicated in the Credential Manifest.
 
-Credential Manifests DO NOT define the contents of the output credential, the process the Issuer uses to evaluate the submitted inputs, or the protocol Issuers, Subjects, and their User Agents rely on to negotiate credential issuance.
+_Credential Manifests_ do not themselves define the contents of the output credential, the process the Issuer uses to evaluate the submitted inputs, or the protocol Issuers, Subjects, and their User Agents rely on to negotiate credential issuance.
      
 ## Status of This Document
 
@@ -39,7 +39,7 @@ Verifier | The entity that defines what proofs they require from a Subject (via 
 
 ## Resource Definition
 
-A Credential Manifest is a JSON document that contains preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.
+_Credential Manifests_ are a resource format that defines preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.
 
 ::: example Credential Manifest - All features exercised
 ```json
@@ -70,7 +70,7 @@ A Credential Manifest is a JSON document that contains preconditional requiremen
 ```
 :::
 
-_Input Descriptors_ are objects that describe what type of input data/credential, or sub-fields thereof, is required for submission to the Verifier. _Input Descriptor Objects_ are composed as follows:
+_Credential Manifests_ are JSON objects composed as follows:
 
   - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be a valid URI string that identifies who the issuer of the credential will be.
   - The object ****MUST**** contain a `credential` property, and its value ****MUST**** be an object composed as follows:

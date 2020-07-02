@@ -54,8 +54,8 @@
 </dl>
 <hr>
 <h2 id="abstract"><a class="toc-anchor" href="#abstract">§</a> Abstract</h2>
-<p>For User Agents (e.g. wallets) and other service that wish to engage with Issuers to acquire credentials, there must exist a mechanism for assessing what inputs are required from a Subject to process a request for credential issuance. The Credential Manifest is a common data format for describing the inputs a Subject must provide to an Issuer for subsequent evaluation and issuance of the credential indicated in the Credential Manifest.</p>
-<p>Credential Manifests DO NOT define the contents of the output credential, the process the Issuer uses to evaluate the submitted inputs, or the protocol Issuers, Subjects, and their User Agents rely on to negotiate credential issuance.</p>
+<p>For User Agents (e.g. wallets) and other service that wish to engage with Issuers to acquire credentials, there must exist a mechanism for assessing what inputs are required from a Subject to process a request for credential issuance. The <em>Credential Manifest</em> is a common data format for describing the inputs a Subject must provide to an Issuer for subsequent evaluation and issuance of the credential indicated in the Credential Manifest.</p>
+<p><em>Credential Manifests</em> do not themselves define the contents of the output credential, the process the Issuer uses to evaluate the submitted inputs, or the protocol Issuers, Subjects, and their User Agents rely on to negotiate credential issuance.</p>
 <h2 id="status-of-this-document"><a class="toc-anchor" href="#status-of-this-document">§</a> Status of This Document</h2>
 <p>Credential Manifest is a draft specification being developed within the <a href="https://identity.foundation">Decentralized Identity Foundation</a>(DIF), and intended for ratification as a DIF recommended data format. This spec will be updated to reflect relevant changes, and participants are encouraged to contribute at the following repository location: <a href="https://github.com/decentralized-identity/credential-manifest">https://github.com/decentralized-identity/credential-manifest</a></p>
 <h2 id="terminology"><a class="toc-anchor" href="#terminology">§</a> Terminology</h2>
@@ -86,8 +86,8 @@
 </tbody>
 </table>
 <h2 id="resource-definition"><a class="toc-anchor" href="#resource-definition">§</a> Resource Definition</h2>
-<p>A Credential Manifest is a JSON document that contains preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.</p>
-<div id="credential-manifest---all-features-exercised-29" class="notice example"><a class="notice-link" href="#credential-manifest---all-features-exercised-29">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<p><em>Credential Manifests</em> are a resource format that defines preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.</p>
+<div id="credential-manifest---all-features-exercised-32" class="notice example"><a class="notice-link" href="#credential-manifest---all-features-exercised-32">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:example:123"</span><span class="token punctuation">,</span>
   <span class="token property">"credential"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Washington State Class A Commercial Driver License"</span><span class="token punctuation">,</span>
@@ -113,7 +113,7 @@
 <span class="token punctuation">}</span>
 </code></pre>
 </div>
-<p><em>Input Descriptors</em> are objects that describe what type of input data/credential, or sub-fields thereof, is required for submission to the Verifier. <em>Input Descriptor Objects</em> are composed as follows:</p>
+<p><em>Credential Manifests</em> are JSON objects composed as follows:</p>
 <ul>
 <li>The object <strong><strong>MUST</strong></strong> contain an <code>issuer</code> property, and its value <strong><strong>MUST</strong></strong> be a valid URI string that identifies who the issuer of the credential will be.</li>
 <li>The object <strong><strong>MUST</strong></strong> contain a <code>credential</code> property, and its value <strong><strong>MUST</strong></strong> be an object composed as follows:

@@ -76,26 +76,18 @@
 <td style="text-align:left">An entity that issues a credential to a Subject.</td>
 </tr>
 <tr>
-<td style="text-align:left">Subject</td>
+<td style="text-align:left">Holder</td>
 <td style="text-align:left">The entity that submits proofs to a Verifier to satisfy the requirements described in a Proof Definition</td>
 </tr>
 <tr>
 <td style="text-align:left">Verifier</td>
 <td style="text-align:left">The entity that defines what proofs they require from a Subject (via a Proof Definition) in order to proceed with an interaction.</td>
 </tr>
-<tr>
-<td style="text-align:left">Proof Definition</td>
-<td style="text-align:left">An object that describes proof requirements, formatted in accordance with the Proof Presentation specification.</td>
-</tr>
-<tr>
-<td style="text-align:left">Input Selection Rules</td>
-<td style="text-align:left">Syntax for describing input selection optionality among the list of specified inputs an Issuers encodes in a Credential Manifest.</td>
-</tr>
 </tbody>
 </table>
 <h2 id="resource-definition"><a class="toc-anchor" href="#resource-definition">§</a> Resource Definition</h2>
 <p>A Credential Manifest is a JSON document that contains preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.</p>
-<div id="credential-manifest---all-features-exercised-28" class="notice example"><a class="notice-link" href="#credential-manifest---all-features-exercised-28">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="credential-manifest---all-features-exercised-29" class="notice example"><a class="notice-link" href="#credential-manifest---all-features-exercised-29">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:example:123"</span><span class="token punctuation">,</span>
   <span class="token property">"credential"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Washington State Class A Commercial Driver License"</span><span class="token punctuation">,</span>

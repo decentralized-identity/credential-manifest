@@ -34,10 +34,8 @@ Term | Definition
 :--- | :---------
 Decentralized Identifier (DID) | Unique ID string and PKI metadata document format for describing the cryptographic keys and other fundamental PKI values linked to a unique, user-controlled, self-sovereign identifier in a target system (i.e. blockchain, distributed ledger).
 Issuer | An entity that issues a credential to a Subject.
-Subject | The entity that submits proofs to a Verifier to satisfy the requirements described in a Proof Definition
+Holder | The entity that submits proofs to a Verifier to satisfy the requirements described in a Proof Definition
 Verifier | The entity that defines what proofs they require from a Subject (via a Proof Definition) in order to proceed with an interaction.
-Proof Definition | An object that describes proof requirements, formatted in accordance with the Proof Presentation specification.
-Input Selection Rules | Syntax for describing input selection optionality among the list of specified inputs an Issuers encodes in a Credential Manifest.
 
 ## Resource Definition
 

@@ -4,7 +4,7 @@ Credential Manifest
 **Specification Status:** Strawman
 
 **Latest Draft:**
-  [identity.foundation/proof-presentation/spec](https://identity.foundation/credential-manifest)
+  [identity.foundation/credential-manifest](https://identity.foundation/credential-manifest)
 
 **Editors:**
 ~ [Daniel Buchner](https://www.linkedin.com/in/dbuchner/) (Microsoft)
@@ -13,7 +13,7 @@ Credential Manifest
 **Participate:**
 ~ [GitHub repo](https://github.com/decentralized-identity/credential-manifest)
 ~ [File a bug](https://github.com/decentralized-identity/credential-manifest/issues)
-~ [Commit history](https://github.com/decentralized-identity/credential-manifestn/commits/master)
+~ [Commit history](https://github.com/decentralized-identity/credential-manifest/commits/master)
 
 ------------------------------------
 
@@ -25,7 +25,7 @@ _Credential Manifests_ do not themselves define the contents of the output crede
      
 ## Status of This Document
 
-Credential Manifest is a draft specification being developed within the [Decentralized Identity Foundation](https://identity.foundation)(DIF), and intended for ratification as a DIF recommended data format. This spec will be updated to reflect relevant changes, and participants are encouraged to contribute at the following repository location: https://github.com/decentralized-identity/credential-manifest
+Credential Manifest is a draft specification being developed within the [Decentralized Identity Foundation](https://identity.foundation) (DIF), and intended for ratification as a DIF recommended data format. This spec will be updated to reflect relevant changes, and participants are encouraged to contribute at the following repository location: https://github.com/decentralized-identity/credential-manifest
      
 
 ## Terminology
@@ -48,7 +48,7 @@ _Credential Manifests_ are a resource format that defines preconditional require
   "credential": {
     "name": "Washington State Class A Commercial Driver License",
     "description": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds.",
-    "schema": "ipfs:QmPXME1oRtoT627YKaDPDQ3PwA8tdP9rWuAAweLzqSwAWT",
+    "schema": "ipfs:QmPXME1oRtoT627YKaDPDQ3PwA8tdP9rWuAAweLzqSwAWT"
   },
   "locale": "en-US",
   "presentation_definition": {
@@ -80,12 +80,12 @@ _Credential Manifests_ are JSON objects composed as follows:
   - The object ****MAY**** contain a `presentation_definition` object, and its value ****MUST**** be a [Presentation Definition](https://identity.foundation/presentation-exchange/#presentation-definition) object, as defined by the [DIF Presentation Exchange](https://identity.foundation/presentation-exchange) specification.
   - The object ****MAY**** contain an `issuer_styles` property, and its value ****MUST**** be an object composed as follows: 
       - The object ****MAY**** contain a `logo` property, and if present, its value ****MUST**** be an object with the following optional properties:
-          - The object ****MAY**** contain a `uri` property, and if present its value ****MUST**** a valid URI string to an image resource.
-          - The object ****MAY**** contain an `alt` property, and if present its value ****MUST**** a string that describes the alternate text for the logo image.
+          - The object ****MAY**** contain a `uri` property, and if present its value ****MUST**** be a valid URI string to an image resource.
+          - The object ****MAY**** contain an `alt` property, and if present its value ****MUST**** be a string that describes the alternate text for the logo image.
       - The object ****MAY**** contain a `background` property, and if present, its value ****MUST**** be an object with the following optional properties:
-          - The object ****MAY**** contain a `color` property, and if present its value ****MUST**** a HEX string color value (e.g. #000000).
+          - The object ****MAY**** contain a `color` property, and if present its value ****MUST**** be a HEX string color value (e.g. #000000).
       - The object ****MAY**** contain a `text` property, and if present, its value ****MUST**** be an object with the following optional properties:
-          - The object ****MAY**** contain a `color` property, and if present its value ****MUST**** a HEX string color value (e.g. #000000).
+          - The object ****MAY**** contain a `color` property, and if present its value ****MUST**** be a HEX string color value (e.g. #000000).
 
 ## Resource Location
 

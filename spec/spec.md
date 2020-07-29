@@ -44,6 +44,7 @@ _Credential Manifests_ are a resource format that defines preconditional require
 ::: example Credential Manifest - All features exercised
 ```json
 {
+  "locale": "en-US",
   "issuer": {
     "id": "did:example:123",
     "name": "Washington State Government",

@@ -87,7 +87,8 @@
 </table>
 <h2 id="resource-definition"><a class="toc-anchor" href="#resource-definition">§</a> Resource Definition</h2>
 <p><em>Credential Manifests</em> are a resource format that defines preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.</p>
-<div id="credential-manifest---all-features-exercised-41" class="notice example"><a class="notice-link" href="#credential-manifest---all-features-exercised-41">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="credential-manifest---all-features-exercised-42" class="notice example"><a class="notice-link" href="#credential-manifest---all-features-exercised-42">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"locale"</span><span class="token operator">:</span> <span class="token string">"en-US"</span><span class="token punctuation">,</span>
   <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123"</span><span class="token punctuation">,</span>
     <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Washington State Government"</span><span class="token punctuation">,</span>
@@ -209,7 +210,7 @@
 <li>The object <strong><strong>MAY</strong></strong> contain a <code>properties</code> property, and if present, its value <strong><strong>MUST</strong></strong> be an array of <em>Display Mapping Objects</em>. User Agents <strong><strong>SHOULD</strong></strong> render the data specified by each <em>Display Mapping Object</em> in an area of UI that is appropreate for the rendering of a flat list of labeled values.</li>
 </ul>
 <h4 id="display-mapping-objects"><a class="toc-anchor" href="#display-mapping-objects">§</a> <em>Display Mapping Objects</em></h4>
-<div id="display-mapping-object-13" class="notice example"><a class="notice-link" href="#display-mapping-object-13">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="display-mapping-object-14" class="notice example"><a class="notice-link" href="#display-mapping-object-14">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
       <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>

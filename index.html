@@ -65,37 +65,29 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 </dl>
 <hr>
 <h2 id="abstract"><a class="toc-anchor" href="#abstract" >§</a> Abstract</h2>
-<p>For User Agents (e.g. wallets) and other service that wish to engage with Issuers to acquire credentials, there must exist a mechanism for assessing what inputs are required from a Subject to process a request for credential issuance. The <em>Credential Manifest</em> is a common data format for describing the inputs a Subject must provide to an Issuer for subsequent evaluation and issuance of the credential indicated in the Credential Manifest.</p>
-<p><em>Credential Manifests</em> do not themselves define the contents of the output credential, the process the Issuer uses to evaluate the submitted inputs, or the protocol Issuers, Subjects, and their User Agents rely on to negotiate credential issuance.</p>
+<p>For User Agents (e.g. wallets) and other service that wish to engage with Issuers to acquire credentials, there must exist a mechanism for assessing what inputs are required from a Subject to process a request for credential(s) issuance. The <em>Credential Manifest</em> is a common data format for describing the inputs a Subject must provide to an Issuer for subsequent evaluation and issuance of the credential(s) indicated in the Credential Manifest.</p>
+<p><em>Credential Manifests</em> do not themselves define the contents of the output credential(s), the process the Issuer uses to evaluate the submitted inputs, or the protocol Issuers, Subjects, and their User Agents rely on to negotiate credential issuance.</p>
 <h2 id="status-of-this-document"><a class="toc-anchor" href="#status-of-this-document" >§</a> Status of This Document</h2>
 <p>Credential Manifest is a draft specification being developed within the <a path-0="identity.foundation"href="https://identity.foundation" >Decentralized Identity Foundation</a> (DIF), and intended for ratification as a DIF recommended data format. This spec will be updated to reflect relevant changes, and participants are encouraged to contribute at the following repository location: <a path-0="github.com"path-1="decentralized-identity"path-2="credential-manifest"href="https://github.com/decentralized-identity/credential-manifest" ><span>https://github.com/decentralized-identity/credential-manifest</span></a></p>
 <h2 id="terminology"><a class="toc-anchor" href="#terminology" >§</a> Terminology</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Term</th>
-<th style="text-align:left">Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Decentralized Identifier (DID)</td>
-<td style="text-align:left">Unique ID string and PKI metadata document format for describing the cryptographic keys and other fundamental PKI values linked to a unique, user-controlled, self-sovereign identifier in a target system (i.e. blockchain, distributed ledger).</td>
-</tr>
-<tr>
-<td style="text-align:left">Issuer</td>
-<td style="text-align:left">An entity that issues a credential to a Subject.</td>
-</tr>
-<tr>
-<td style="text-align:left">Holder</td>
-<td style="text-align:left">The entity that submits proofs to a Verifier to satisfy the requirements described in a Proof Definition</td>
-</tr>
-<tr>
-<td style="text-align:left">Verifier</td>
-<td style="text-align:left">The entity that defines what proofs they require from a Subject (via a Proof Definition) in order to proceed with an interaction.</td>
-</tr>
-</tbody>
-</table>
+<dl>
+<dt><span id="term:did"><span id="term:decentralized-identifier"><span id="term:decentralized-identifiers">Decentralized Identifiers</span></span></span></dt>
+<dd>Unique ID URI string and PKI metadata document format for describing the
+cryptographic keys and other fundamental PKI values linked to a unique,
+user-controlled, self-sovereign identifier in a target system (i.e. blockchain,
+distributed ledger).</dd>
+<dt><span id="term:claims"><span id="term:claim">Claim</span></span></dt>
+<dd>An assertion made about a <a class="term-reference" href="#term:subject">Subject</a>. Used as an umbrella term for
+Credential, Assertion, Attestation, etc.</dd>
+<dt><span id="term:issuers"><span id="term:issuer">Issuer</span></span></dt>
+<dd>Issuers are entities that issue credentials to a <a class="term-reference" href="#term:holder">Holder</a>.</dd>
+<dt><span id="term:holders"><span id="term:holder">Holder</span></span></dt>
+<dd>Holders are entities that recieve credentials from <a class="term-reference" href="#term:issuers">Issuers</a>, possibly first submitting proofs the the Issuer to satisfy the requirements described in a Presentation Definition.</dd>
+<dt><span id="term:output-descriptors"><span id="term:output-descriptor">Output Descriptor</span></span></dt>
+<dd>Output Descriptors are used by an Issuer to describe the credentials they are offering to a <a class="term-reference" href="#term:holder">Holder</a>. See <a href="#output-descriptor" >Output Descriptor</a></dd>
+<dt><span id="term:output-descriptor-objects"><span id="term:output-descriptor-object">Output Descriptor Object</span></span></dt>
+<dd>Output Descriptor Objects are populated with properties describing the <a class="term-reference" href="#term:claims">Claims</a> the <a class="term-reference" href="#term:issuer">Issuer</a> is offering the <a class="term-reference" href="#term:holder">Holder</a></dd>
+</dl>
 <h2 id="resource-definition"><a class="toc-anchor" href="#resource-definition" >§</a> Resource Definition</h2>
 <p><em>Credential Manifests</em> are a resource format that defines preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.</p>
 <div id="credential-manifest---all-features-exercised" class="notice example"><a class="notice-link" href="#credential-manifest---all-features-exercised">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
@@ -121,44 +113,46 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">"credential"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token string">"https://schema.org/EducationalOccupationalCredential"</span><span class="token punctuation">,</span>
-    <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
+  <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token string">"https://schema.org/EducationalOccupationalCredential"</span><span class="token punctuation">,</span>
+      <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"subtitle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.class"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.class"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"Class A, Commercial"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"description"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span>
+            <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.donor"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.donor"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Organ Donor"</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"subtitle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.class"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.class"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"Class A, Commercial"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"description"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.donor"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.donor"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Organ Donor"</span>
+      <span class="token property">"styles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"thumbnail"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://dol.wa.com/logo.png"</span><span class="token punctuation">,</span>
+          <span class="token property">"alt"</span><span class="token operator">:</span> <span class="token string">"Washington State Seal"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"hero"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://dol.wa.com/happy-people-driving.png"</span><span class="token punctuation">,</span>
+          <span class="token property">"alt"</span><span class="token operator">:</span> <span class="token string">"Happy people driving"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"background"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#ff0000"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"text"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#d4d400"</span>
         <span class="token punctuation">}</span>
-      <span class="token punctuation">]</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"styles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"thumbnail"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://dol.wa.com/logo.png"</span><span class="token punctuation">,</span>
-        <span class="token property">"alt"</span><span class="token operator">:</span> <span class="token string">"Washington State Seal"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"hero"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://dol.wa.com/happy-people-driving.png"</span><span class="token punctuation">,</span>
-        <span class="token property">"alt"</span><span class="token operator">:</span> <span class="token string">"Happy people driving"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"background"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#ff0000"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"text"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#d4d400"</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"presentation_definition"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token comment">// As defined in the Presentation Exchange specification</span>
   <span class="token punctuation">}</span>
@@ -170,21 +164,69 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <ul>
 <li>The object <strong><strong>MUST</strong></strong> contain an <code>issuer</code> property, and its value <strong><strong>MUST</strong></strong> be an object composed as follows:
 <ul>
-<li>The object <strong><strong>must</strong></strong> contain a <code>id</code> property, and its value <strong><strong>must</strong></strong> be a valid URI string that identifies who the issuer of the credential will be.</li>
+<li>The object <strong><strong>must</strong></strong> contain a <code>id</code> property, and its value <strong><strong>must</strong></strong> be a valid URI string that identifies who the issuer of the credential(s) will be.</li>
 <li>The object <strong><strong>MAY</strong></strong> contain a <code>name</code> property, and its value <strong><strong>must</strong></strong> be a string that <strong><strong>SHOULD</strong></strong> reflect the human-readable name the Issuer wishes to be recognized by.</li>
 <li>The object <strong><strong>MAY</strong></strong> contain a <code>styles</code> property, and its value <strong><strong>must</strong></strong> be an object composed as defined in the <a href="#styles-properties" ><code>styles</code> properties</a> section.</li>
 </ul>
 </li>
-<li>The object <strong><strong>MUST</strong></strong> contain a <code>credential</code> property, and its value <strong><strong>MUST</strong></strong> be an object composed as follows:
-<ul>
-<li>The object <strong><strong>MUST</strong></strong> contain a <code>schema</code> property, and its value <strong><strong>MUST</strong></strong> be a valid URI string for the schema of the credential that is available for issuance via the containing Credential Manifest.</li>
-<li>The object <strong><strong>MAY</strong></strong> contain a <code>name</code> property, and if present its value <strong><strong>SHOULD</strong></strong> be a human-friendly name that describes what the credential represents.</li>
-<li>The object <strong><strong>MAY</strong></strong> contain a <code>description</code> property, and if present its value <strong><strong>MUST</strong></strong> be a string that describes what the credential is in greater detail.</li>
-<li>The object <strong><strong>MAY</strong></strong> contain a <code>styles</code> property, and its value <strong><strong>must</strong></strong> be an object composed as defined in the <a href="#styles-properties" ><code>styles</code> properties</a> section.</li>
-<li>The object <strong><strong>MAY</strong></strong> contain a <code>display</code> property, and its value <strong><strong>must</strong></strong> be an object composed as defined in the <a href="#display-properties" ><code>display</code> properties</a> section.</li>
-</ul>
-</li>
+<li>The object <strong><strong>MUST</strong></strong> contain an <code>output_descriptors</code> property. It’s vault <strong><strong>MUST</strong></strong> be an array of Output Descriptor Objects, the composition of which are described in the <a href="#output-descriptor" ><code>Output Descriptor</code></a> section below</li>
 <li>The object <strong><strong>MAY</strong></strong> contain a <code>presentation_definition</code> object, and its value <strong><strong>MUST</strong></strong> be a <a path-0="identity.foundation"path-1="presentation-exchange"path-2="#presentation-definition"href="https://identity.foundation/presentation-exchange/#presentation-definition" >Presentation Definition</a> object, as defined by the <a path-0="identity.foundation"path-1="presentation-exchange"href="https://identity.foundation/presentation-exchange" >DIF Presentation Exchange</a> specification.</li>
+</ul>
+<h3 id="output-descriptor"><a class="toc-anchor" href="#output-descriptor" >§</a> Output Descriptor</h3>
+<p><a class="term-reference" href="#term:output-descriptors">Output Descriptors</a> are objects used to describe the <a class="term-reference" href="#term:claims">Claims</a> a <a class="term-reference" href="#term:issuer">Issuer</a> if offering to a <a class="term-reference" href="#term:holder">Holder</a>.</p>
+<p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.</p>
+<div id="example-7" class="notice example"><a class="notice-link" href="#example-7">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token string">"https://schema.org/EducationalOccupationalCredential"</span><span class="token punctuation">,</span>
+      <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"subtitle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.class"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.class"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"Class A, Commercial"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"description"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">{</span>
+            <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.donor"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.donor"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Organ Donor"</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"styles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"thumbnail"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://dol.wa.com/logo.png"</span><span class="token punctuation">,</span>
+          <span class="token property">"alt"</span><span class="token operator">:</span> <span class="token string">"Washington State Seal"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"hero"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://dol.wa.com/happy-people-driving.png"</span><span class="token punctuation">,</span>
+          <span class="token property">"alt"</span><span class="token operator">:</span> <span class="token string">"Happy people driving"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"background"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#ff0000"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"text"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#d4d400"</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+</div>
+<h4 id="output-descriptor-object"><a class="toc-anchor" href="#output-descriptor-object" >§</a> Output Descriptor Object</h4>
+<p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> are composed as follows:</p>
+<ul>
+<li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MUST</strong></strong> contain a <code>schema</code> property, and its value <strong><strong>MUST</strong></strong> be a valid URI string for the schema of the credential that is available for issuance via the containing Credential Manifest.</li>
+<li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MAY</strong></strong> contain a <code>name</code> property, and if present its value <strong><strong>SHOULD</strong></strong> be a human-friendly name that describes what the credential represents.</li>
+<li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MAY</strong></strong> contain a <code>description</code> property, and if present its value <strong><strong>MUST</strong></strong> be a string that describes what the credential is in greater detail.</li>
+<li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MAY</strong></strong> contain a <code>styles</code> property, and its value <strong><strong>must</strong></strong> be an object composed as defined in the <a href="#styles-properties" ><code>styles</code> properties</a> section.</li>
+<li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MAY</strong></strong> contain a <code>display</code> property, and its value <strong><strong>must</strong></strong> be an object composed as defined in the <a href="#display-properties" ><code>display</code> properties</a> section.</li>
 </ul>
 <h3 id="styles-properties"><a class="toc-anchor" href="#styles-properties" >§</a> <code>styles</code> properties</h3>
 <p>Within a <code>Credential Manifest</code>, there are two areas where styling affordances are provided: under the <code>issuer</code> property, where the Issuer expresses information about themselves - including how a User Agent should style UI that represents the Issuer, and under the <code>credential</code> property, where the Issuer expresses information about the credntial itself - including how a User Agent should style UI for the credential itself. Under each of these areas an implementer <strong><strong>MAY</strong></strong> include a <code>styles</code> property, and if present, its value <strong><strong>must</strong></strong> be an object composed of the following properties:</p>
@@ -279,6 +321,11 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <li><a href="#resource-definition" >Resource Definition</a>
 <ul>
 <li><a href="#general-composition" >General Composition</a></li>
+<li><a href="#output-descriptor" >Output Descriptor</a>
+<ul>
+<li><a href="#output-descriptor-object" >Output Descriptor Object</a></li>
+</ul>
+</li>
 <li><a href="#styles-properties" ><code>styles</code> properties</a></li>
 <li><a href="#display-properties" ><code>display</code> properties</a>
 <ul>

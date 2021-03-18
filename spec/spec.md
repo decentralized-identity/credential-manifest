@@ -30,12 +30,27 @@ Credential Manifest is a draft specification being developed within the [Decentr
 
 ## Terminology
 
-Term | Definition
-:--- | :---------
-Decentralized Identifier (DID) | Unique ID string and PKI metadata document format for describing the cryptographic keys and other fundamental PKI values linked to a unique, user-controlled, self-sovereign identifier in a target system (i.e. blockchain, distributed ledger).
-Issuer | An entity that issues a credential to a Subject.
-Holder | The entity that submits proofs to a Verifier to satisfy the requirements described in a Proof Definition
-Verifier | The entity that defines what proofs they require from a Subject (via a Proof Definition) in order to proceed with an interaction.
+[[def:Decentralized Identifiers, Decentralized Identifier, DID]]
+~ Unique ID URI string and PKI metadata document format for describing the
+cryptographic keys and other fundamental PKI values linked to a unique,
+user-controlled, self-sovereign identifier in a target system (i.e. blockchain,
+distributed ledger).
+
+[[def:Claim, Claims]]
+~ An assertion made about a [[ref:Subject]]. Used as an umbrella term for
+Credential, Assertion, Attestation, etc.
+
+[[def:Issuer, Issuers]]
+~ Issuers are entities that issue credentials to a [[ref:Holder]].
+
+[[def:Holder, Holders]]
+~ Holders are entities that recieve credentials from [[ref:Issuers]], possibly first submitting proofs the the Issuer to satisfy the requirements described in a Presentation Definition.
+
+[[def:Output Descriptor, Output Descriptors]]
+~ Output Descriptors are used by an Issuer to describe the credentials they are offering to a [[ref:Holder]]. See [Output Descriptor](#output-descriptor)
+
+[[def:Output Descriptor Object, Output Descriptor Objects]]
+~ Output Descriptor Objects are populated with properties describing the [[ref:Claims]] the [[ref:Issuer]] is offering the [[ref:Holder]]
 
 ## Resource Definition
 
@@ -122,13 +137,72 @@ _Credential Manifests_ are JSON objects composed as follows:
       - The object ****must**** contain a `id` property, and its value ****must**** be a valid URI string that identifies who the issuer of the credential(s) will be.
       - The object ****MAY**** contain a `name` property, and its value ****must**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
       - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
-  - The object ****MUST**** contain an `output_descriptors` property, and its value ****MUST**** be an array of objects composed as follows:
-      - The object ****MUST**** contain a `schema` property, and its value ****MUST**** be a valid URI string for the schema of the credential that is available for issuance via the containing Credential Manifest.
-      - The object ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
-      - The object ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
-      - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
-      - The object ****MAY**** contain a `display` property, and its value ****must**** be an object composed as defined in the [`display` properties](#display-properties) section.
+  - The object ****MUST**** contain an `output_descriptors` property. It's vault ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below
   - The object ****MAY**** contain a `presentation_definition` object, and its value ****MUST**** be a [Presentation Definition](https://identity.foundation/presentation-exchange/#presentation-definition) object, as defined by the [DIF Presentation Exchange](https://identity.foundation/presentation-exchange) specification.
+
+
+### Output Descriptor
+
+[[ref:Output Descriptors]] are objects used to describe the [[ref:Claims]] a [[ref:Issuer]] if offering to a [[ref:Holder]].
+
+[[ref:Output Descriptor Objects]] contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.
+
+:::example
+```json
+{
+  "output_descriptors": [
+    {
+      "schema": "https://schema.org/EducationalOccupationalCredential",
+      "display": {
+        "title": {
+          "path": ["$.name", "$.vc.name"],
+          "text": "Washington State Driver License"
+        },
+        "subtitle": {
+          "path": ["$.class", "$.vc.class"],
+          "text": "Class A, Commercial"
+        },
+        "description": {
+          "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
+        },
+        "properties": [
+          {
+            "path": ["$.donor", "$.vc.donor"],
+            "label": "Organ Donor"
+          }
+        ]
+      },
+      "styles": {
+        "thumbnail": {
+          "uri": "https://dol.wa.com/logo.png",
+          "alt": "Washington State Seal"
+        },
+        "hero": {
+          "uri": "https://dol.wa.com/happy-people-driving.png",
+          "alt": "Happy people driving"
+        },
+        "background": {
+          "color": "#ff0000"
+        },
+        "text": {
+          "color": "#d4d400"
+        }
+      }
+    }
+  ]
+}
+```
+:::
+
+#### Output Descriptor Object
+
+[[ref:Output Descriptor Objects]] are composed as follows:
+
+- The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be a valid URI string for the schema of the credential that is available for issuance via the containing Credential Manifest.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****must**** be an object composed as defined in the [`display` properties](#display-properties) section.
 
 ### `styles` properties
 

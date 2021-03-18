@@ -19,14 +19,14 @@ Credential Manifest
 
 ## Abstract
 
-For User Agents (e.g. wallets) and other service that wish to engage with Issuers to acquire credentials, there must exist a mechanism for assessing what inputs are required from a Subject to process a request for credential issuance. The _Credential Manifest_ is a common data format for describing the inputs a Subject must provide to an Issuer for subsequent evaluation and issuance of the credential indicated in the Credential Manifest.
+For User Agents (e.g. wallets) and other service that wish to engage with Issuers to acquire credentials, there must exist a mechanism for assessing what inputs are required from a Subject to process a request for credential(s) issuance. The _Credential Manifest_ is a common data format for describing the inputs a Subject must provide to an Issuer for subsequent evaluation and issuance of the credential(s) indicated in the Credential Manifest.
 
-_Credential Manifests_ do not themselves define the contents of the output credential, the process the Issuer uses to evaluate the submitted inputs, or the protocol Issuers, Subjects, and their User Agents rely on to negotiate credential issuance.
-     
+_Credential Manifests_ do not themselves define the contents of the output credential(s), the process the Issuer uses to evaluate the submitted inputs, or the protocol Issuers, Subjects, and their User Agents rely on to negotiate credential issuance.
+
 ## Status of This Document
 
 Credential Manifest is a draft specification being developed within the [Decentralized Identity Foundation](https://identity.foundation) (DIF), and intended for ratification as a DIF recommended data format. This spec will be updated to reflect relevant changes, and participants are encouraged to contribute at the following repository location: https://github.com/decentralized-identity/credential-manifest
-     
+
 
 ## Terminology
 
@@ -66,44 +66,46 @@ _Credential Manifests_ are a resource format that defines preconditional require
       }
     }
   },
-  "credential": {
-    "schema": "https://schema.org/EducationalOccupationalCredential",
-    "display": {
-      "title": {
-        "path": ["$.name", "$.vc.name"],
-        "text": "Washington State Driver License"
+  "output_descriptors": [
+    {
+      "schema": "https://schema.org/EducationalOccupationalCredential",
+      "display": {
+        "title": {
+          "path": ["$.name", "$.vc.name"],
+          "text": "Washington State Driver License"
+        },
+        "subtitle": {
+          "path": ["$.class", "$.vc.class"],
+          "text": "Class A, Commercial"
+        },
+        "description": {
+          "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
+        },
+        "properties": [
+          {
+            "path": ["$.donor", "$.vc.donor"],
+            "label": "Organ Donor"
+          }
+        ]
       },
-      "subtitle": {
-        "path": ["$.class", "$.vc.class"],
-        "text": "Class A, Commercial"
-      },
-      "description": {
-        "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
-      },
-      "properties": [
-        {
-          "path": ["$.donor", "$.vc.donor"],
-          "label": "Organ Donor"
+      "styles": {
+        "thumbnail": {
+          "uri": "https://dol.wa.com/logo.png",
+          "alt": "Washington State Seal"
+        },
+        "hero": {
+          "uri": "https://dol.wa.com/happy-people-driving.png",
+          "alt": "Happy people driving"
+        },
+        "background": {
+          "color": "#ff0000"
+        },
+        "text": {
+          "color": "#d4d400"
         }
-      ]
-    },
-    "styles": {
-      "thumbnail": {
-        "uri": "https://dol.wa.com/logo.png",
-        "alt": "Washington State Seal"
-      },
-      "hero": {
-        "uri": "https://dol.wa.com/happy-people-driving.png",
-        "alt": "Happy people driving"
-      },
-      "background": {
-        "color": "#ff0000"
-      },
-      "text": {
-        "color": "#d4d400"
       }
     }
-  },
+  ],
   "presentation_definition": {
     // As defined in the Presentation Exchange specification
   }
@@ -111,21 +113,21 @@ _Credential Manifests_ are a resource format that defines preconditional require
 ```
 :::
 
- 
+
 ### General Composition
 
 _Credential Manifests_ are JSON objects composed as follows:
 
   - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
-      - The object ****must**** contain a `id` property, and its value ****must**** be a valid URI string that identifies who the issuer of the credential will be.
+      - The object ****must**** contain a `id` property, and its value ****must**** be a valid URI string that identifies who the issuer of the credential(s) will be.
       - The object ****MAY**** contain a `name` property, and its value ****must**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
-      - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section. 
-  - The object ****MUST**** contain a `credential` property, and its value ****MUST**** be an object composed as follows:
+      - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
+  - The object ****MUST**** contain an `output_descriptors` property, and its value ****MUST**** be an array of objects composed as follows:
       - The object ****MUST**** contain a `schema` property, and its value ****MUST**** be a valid URI string for the schema of the credential that is available for issuance via the containing Credential Manifest.
       - The object ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
       - The object ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
-      - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section. 
-      - The object ****MAY**** contain a `display` property, and its value ****must**** be an object composed as defined in the [`display` properties](#display-properties) section. 
+      - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
+      - The object ****MAY**** contain a `display` property, and its value ****must**** be an object composed as defined in the [`display` properties](#display-properties) section.
   - The object ****MAY**** contain a `presentation_definition` object, and its value ****MUST**** be a [Presentation Definition](https://identity.foundation/presentation-exchange/#presentation-definition) object, as defined by the [DIF Presentation Exchange](https://identity.foundation/presentation-exchange) specification.
 
 ### `styles` properties

@@ -19,23 +19,38 @@ Credential Manifest
 
 ## Abstract
 
-For User Agents (e.g. wallets) and other service that wish to engage with Issuers to acquire credentials, there must exist a mechanism for assessing what inputs are required from a Subject to process a request for credential issuance. The _Credential Manifest_ is a common data format for describing the inputs a Subject must provide to an Issuer for subsequent evaluation and issuance of the credential indicated in the Credential Manifest.
+For User Agents (e.g. wallets) and other service that wish to engage with Issuers to acquire credentials, there must exist a mechanism for assessing what inputs are required from a Subject to process a request for credential(s) issuance. The _Credential Manifest_ is a common data format for describing the inputs a Subject must provide to an Issuer for subsequent evaluation and issuance of the credential(s) indicated in the Credential Manifest.
 
-_Credential Manifests_ do not themselves define the contents of the output credential, the process the Issuer uses to evaluate the submitted inputs, or the protocol Issuers, Subjects, and their User Agents rely on to negotiate credential issuance.
-     
+_Credential Manifests_ do not themselves define the contents of the output credential(s), the process the Issuer uses to evaluate the submitted inputs, or the protocol Issuers, Subjects, and their User Agents rely on to negotiate credential issuance.
+
 ## Status of This Document
 
 Credential Manifest is a draft specification being developed within the [Decentralized Identity Foundation](https://identity.foundation) (DIF), and intended for ratification as a DIF recommended data format. This spec will be updated to reflect relevant changes, and participants are encouraged to contribute at the following repository location: https://github.com/decentralized-identity/credential-manifest
-     
+
 
 ## Terminology
 
-Term | Definition
-:--- | :---------
-Decentralized Identifier (DID) | Unique ID string and PKI metadata document format for describing the cryptographic keys and other fundamental PKI values linked to a unique, user-controlled, self-sovereign identifier in a target system (i.e. blockchain, distributed ledger).
-Issuer | An entity that issues a credential to a Subject.
-Holder | The entity that submits proofs to a Verifier to satisfy the requirements described in a Proof Definition
-Verifier | The entity that defines what proofs they require from a Subject (via a Proof Definition) in order to proceed with an interaction.
+[[def:Decentralized Identifiers, Decentralized Identifier, DID]]
+~ Unique ID URI string and PKI metadata document format for describing the
+cryptographic keys and other fundamental PKI values linked to a unique,
+user-controlled, self-sovereign identifier in a target system (i.e. blockchain,
+distributed ledger).
+
+[[def:Claim, Claims]]
+~ An assertion made about a [[ref:Subject]]. Used as an umbrella term for
+Credential, Assertion, Attestation, etc.
+
+[[def:Issuer, Issuers]]
+~ Issuers are entities that issue credentials to a [[ref:Holder]].
+
+[[def:Holder, Holders]]
+~ Holders are entities that recieve credentials from [[ref:Issuers]], possibly first submitting proofs the the Issuer to satisfy the requirements described in a Presentation Definition.
+
+[[def:Output Descriptor, Output Descriptors]]
+~ Output Descriptors are used by an Issuer to describe the credentials they are offering to a [[ref:Holder]]. See [Output Descriptor](#output-descriptor)
+
+[[def:Output Descriptor Object, Output Descriptor Objects]]
+~ Output Descriptor Objects are populated with properties describing the [[ref:Claims]] the [[ref:Issuer]] is offering the [[ref:Holder]]
 
 ## Resource Definition
 
@@ -44,9 +59,10 @@ _Credential Manifests_ are a resource format that defines preconditional require
 ::: example Credential Manifest - All features exercised
 ```json
 {
-  "locale": "en-US",
+  "id": "WA-DL-CLASS-A",
+  "version": "0.1.0",
   "issuer": {
-    "id": "did:example:123",
+    "id": "did:example:123?linked-domains=3",
     "name": "Washington State Government",
     "styles": {
       "thumbnail": {
@@ -65,69 +81,130 @@ _Credential Manifests_ are a resource format that defines preconditional require
       }
     }
   },
-  "credential": {
-    "schema": [{
-      "uri": "http://washington-state-schemas.org/1.0.0/driver-license.json"
-    }],
-    "display": {
-      "title": {
-        "path": ["$.name", "$.vc.name"],
-        "text": "Washington State Driver License"
+  "output_descriptors": [
+    {
+      "schema": [{
+        "uri": "http://washington-state-schemas.org/1.0.0/driver-license.json"
+      }],
+      "display": {
+        "title": {
+          "path": ["$.name", "$.vc.name"],
+          "text": "Washington State Driver License"
+        },
+        "subtitle": {
+          "path": ["$.class", "$.vc.class"],
+          "text": "Class A, Commercial"
+        },
+        "description": {
+          "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
+        },
+        "properties": [
+          {
+            "path": ["$.donor", "$.vc.donor"],
+            "label": "Organ Donor"
+          }
+        ]
       },
-      "subtitle": {
-        "path": ["$.class", "$.vc.class"],
-        "text": "Class A, Commercial"
-      },
-      "description": {
-        "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
-      },
-      "properties": [
-        {
-          "path": ["$.donor", "$.vc.donor"],
-          "label": "Organ Donor"
+      "styles": {
+        "thumbnail": {
+          "uri": "https://dol.wa.com/logo.png",
+          "alt": "Washington State Seal"
+        },
+        "hero": {
+          "uri": "https://dol.wa.com/happy-people-driving.png",
+          "alt": "Happy people driving"
+        },
+        "background": {
+          "color": "#ff0000"
+        },
+        "text": {
+          "color": "#d4d400"
         }
-      ]
-    },
-    "styles": {
-      "thumbnail": {
-        "uri": "https://dol.wa.com/logo.png",
-        "alt": "Washington State Seal"
-      },
-      "hero": {
-        "uri": "https://dol.wa.com/happy-people-driving.png",
-        "alt": "Happy people driving"
-      },
-      "background": {
-        "color": "#ff0000"
-      },
-      "text": {
-        "color": "#d4d400"
       }
     }
-  },
+  ],
   "presentation_definition": {
     // As defined in the Presentation Exchange specification
   }
 }
 ```
 :::
- 
+
+
 ### General Composition
 
 _Credential Manifests_ are JSON objects composed as follows:
 
-  - The object ****MAY**** contain a `locale` property, and if present, its value ****MUST**** be an [IETF BCP 47](https://tools.ietf.org/html/bcp47) language tag. Wrapping transports such as HTTP may choose to utlilize the `locale` property in conjunction with the [Accept-Language](https://tools.ietf.org/html/rfc7231#section-5.3.5) header.
   - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
-      - The object ****must**** contain a `id` property, and its value ****must**** be a valid URI string that identifies who the issuer of the credential will be.
+      - The object ****must**** contain a `id` property, and its value ****must**** be a valid URI string that identifies who the issuer of the credential(s) will be.
       - The object ****MAY**** contain a `name` property, and its value ****must**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
       - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section. 
-  - The object ****MUST**** contain a `credential` property, and its value ****MUST**** be an object composed as follows:
-      - The object ****MUST**** contain a `schema` property, and its value ****MUST**** be an array composed of schema objects. The schema object MUST contain a uri property and its value MUST be a string consisting of a valid URI.
-      - The object ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
-      - The object ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
-      - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section. 
-      - The object ****MAY**** contain a `display` property, and its value ****must**** be an object composed as defined in the [`display` properties](#display-properties) section. 
+  - The object ****MUST**** contain an `output_descriptors` property. It's vault ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below
   - The object ****MAY**** contain a `presentation_definition` object, and its value ****MUST**** be a [Presentation Definition](https://identity.foundation/presentation-exchange/#presentation-definition) object, as defined by the [DIF Presentation Exchange](https://identity.foundation/presentation-exchange) specification.
+
+
+### Output Descriptor
+
+[[ref:Output Descriptors]] are objects used to describe the [[ref:Claims]] a [[ref:Issuer]] if offering to a [[ref:Holder]].
+
+[[ref:Output Descriptor Objects]] contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.
+
+:::example
+```json
+{
+  "output_descriptors": [
+    {
+      "schema": "https://schema.org/EducationalOccupationalCredential",
+      "display": {
+        "title": {
+          "path": ["$.name", "$.vc.name"],
+          "text": "Washington State Driver License"
+        },
+        "subtitle": {
+          "path": ["$.class", "$.vc.class"],
+          "text": "Class A, Commercial"
+        },
+        "description": {
+          "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
+        },
+        "properties": [
+          {
+            "path": ["$.donor", "$.vc.donor"],
+            "label": "Organ Donor"
+          }
+        ]
+      },
+      "styles": {
+        "thumbnail": {
+          "uri": "https://dol.wa.com/logo.png",
+          "alt": "Washington State Seal"
+        },
+        "hero": {
+          "uri": "https://dol.wa.com/happy-people-driving.png",
+          "alt": "Happy people driving"
+        },
+        "background": {
+          "color": "#ff0000"
+        },
+        "text": {
+          "color": "#d4d400"
+        }
+      }
+    }
+  ]
+}
+```
+:::
+
+#### Output Descriptor Object
+
+[[ref:Output Descriptor Objects]] are composed as follows:
+
+- The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be an array composed of schema objects for the schema(s) of the credentials to be issued.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****must**** be an object composed as defined in the [`display` properties](#display-properties) section.
 
 ### `styles` properties
 
@@ -182,7 +259,7 @@ The _Display Mapping Objects_ are JSON objects constructed as follows:
 
 - The object ****MAY**** contain a `path` property, and if present, its value ****MUST**** be a [JSONPath](https://goessner.net/articles/JsonPath/) string expression.
 - The object ****MAY**** contain a `text` property, and if present, its value ****MUST**** be a string or numeric value that is rendered in the UI if no `path` property is specified within the object, or all of the `path` property's array of [JSONPath](https://goessner.net/articles/JsonPath/) string expressions fail to select data within the target credential.
-- The object ****MAY**** contain a `label` property, and if present, its value ****MUST**** be a string that is rendered in the UI if the property for which the object defines is appropreate for labeled data display. If the property is intended for labeled display, the label ****SHOULD**** be shown in the UI and the value paired with the label ****SHOULD**** be either data selected from the processing of the `path` property's [JSONPath](https://goessner.net/articles/JsonPath/) string expressions, or the value specified by the `text` property. If neither is present, display of the label and any fallback value is at the election of the implementer.
+- The object ****MAY**** contain a `label` property, and if present, its value ****MUST**** be a string that is rendered in the UI where a labled display of the `path` or `text` value is appropreate. If the property is intended for labeled display, the label ****SHOULD**** be shown in the UI and the value paired with the label ****SHOULD**** be either data selected from the processing of the `path` property's [JSONPath](https://goessner.net/articles/JsonPath/) string expressions, or the value specified by the `text` property. If neither is present, display of the label and any fallback value is at the election of the implementer.
 
 ## Resource Location
 

@@ -83,7 +83,9 @@ _Credential Manifests_ are a resource format that defines preconditional require
   },
   "output_descriptors": [
     {
-      "schema": "https://schema.org/EducationalOccupationalCredential",
+      "schema": [{
+        "uri": "http://washington-state-schemas.org/1.0.0/driver-license.json"
+      }],
       "display": {
         "title": {
           "path": ["$.name", "$.vc.name"],
@@ -136,7 +138,7 @@ _Credential Manifests_ are JSON objects composed as follows:
   - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
       - The object ****must**** contain a `id` property, and its value ****must**** be a valid URI string that identifies who the issuer of the credential(s) will be.
       - The object ****MAY**** contain a `name` property, and its value ****must**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
-      - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
+      - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section. 
   - The object ****MUST**** contain an `output_descriptors` property. It's vault ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below
   - The object ****MAY**** contain a `presentation_definition` object, and its value ****MUST**** be a [Presentation Definition](https://identity.foundation/presentation-exchange/#presentation-definition) object, as defined by the [DIF Presentation Exchange](https://identity.foundation/presentation-exchange) specification.
 
@@ -198,7 +200,7 @@ _Credential Manifests_ are JSON objects composed as follows:
 
 [[ref:Output Descriptor Objects]] are composed as follows:
 
-- The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be a valid URI string for the schema of the credential that is available for issuance via the containing Credential Manifest.
+- The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be an array composed of schema objects for the schema(s) of the credentials to be issued.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.

@@ -331,7 +331,7 @@ composed and embedded as follows:
 {
   // NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be here
 
-  "presentation_submission": {
+  "credential_fulfillment": {
     "id": "a30e3b91-fb77-4d22-95fa-871689c322e2",
     "manifest_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
     "descriptor_map": [
@@ -361,7 +361,7 @@ composed and embedded as follows:
 ::: example Nested Credential Fulfillment
 ```json
 {
-  "presentation_submission": {
+  "credential_fulfillment": {
     "id": "a30e3b91-fb77-4d22-95fa-871689c322e2",
     "manifest_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
     "descriptor_map": [

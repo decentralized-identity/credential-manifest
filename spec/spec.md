@@ -140,15 +140,13 @@ _Credential Manifests_ are JSON objects composed as follows:
     - The object ****MAY**** contain a `name` property, and its value ****must**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
     - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
 - The object ****MUST**** contain an `output_descriptors` property. It's vault ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below
-- The [[ref:Credential Manifest]] ****MAY**** include a `format` property. If present, its value ****MUST**** be an object with one or more properties matching the registered [Claim Format Designations](#claim-format-designations) (e.g., `jwt`, `jwt_vc`, `jwt_vp`, etc.). The properties inform the [[ref:Holder]] of the [[ref:Claim]] format configurations the [[ref:Issuer]] can issue in. The value for each claim format property ****MUST**** be an object composed as follows:
-  - The object ****MUST**** include a format-specific property (i.e., `alg`,`proof_type`) that expresses which algorithms the [[ref:Issuer]] supports for the format. Its value ****MUST**** be an array of one or more format-specific algorithmic identifier references, as noted in the [Claim Format Designations](#claim-format-designations) section.
-
+- The [[ref:Credential Manifest]] ****MAY**** include a `format` property. If present, its value ****MUST**** be the same structure as [Presentation Definition's `format` property](https://identity.foundation/presentation-exchange/#presentation-definition). This property informs the [[ref:Holder]] of the [[ref:Calim]] format the [[ref:Issuer]] can issuer in.
     For example:
 
 ```json
 {
   "credential_manifest": {
-    "id": "32f54163-7166-48f1-93d8-ff217bdb0653",
+    "id": "WA-DL-CLASS-A",
     "output_descriptors": [],
     "format": {
       "jwt": {
@@ -304,36 +302,3 @@ The _Display Mapping Objects_ are JSON objects constructed as follows:
 
 Credential Manifests ****should**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
 
-## Claim Format Designations
-
-Within the _Credential Manifest_ specification, there are numerous sections
-where [[ref:Issuers]] and [[ref:Holders]] convey what [[ref:Claim]] variants
-they support and are issuing. The following are the normalized references
-used within the specification:
-
-- `jwt` - the format is a JSON Web Token (JWTs) [[spec:rfc7797]]
-  that will be submitted in the form of a JWT encoded string. Expression of
-  supported algorithms in relation to this format ****MUST**** be conveyed using
-  an `alg` property paired with values that are identifiers from the JSON Web
-  Algorithms registry [[spec:RFC7518]].
-- `jwt_vc`, `jwt_vp` - these formats are JSON Web Tokens (JWTs) [[spec:rfc7797]]
-  that will be submitted in the form of a JWT encoded string, and the body of
-  the decoded JWT string is defined in the JSON Web Token (JWT) [[spec:rfc7797]]
-  section of the
-  [W3C Verifiable Credentials specification](https://www.w3.org/TR/vc-data-model/#json-web-token).
-  Expression of supported algorithms in relation to these formats ****MUST****
-  be conveyed using an `alg` property paired with values that are identifiers
-  from the JSON Web Algorithms registry [[spec:RFC7518]].
-- `ldp_vc`, `ldp_vp` - these formats are W3C Verifiable Credentials
-  [[spec:VC-DATA MODEL]] that will be submitted in the form of a JSON object.
-  Expression of supported algorithms in relation to these formats ****MUST****
-  be conveyed using a `proof_type` property paired with values that are
-  identifiers from the
-  [Linked Data Cryptographic Suite Registry](https://w3c-ccg.github.io/ld-cryptosuite-registry/).
-- `ldp` - this format is defined in the
-  [W3C CCG Linked Data Proofs](https://w3c-ccg.github.io/ld-proofs/)
-  specification [[spec:Linked Data Proofs]], and will be submitted as objects.
-  Expression of supported algorithms in relation to these formats ****MUST****
-  be conveyed using a `proof_type` property with values that are identifiers
-  from the
-  [Linked Data Cryptographic Suite Registry](https://w3c-ccg.github.io/ld-cryptosuite-registry/).

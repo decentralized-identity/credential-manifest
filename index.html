@@ -219,7 +219,7 @@ For example:</li>
 <h3 id="output-descriptor"><a class="toc-anchor" href="#output-descriptor" >§</a> Output Descriptor</h3>
 <p><a class="term-reference" href="#term:output-descriptors">Output Descriptors</a> are objects used to describe the <a class="term-reference" href="#term:claims">Claims</a> a <a class="term-reference" href="#term:issuer">Issuer</a> if offering to a <a class="term-reference" href="#term:holder">Holder</a>.</p>
 <p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.</p>
-<div id="example-2" class="notice example"><a class="notice-link" href="#example-2">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="example-7" class="notice example"><a class="notice-link" href="#example-7">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"driver_license_output"</span><span class="token punctuation">,</span>
@@ -267,10 +267,7 @@ For example:</li>
 <h4 id="output-descriptor-object"><a class="toc-anchor" href="#output-descriptor-object" >§</a> Output Descriptor Object</h4>
 <p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> are composed as follows:</p>
 <ul>
-<li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MUST</strong></strong> contain an <code>id</code> property.
-The value of the <code>id</code> property <strong><strong>MUST</strong></strong> be a string that does not conflict
-with the <code>id</code> of another <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> in the same
-<a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>.</li>
+<li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of the <code>id</code> property <strong><strong>MUST</strong></strong> be a string that does not conflict with the <code>id</code> of another <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> in the same <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>.</li>
 <li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MUST</strong></strong> contain a <code>schema</code> property, and its value <strong><strong>MUST</strong></strong> be an array composed of schema objects for the schema(s) of the credentials to be issued.</li>
 <li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MAY</strong></strong> contain a <code>name</code> property, and if present its value <strong><strong>SHOULD</strong></strong> be a human-friendly name that describes what the credential represents.</li>
 <li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MAY</strong></strong> contain a <code>description</code> property, and if present its value <strong><strong>MUST</strong></strong> be a string that describes what the credential is in greater detail.</li>
@@ -341,53 +338,20 @@ with the <code>id</code> of another <a class="term-reference" href="#term:output
 <h2 id="resource-location"><a class="toc-anchor" href="#resource-location" >§</a> Resource Location</h2>
 <p>Credential Manifests <strong><strong>should</strong></strong> be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers <strong><strong>SHOULD</strong></strong> make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).</p>
 <h2 id="credential-fulfillment"><a class="toc-anchor" href="#credential-fulfillment" >§</a> Credential Fulfillment</h2>
-<p><a class="term-reference" href="#term:credential-fulfillments">Credential Fulfillments</a> are objects embedded within target
-<a class="term-reference" href="#term:claim">Claim</a> negotiation formats that express how the outputs presented as
-proofs to a <a class="term-reference" href="#term:holder">Holder</a> are provided in accordance with the outpus
-specified in a <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>. Embedded
-<a class="term-reference" href="#term:credential-fulfillment">Credential Fulfillment</a> objects <strong><strong>MUST</strong></strong> be located within target
-data format as the value of a <code>credential_fulfillment</code> property, which is
-composed and embedded as follows:</p>
+<p><a class="term-reference" href="#term:credential-fulfillments">Credential Fulfillments</a> are objects embedded within target <a class="term-reference" href="#term:claim">Claim</a> negotiation formats that express how the outputs presented as proofs to a <a class="term-reference" href="#term:holder">Holder</a> are provided in accordance with the outpus specified in a <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>. Embedded <a class="term-reference" href="#term:credential-fulfillment">Credential Fulfillment</a> objects <strong><strong>MUST</strong></strong> be located within target data format as the value of a <code>credential_fulfillment</code> property, which is composed and embedded as follows:</p>
 <ul>
-<li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> be included at the
-top-level of an Embed Target, or in the specific location described in the
-<a href="#embed-locations" >Embed Locations table</a> in the <a href="#embed-target" >Embed Target</a>
-section below.</li>
-<li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> contain an <code>id</code> property.
-The value of this property <strong><strong>MUST</strong></strong> be a unique identifier, such as a
-<a path-0="tools.ietf.org"path-1="html"path-2="rfc4122"href="https://tools.ietf.org/html/rfc4122" >UUID</a>.</li>
-<li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code>
-property. The value of this property <strong><strong>MUST</strong></strong> be the <code>id</code> value of a valid
-<a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>.</li>
-<li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> include a <code>descriptor_map</code>
-property. The value of this property <strong><strong>MUST</strong></strong> be an array of
-<em>Output Descriptor Mapping Objects</em>, composed as follows:
+<li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> be included at the top-level of an Embed Target, or in the specific location described in the <a href="#embed-locations" >Embed Locations table</a> in the <a href="#embed-target" >Embed Target</a> section below.</li>
+<li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a unique identifier, such as a <a path-0="tools.ietf.org"path-1="html"path-2="rfc4122"href="https://tools.ietf.org/html/rfc4122" >UUID</a>.</li>
+<li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code> property. The value of this property <strong><strong>MUST</strong></strong> be the <code>id</code> value of a valid <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>.</li>
+<li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> include a <code>descriptor_map</code> property. The value of thi property <strong><strong>MUST</strong></strong> be an array of <em>Output Descriptor Mapping Objects</em>, composed as follows:
 <ul>
-<li>The <code>descriptor_map</code> object <strong><strong>MUST</strong></strong> include an <code>id</code> property. The
-value of this property <strong><strong>MUST</strong></strong> be a string that matches the <code>id</code>
-property of the <a class="term-reference" href="#term:output-descriptor">Output Descriptor</a> in the
-<a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:credential-fulfillment">Credential Fulfillment</a>
-is related to.</li>
-<li>The <code>descriptor_map</code> object <strong><strong>MUST</strong></strong> include a <code>format</code> property. The
-value of this property <strong><strong>MUST</strong></strong> be a string that matches one of the
-<a href="#claim-format-designations" >Claim Format Designation</a>. This denotes the
-data format of the <a class="term-reference" href="#term:claim">Claim</a>.</li>
-<li>The <code>descriptor_map</code> object <strong><strong>MUST</strong></strong> include a <code>path</code> property. The
-value of this property <strong><strong>MUST</strong></strong> be a
-<a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> string expression. The
-<code>path</code> property indicates the <a class="term-reference" href="#term:claim">Claim</a> submitted in relation to the
-identified <a class="term-reference" href="#term:output-descriptor">Output Descriptor</a>, when executed against the top-level
-of the object the <a class="term-reference" href="#term:credential-fulfillment">Credential Fulfillment</a> is embedded within.</li>
-<li>The object <strong><strong>MAY</strong></strong> include a <code>path_nested</code> object to indicate the
-presence of a multi-<a class="term-reference" href="#term:claim">Claim</a> envelope format. This means the
-<a class="term-reference" href="#term:claim">Claim</a> indicated is to be decoded separately from its parent
-enclosure.
+<li>The <code>descriptor_map</code> object <strong><strong>MUST</strong></strong> include an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a string that matches the <code>id</code> property of the <a class="term-reference" href="#term:output-descriptor">Output Descriptor</a> in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:credential-fulfillment">Credential Fulfillment</a> is related to.</li>
+<li>The <code>descriptor_map</code> object <strong><strong>MUST</strong></strong> include a <code>format</code> property. The value of this property <strong><strong>MUST</strong></strong> be a string that matches one of the <a href="#claim-format-designations" >Claim Format Designation</a>. This denotes the data format of the <a class="term-reference" href="#term:claim">Claim</a>.</li>
+<li>The <code>descriptor_map</code> object <strong><strong>MUST</strong></strong> include a <code>path</code> property. The value of this property <strong><strong>MUST</strong></strong> be a <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> string expression. The <code>path</code> property indicates the <a class="term-reference" href="#term:claim">Claim</a> submitted in relation to the identified <a class="term-reference" href="#term:output-descriptor">Output Descriptor</a>, when executed against the top-level of the object the <a class="term-reference" href="#term:credential-fulfillment">Credential Fulfillment</a> is embedded within.</li>
+<li>The object <strong><strong>MAY</strong></strong> include a <code>path_nested</code> object to indicate the presence of a multi-<a class="term-reference" href="#term:claim">Claim</a> envelope format. This means the <a class="term-reference" href="#term:claim">Claim</a> indicated is to be decoded separately from its parent enclosure.
 <ul>
-<li>The format of a <code>path_nested</code> object mirrors that of a <code>descriptor_map</code>
-property. The nesting may be any number of levels deep. The <code>id</code>
-property <strong><strong>MUST</strong></strong> be the same for each level of nesting.</li>
-<li>The <code>path</code> property inside each <code>path_nested</code> property provides a
-<em>relative path</em> within a given nested value.</li>
+<li>The format of a <code>path_nested</code> object mirrors that of a <code>descriptor_map</code> property. The nesting may be any number of levels deep. The <code>id</code> property <strong><strong>MUST</strong></strong> be the same for each level of nesting.</li>
+<li>The <code>path</code> property inside each <code>path_nested</code> property provides a <em>relative path</em> within a given nested value.</li>
 </ul>
 </li>
 </ul>
@@ -451,36 +415,17 @@ object, process as follows:</p>
 <ol>
 <li>For each <em>Nested Submission Traversal Object</em> in the <code>path_nested</code> array:
 <ol>
-<li>Execute the <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a>
-expression string on the
-<a href="#current-traversal-object" id="current-traversal-object" ><em>Current Traversal Object</em></a>,
-or if none is designated, the top level of the Embed Target.</li>
-<li>Decode and parse the value returned from
-<a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> execution in
-accordance with the <a href="#claim-format-designations" >Claim Format Designation</a>
-specified in the object’s <code>format</code> property. If the value parses and
-validates in accordance with the
-<a href="#claim-format-designations" >Claim Format Designation</a> specified, let the
-resulting object be the
-<a href="#current-traversal-object" ><em>Current Traversal Object</em></a></li>
-<li>If present, process the next <em>Nested Submission Traversal Object</em> in the
-current <code>path_nested</code> property.</li>
+<li>Execute the <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> expression string on the <a href="#current-traversal-object" id="current-traversal-object" ><em>Current Traversal Object</em></a>, or if none is designated, the top level of the Embed Target.</li>
+<li>Decode and parse the value returned from <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> execution in accordance with the <a href="#claim-format-designations" >Claim Format Designation</a> specified in the object’s <code>format</code> property. If the value parses and validates in accordance with the <a href="#claim-format-designations" >Claim Format Designation</a> specified, let the resulting object be the <a href="#current-traversal-object" ><em>Current Traversal Object</em></a></li>
+<li>If present, process the next <em>Nested Submission Traversal Object</em> in the current <code>path_nested</code> property.</li>
 </ol>
 </li>
-<li>If parsing of the <em>Nested Submission Traversal Objects</em> in the <code>path_nested</code>
-property produced a valid value, process it as the submission against the
-<a class="term-reference" href="#term:output-descriptor">Output Descriptor</a> indicated by the <code>id</code> property of the containing
-<em>Output Descriptor Mapping Object</em>.</li>
+<li>If parsing of the <em>Nested Submission Traversal Objects</em> in the <code>path_nested</code> property produced a valid value, process it as the submission against the <a class="term-reference" href="#term:output-descriptor">Output Descriptor</a> indicated by the <code>id</code> property of the containing <em>Output Descriptor Mapping Object</em>.</li>
 </ol>
 <h3 id="embed-targets"><a class="toc-anchor" href="#embed-targets" >§</a> Embed Targets</h3>
-<p>The following section details where the <em>Credential Fulfillment</em> is to be
-embedded within a target data structure, as well as how to formulate the
-<a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> expressions to select the
-<a class="term-reference" href="#term:claims">Claims</a> within the target data structure.</p>
+<p>The following section details where the <em>Credential Fulfillment</em> is to be embedded within a target data structure, as well as how to formulate the <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> expressions to select the <a class="term-reference" href="#term:claims">Claims</a> within the target data structure.</p>
 <h4 id="embed-locations"><a class="toc-anchor" href="#embed-locations" >§</a> Embed Locations</h4>
-<p>The following are the locations at which the <code>credential_manifest</code> object
-<strong><strong>MUST</strong></strong> be embedded for known target formats. For any location besides
-the top level of the embed target, the location is described in JSONPath syntax.</p>
+<p>The following are the locations at which the <code>credential_manifest</code> object <strong><strong>MUST</strong></strong> be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.</p>
 <table>
 <thead>
 <tr>

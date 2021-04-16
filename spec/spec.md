@@ -31,10 +31,7 @@ Credential Manifest is a draft specification being developed within the [Decentr
 ## Terminology
 
 [[def:Decentralized Identifiers, Decentralized Identifier, DID]]
-~ Unique ID URI string and PKI metadata document format for describing the
-cryptographic keys and other fundamental PKI values linked to a unique,
-user-controlled, self-sovereign identifier in a target system (i.e. blockchain,
-distributed ledger).
+~ Unique ID URI string and PKI metadata document format for describing the cryptographic keys and other fundamental PKI values linked to a unique, user-controlled, self-sovereign identifier in a target system (i.e. blockchain, distributed ledger).
 
 [[def:Claim, Claims]]
 ~ An assertion made about a [[ref:Subject]]. Used as an umbrella term for
@@ -53,11 +50,7 @@ Credential, Assertion, Attestation, etc.
 ~ Output Descriptor Objects are populated with properties describing the [[ref:Claims]] the [[ref:Issuer]] is offering the [[ref:Holder]]
 
 [[def:Credential Fulfillment, Credential Fulfillments]]
-~ Credential Fulfillments are objects embedded within target claim negotiation
-formats that unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in
-accordance with the output an [[ref:Issuer]] specified in a
-[[ref:Credential Manifest]]. See
-[Credential Fulfillment](#credential-fulfillment).
+~ Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. See [Credential Fulfillment](#credential-fulfillment).
 
 ## Resource Definition
 

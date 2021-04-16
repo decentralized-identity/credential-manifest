@@ -72,10 +72,7 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <h2 id="terminology"><a class="toc-anchor" href="#terminology" >§</a> Terminology</h2>
 <dl>
 <dt><span id="term:did"><span id="term:decentralized-identifier"><span id="term:decentralized-identifiers">Decentralized Identifiers</span></span></span></dt>
-<dd>Unique ID URI string and PKI metadata document format for describing the
-cryptographic keys and other fundamental PKI values linked to a unique,
-user-controlled, self-sovereign identifier in a target system (i.e. blockchain,
-distributed ledger).</dd>
+<dd>Unique ID URI string and PKI metadata document format for describing the cryptographic keys and other fundamental PKI values linked to a unique, user-controlled, self-sovereign identifier in a target system (i.e. blockchain, distributed ledger).</dd>
 <dt><span id="term:claims"><span id="term:claim">Claim</span></span></dt>
 <dd>An assertion made about a <a class="term-reference" href="#term:subject">Subject</a>. Used as an umbrella term for
 Credential, Assertion, Attestation, etc.</dd>
@@ -88,11 +85,7 @@ Credential, Assertion, Attestation, etc.</dd>
 <dt><span id="term:output-descriptor-objects"><span id="term:output-descriptor-object">Output Descriptor Object</span></span></dt>
 <dd>Output Descriptor Objects are populated with properties describing the <a class="term-reference" href="#term:claims">Claims</a> the <a class="term-reference" href="#term:issuer">Issuer</a> is offering the <a class="term-reference" href="#term:holder">Holder</a></dd>
 <dt><span id="term:credential-fulfillments"><span id="term:credential-fulfillment">Credential Fulfillment</span></span></dt>
-<dd>Credential Fulfillments are objects embedded within target claim negotiation
-formats that unify the presentation of <a class="term-reference" href="#term:claims">Claims</a> to a <a class="term-reference" href="#term:holder">Holder</a> in
-accordance with the output an <a class="term-reference" href="#term:issuer">Issuer</a> specified in a
-<a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>. See
-<a href="#credential-fulfillment" >Credential Fulfillment</a>.</dd>
+<dd>Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of <a class="term-reference" href="#term:claims">Claims</a> to a <a class="term-reference" href="#term:holder">Holder</a> in accordance with the output an <a class="term-reference" href="#term:issuer">Issuer</a> specified in a <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>. See <a href="#credential-fulfillment" >Credential Fulfillment</a>.</dd>
 </dl>
 <h2 id="resource-definition"><a class="toc-anchor" href="#resource-definition" >§</a> Resource Definition</h2>
 <p><em>Credential Manifests</em> are a resource format that defines preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.</p>
@@ -219,7 +212,7 @@ For example:</li>
 <h3 id="output-descriptor"><a class="toc-anchor" href="#output-descriptor" >§</a> Output Descriptor</h3>
 <p><a class="term-reference" href="#term:output-descriptors">Output Descriptors</a> are objects used to describe the <a class="term-reference" href="#term:claims">Claims</a> a <a class="term-reference" href="#term:issuer">Issuer</a> if offering to a <a class="term-reference" href="#term:holder">Holder</a>.</p>
 <p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.</p>
-<div id="example-7" class="notice example"><a class="notice-link" href="#example-7">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="example-8" class="notice example"><a class="notice-link" href="#example-8">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"driver_license_output"</span><span class="token punctuation">,</span>

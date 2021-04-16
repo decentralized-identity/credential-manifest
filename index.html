@@ -87,6 +87,8 @@ Credential, Assertion, Attestation, etc.</dd>
 <dd>Output Descriptors are used by an Issuer to describe the credentials they are offering to a <a class="term-reference" href="#term:holder">Holder</a>. See <a href="#output-descriptor" >Output Descriptor</a></dd>
 <dt><span id="term:output-descriptor-objects"><span id="term:output-descriptor-object">Output Descriptor Object</span></span></dt>
 <dd>Output Descriptor Objects are populated with properties describing the <a class="term-reference" href="#term:claims">Claims</a> the <a class="term-reference" href="#term:issuer">Issuer</a> is offering the <a class="term-reference" href="#term:holder">Holder</a></dd>
+<dt><span id="term:format-selections"><span id="term:format-selection">Format Selection</span></span></dt>
+<dd>Format Selections are objects embedded within target claim negotiation formats that signify the proof formats the <a class="term-reference" href="#term:holder">Holder</a> wants from the <a class="term-reference" href="#term:issuer">Issuer</a>. See <a href="#format-selection" >Format Selection</a></dd>
 </dl>
 <h2 id="resource-definition"><a class="toc-anchor" href="#resource-definition" >§</a> Resource Definition</h2>
 <p><em>Credential Manifests</em> are a resource format that defines preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.</p>
@@ -172,18 +174,12 @@ Credential, Assertion, Attestation, etc.</dd>
 </ul>
 </li>
 <li>The object <strong><strong>MUST</strong></strong> contain an <code>output_descriptors</code> property. It’s vault <strong><strong>MUST</strong></strong> be an array of Output Descriptor Objects, the composition of which are described in the <a href="#output-descriptor" ><code>Output Descriptor</code></a> section below</li>
-<li>The <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> <strong><strong>MAY</strong></strong> include a <code>format</code> property. If present, its value <strong><strong>MUST</strong></strong> be an object with one or more properties matching the registered <a href="#claim-format-designations" >Claim Format Designations</a> (e.g., <code>jwt</code>, <code>jwt_vc</code>, <code>jwt_vp</code>, etc.). The properties inform the <a class="term-reference" href="#term:holder">Holder</a> of the <a class="term-reference" href="#term:claim">Claim</a> format configurations the <a class="term-reference" href="#term:issuer">Issuer</a> can issue in. The value for each claim format property <strong><strong>MUST</strong></strong> be an object composed as follows:
-<ul>
-<li>
-<p>The object <strong><strong>MUST</strong></strong> include a format-specific property (i.e., <code>alg</code>,<code>proof_type</code>) that expresses which algorithms the <a class="term-reference" href="#term:issuer">Issuer</a> supports for the format. Its value <strong><strong>MUST</strong></strong> be an array of one or more format-specific algorithmic identifier references, as noted in the <a href="#claim-format-designations" >Claim Format Designations</a> section.</p>
-<p>For example:</p>
-</li>
-</ul>
-</li>
+<li>The <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> <strong><strong>MAY</strong></strong> include a <code>format</code> property. If present, its value <strong><strong>MUST</strong></strong> be the same structure as <a path-0="identity.foundation"path-1="presentation-exchange"path-2="#presentation-definition"href="https://identity.foundation/presentation-exchange/#presentation-definition" >Presentation Definition’s <code>format</code> property</a>. This property informs the <a class="term-reference" href="#term:holder">Holder</a> of the <a class="term-reference" href="#term:calim">Calim</a> format the <a class="term-reference" href="#term:issuer">Issuer</a> can issuer in.
+For example:</li>
 </ul>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"credential_manifest"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"32f54163-7166-48f1-93d8-ff217bdb0653"</span><span class="token punctuation">,</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"WA-DL-CLASS-A"</span><span class="token punctuation">,</span>
     <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
     <span class="token property">"format"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
       <span class="token property">"jwt"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -219,7 +215,7 @@ Credential, Assertion, Attestation, etc.</dd>
 <h3 id="output-descriptor"><a class="toc-anchor" href="#output-descriptor" >§</a> Output Descriptor</h3>
 <p><a class="term-reference" href="#term:output-descriptors">Output Descriptors</a> are objects used to describe the <a class="term-reference" href="#term:claims">Claims</a> a <a class="term-reference" href="#term:issuer">Issuer</a> if offering to a <a class="term-reference" href="#term:holder">Holder</a>.</p>
 <p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.</p>
-<div id="example-5" class="notice example"><a class="notice-link" href="#example-5">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="example-2" class="notice example"><a class="notice-link" href="#example-2">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token string">"https://schema.org/EducationalOccupationalCredential"</span><span class="token punctuation">,</span>
@@ -335,39 +331,56 @@ Credential, Assertion, Attestation, etc.</dd>
 </ul>
 <h2 id="resource-location"><a class="toc-anchor" href="#resource-location" >§</a> Resource Location</h2>
 <p>Credential Manifests <strong><strong>should</strong></strong> be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers <strong><strong>SHOULD</strong></strong> make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).</p>
-<h2 id="claim-format-designations"><a class="toc-anchor" href="#claim-format-designations" >§</a> Claim Format Designations</h2>
-<p>Within the <em>Credential Manifest</em> specification, there are numerous sections
-where <a class="term-reference" href="#term:issuers">Issuers</a> and <a class="term-reference" href="#term:holders">Holders</a> convey what <a class="term-reference" href="#term:claim">Claim</a> variants
-they support and are issuing. The following are the normalized references
-used within the specification:</p>
+<h2 id="format-selection"><a class="toc-anchor" href="#format-selection" >§</a> Format Selection</h2>
+<p><a class="term-reference" href="#term:format-selections">Format Selections</a> are objects embedded within target <a class="term-reference" href="#term:claim">Claim</a> negotiation formats that express the formats the <a class="term-reference" href="#term:holder">Holder</a> wants for each issued <a class="term-reference" href="#term:claim">Claim</a> identified in the Credential Manifest’s <a class="term-reference" href="#term:ouput-descriptors">Ouput Descriptors</a>. It allows the <a class="term-reference" href="#term:holder">Holder</a> to request the same <a class="term-reference" href="#term:claim">Claim</a> be issued in multiple formats.</p>
 <ul>
-<li><code>jwt</code> - the format is a JSON Web Token (JWTs) [<a class="spec-reference" href="#ref:RFC7797">RFC7797</a>]
-that will be submitted in the form of a JWT encoded string. Expression of
-supported algorithms in relation to this format <strong><strong>MUST</strong></strong> be conveyed using
-an <code>alg</code> property paired with values that are identifiers from the JSON Web
-Algorithms registry [<a class="spec-reference" href="#ref:RFC7518">RFC7518</a>].</li>
-<li><code>jwt_vc</code>, <code>jwt_vp</code> - these formats are JSON Web Tokens (JWTs) [<a class="spec-reference" href="#ref:RFC7797">RFC7797</a>]
-that will be submitted in the form of a JWT encoded string, and the body of
-the decoded JWT string is defined in the JSON Web Token (JWT) [<a class="spec-reference" href="#ref:RFC7797">RFC7797</a>]
-section of the
-<a path-0="www.w3.org"path-1="TR"path-2="vc-data-model"path-3="#json-web-token"href="https://www.w3.org/TR/vc-data-model/#json-web-token" >W3C Verifiable Credentials specification</a>.
-Expression of supported algorithms in relation to these formats <strong><strong>MUST</strong></strong>
-be conveyed using an <code>alg</code> property paired with values that are identifiers
-from the JSON Web Algorithms registry [<a class="spec-reference" href="#ref:RFC7518">RFC7518</a>].</li>
-<li><code>ldp_vc</code>, <code>ldp_vp</code> - these formats are W3C Verifiable Credentials
-[<a class="spec-reference" href="#ref:VC-DATA-MODEL">VC-DATA-MODEL</a>] that will be submitted in the form of a JSON object.
-Expression of supported algorithms in relation to these formats <strong><strong>MUST</strong></strong>
-be conveyed using a <code>proof_type</code> property paired with values that are
-identifiers from the
-<a path-0="w3c-ccg.github.io"path-1="ld-cryptosuite-registry"path-2=""href="https://w3c-ccg.github.io/ld-cryptosuite-registry/" >Linked Data Cryptographic Suite Registry</a>.</li>
-<li><code>ldp</code> - this format is defined in the
-<a path-0="w3c-ccg.github.io"path-1="ld-proofs"path-2=""href="https://w3c-ccg.github.io/ld-proofs/" >W3C CCG Linked Data Proofs</a>
-specification [[spec:Linked Data Proofs]], and will be submitted as objects.
-Expression of supported algorithms in relation to these formats <strong><strong>MUST</strong></strong>
-be conveyed using a <code>proof_type</code> property with values that are identifiers
-from the
-<a path-0="w3c-ccg.github.io"path-1="ld-cryptosuite-registry"path-2=""href="https://w3c-ccg.github.io/ld-cryptosuite-registry/" >Linked Data Cryptographic Suite Registry</a>.</li>
+<li>The <code>format_selection</code> object <strong><strong>MUST</strong></strong> be included at the top-level of an Embed Target, or in the specific location described in the <a href="#embed-locations" >Embeded Locations table</a> in the <a href="#embed-target" >Emded Target</a> section below</li>
+<li>The <code>format_selection</code> object <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a unique identifier, such as a UUID</li>
+<li>The <code>format_selection</code> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code> property. The value of this property <strong><strong>MUST</strong></strong> be the id of a valid Credential Manifest.</li>
+<li>The <code>format_selection</code> object <strong><strong>MUST</strong></strong> include a <code>selection_map</code> property. the value of this property <strong><strong>MUST</strong></strong> be an array of <em>Format Selection Mapping Objects</em>, composes as follows:
+<ul>
+<li>The <code>selection_map</code> object <strong><strong>MUST</strong></strong> include an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a string that matches the <code>id</code> property of the <a class="term-reference" href="#term:output-descriptor">Output Descriptor</a> in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:format-selection">Format Selection</a> is related to.</li>
+<li>The <code>selection_map</code> object <strong><strong>MUST</strong></strong> include a <code>format</code> property. The value of this property <strong><strong>MUST</strong></strong> be a <em>subset</em> of the <code>format</code> property in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:format-selection">Format Selection</a> is related to.</li>
 </ul>
+</li>
+</ul>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"format_selection"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"</span><span class="token punctuation">,</span>
+    <span class="token property">"manifest_id"</span><span class="token operator">:</span> <span class="token string">"WA-DL-CLASS-A"</span><span class="token punctuation">,</span>
+    <span class="token property">"selection_map"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"driver_license_output"</span><span class="token punctuation">,</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"ldp_vc"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"proof_type"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+              <span class="token string">"JsonWebSignature2020"</span><span class="token punctuation">,</span>
+              <span class="token string">"EcdsaSecp256k1Signature2019"</span>
+            <span class="token punctuation">]</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="embed-targets"><a class="toc-anchor" href="#embed-targets" >§</a> Embed Targets</h3>
+<p>The following section details where the <em>Format Selection</em> is to be embedded within a target data structure.</p>
+<h4 id="embed-locations"><a class="toc-anchor" href="#embed-locations" >§</a> Embed Locations</h4>
+<p>The following are the locations at which the <code>format_selection</code> object <strong><strong>MUST</strong></strong> be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
 
                     </article>    
       
@@ -412,7 +425,15 @@ from the
 </ul>
 </li>
 <li><a href="#resource-location" >Resource Location</a></li>
-<li><a href="#claim-format-designations" >Claim Format Designations</a></li>
+<li><a href="#format-selection" >Format Selection</a>
+<ul>
+<li><a href="#embed-targets" >Embed Targets</a>
+<ul>
+<li><a href="#embed-locations" >Embed Locations</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
                       </div>

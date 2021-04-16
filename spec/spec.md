@@ -142,12 +142,49 @@ _Credential Manifests_ are a resource format that defines preconditional require
 
 _Credential Manifests_ are JSON objects composed as follows:
 
-  - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
-      - The object ****must**** contain a `id` property, and its value ****must**** be a valid URI string that identifies who the issuer of the credential(s) will be.
-      - The object ****MAY**** contain a `name` property, and its value ****must**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
-      - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
-  - The object ****MUST**** contain an `output_descriptors` property. It's vault ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below
-  - The object ****MAY**** contain a `presentation_definition` object, and its value ****MUST**** be a [Presentation Definition](https://identity.foundation/presentation-exchange/#presentation-definition) object, as defined by the [DIF Presentation Exchange](https://identity.foundation/presentation-exchange) specification.
+- The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
+    - The object ****must**** contain a `id` property, and its value ****must**** be a valid URI string that identifies who the issuer of the credential(s) will be.
+    - The object ****MAY**** contain a `name` property, and its value ****must**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
+    - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
+- The object ****MUST**** contain an `output_descriptors` property. It's vault ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below
+- The [[ref:Credential Manifest]] ****MAY**** include a `format` property. If present, its value ****MUST**** be the same structure as [Presentation Definition's `format` property](https://identity.foundation/presentation-exchange/#presentation-definition). This property informs the [[ref:Holder]] of the [[ref:Calim]] format the [[ref:Issuer]] can issuer in.
+    For example:
+
+```json
+{
+  "credential_manifest": {
+    "id": "WA-DL-CLASS-A",
+    "output_descriptors": [],
+    "format": {
+      "jwt": {
+        "alg": ["EdDSA", "ES256K", "ES384"]
+      },
+      "jwt_vc": {
+        "alg": ["ES256K", "ES384"]
+      },
+      "jwt_vp": {
+        "alg": ["EdDSA", "ES256K"]
+      },
+      "ldp_vc": {
+        "proof_type": [
+          "JsonWebSignature2020",
+          "Ed25519Signature2018",
+          "EcdsaSecp256k1Signature2019",
+          "RsaSignature2018"
+        ]
+      },
+      "ldp_vp": {
+        "proof_type": ["Ed25519Signature2018"]
+      },
+      "ldp": {
+        "proof_type": ["RsaSignature2018"]
+      }
+    }
+  }
+}
+```
+
+- The object ****MAY**** contain a `presentation_definition` object, and its value ****MUST**** be a [Presentation Definition](https://identity.foundation/presentation-exchange/#presentation-definition) object, as defined by the [DIF Presentation Exchange](https://identity.foundation/presentation-exchange) specification.
 
 
 ### Output Descriptor

@@ -178,12 +178,48 @@ accordance with the output an <a class="term-reference" href="#term:issuer">Issu
 </ul>
 </li>
 <li>The object <strong><strong>MUST</strong></strong> contain an <code>output_descriptors</code> property. It’s vault <strong><strong>MUST</strong></strong> be an array of Output Descriptor Objects, the composition of which are described in the <a href="#output-descriptor" ><code>Output Descriptor</code></a> section below</li>
+<li>The <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> <strong><strong>MAY</strong></strong> include a <code>format</code> property. If present, its value <strong><strong>MUST</strong></strong> be the same structure as <a path-0="identity.foundation"path-1="presentation-exchange"path-2="#presentation-definition"href="https://identity.foundation/presentation-exchange/#presentation-definition" >Presentation Definition’s <code>format</code> property</a>. This property informs the <a class="term-reference" href="#term:holder">Holder</a> of the <a class="term-reference" href="#term:calim">Calim</a> format the <a class="term-reference" href="#term:issuer">Issuer</a> can issuer in.
+For example:</li>
+</ul>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"credential_manifest"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"WA-DL-CLASS-A"</span><span class="token punctuation">,</span>
+    <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"format"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"jwt"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"alg"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"EdDSA"</span><span class="token punctuation">,</span> <span class="token string">"ES256K"</span><span class="token punctuation">,</span> <span class="token string">"ES384"</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"jwt_vc"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"alg"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"ES256K"</span><span class="token punctuation">,</span> <span class="token string">"ES384"</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"jwt_vp"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"alg"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"EdDSA"</span><span class="token punctuation">,</span> <span class="token string">"ES256K"</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"ldp_vc"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"proof_type"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token string">"JsonWebSignature2020"</span><span class="token punctuation">,</span>
+          <span class="token string">"Ed25519Signature2018"</span><span class="token punctuation">,</span>
+          <span class="token string">"EcdsaSecp256k1Signature2019"</span><span class="token punctuation">,</span>
+          <span class="token string">"RsaSignature2018"</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"ldp_vp"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"proof_type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"Ed25519Signature2018"</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"ldp"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"proof_type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"RsaSignature2018"</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
 <li>The object <strong><strong>MAY</strong></strong> contain a <code>presentation_definition</code> object, and its value <strong><strong>MUST</strong></strong> be a <a path-0="identity.foundation"path-1="presentation-exchange"path-2="#presentation-definition"href="https://identity.foundation/presentation-exchange/#presentation-definition" >Presentation Definition</a> object, as defined by the <a path-0="identity.foundation"path-1="presentation-exchange"href="https://identity.foundation/presentation-exchange" >DIF Presentation Exchange</a> specification.</li>
 </ul>
 <h3 id="output-descriptor"><a class="toc-anchor" href="#output-descriptor" >§</a> Output Descriptor</h3>
 <p><a class="term-reference" href="#term:output-descriptors">Output Descriptors</a> are objects used to describe the <a class="term-reference" href="#term:claims">Claims</a> a <a class="term-reference" href="#term:issuer">Issuer</a> if offering to a <a class="term-reference" href="#term:holder">Holder</a>.</p>
 <p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.</p>
-<div id="example-3" class="notice example"><a class="notice-link" href="#example-3">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="example-2" class="notice example"><a class="notice-link" href="#example-2">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"driver_license_output"</span><span class="token punctuation">,</span>

@@ -52,6 +52,12 @@ Credential, Assertion, Attestation, etc.
 [[def:Output Descriptor Object, Output Descriptor Objects]]
 ~ Output Descriptor Objects are populated with properties describing the [[ref:Claims]] the [[ref:Issuer]] is offering the [[ref:Holder]]
 
+[[def:Display Mapping Object, Display Mapping Objects]]
+~ Display Mapping Objects are used to render UI based on information from and about a [[ref:Claim]]. See [Display Mapping Object](#display-mapping-object)
+
+[[def:Labeled Display Mapping Object, Labeled Display Mapping Objects]]
+~ ref:Labeled Display Mapping Objects extend from [[ref:Display Mapping Objects]]. See [Labeled Display Mapping Object](#labeled-display-mapping-object)
+
 ## Resource Definition
 
 _Credential Manifests_ are a resource format that defines preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.
@@ -136,9 +142,9 @@ _Credential Manifests_ are a resource format that defines preconditional require
 _Credential Manifests_ are JSON objects composed as follows:
 
 - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
-    - The object ****must**** contain a `id` property, and its value ****must**** be a valid URI string that identifies who the issuer of the credential(s) will be.
-    - The object ****MAY**** contain a `name` property, and its value ****must**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
-    - The object ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
+    - The object ****MUST**** contain a `id` property, and its value ****MUST**** be a valid URI string that identifies who the issuer of the credential(s) will be.
+    - The object ****MAY**** contain a `name` property, and its value ****MUST**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
+    - The object ****MAY**** contain a `styles` property, and its value ****MUST**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
 - The object ****MUST**** contain an `output_descriptors` property. It's vault ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below
 - The [[ref:Credential Manifest]] ****MAY**** include a `format` property. If present, its value ****MUST**** be the same structure as [Presentation Definition's `format` property](https://identity.foundation/presentation-exchange/#presentation-definition). This property informs the [[ref:Holder]] of the [[ref:Calim]] format the [[ref:Issuer]] can issuer in.
     For example:
@@ -240,12 +246,12 @@ _Credential Manifests_ are JSON objects composed as follows:
 - The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be an array composed of schema objects for the schema(s) of the credentials to be issued.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****must**** be an object composed as defined in the [`display` properties](#display-properties) section.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****MUST**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****MUST**** be an object composed as defined in the [`display` properties](#display-properties) section.
 
 ### `styles` properties
 
-Within a `Credential Manifest`, there are two areas where styling affordances are provided: under the `issuer` property, where the Issuer expresses information about themselves - including how a User Agent should style UI that represents the Issuer, and under the `credential` property, where the Issuer expresses information about the credntial itself - including how a User Agent should style UI for the credential itself. Under each of these areas an implementer ****MAY**** include a `styles` property, and if present, its value ****must**** be an object composed of the following properties:
+Within a `Credential Manifest`, there are two areas where styling affordances are provided: under the `issuer` property, where the Issuer expresses information about themselves - including how a User Agent should style UI that represents the Issuer, and under the `credential` property, where the Issuer expresses information about the credntial itself - including how a User Agent should style UI for the credential itself. Under each of these areas an implementer ****MAY**** include a `styles` property, and if present, its value ****MUST**** be an object composed of the following properties:
 
 - The object ****MAY**** contain a `thumbnail` property, and if present, its value ****MUST**** be an object with the following optional properties:
     - The object ****MUST**** contain a `uri` property, and if present its value ****MUST**** be a valid URI string to an image resource.
@@ -260,14 +266,14 @@ Within a `Credential Manifest`, there are two areas where styling affordances ar
 
 ### `display` properties
 
-The `credential` property of a `Credential Manifest` is an object that ****MAY**** contain a `display` property defining various content and data pointers for representation of a credential in UI. The properties in the object use _Display Mapping Objects_ to assign text and data about the credential to common UI presentation elements, either by selecting data from the credential itself or providing it directly. The `display` object is constructed as follows
+[[ref:Output Descriptor Objects]] ****MAY**** contain a `display` property defining various content and data pointers for representation of a credential in UI. The properties in the object use _Display Mapping Objects_ to assign text and data about the credential to common UI presentation elements, either by selecting data from the credential itself or providing it directly. The `display` object is constructed as follows
 
-- The object ****MAY**** contain a `title` property, and if present, its value ****MUST**** be a _Display Mapping Object_. User Agents ****SHOULD**** render the data in an area of UI that conveys the general title of the credential being rendered.
-- The object ****MAY**** contain a `subtitle` property, and if present, its value ****MUST**** be a _Display Mapping Object_. User Agents ****SHOULD**** render the data in close proximity to the `title` value and ****SHOULD**** display the information in a way that is noticably less pronounced than that of the `title` value.
-- The object ****MAY**** contain a `description` property, and if present, its value ****MUST**** be a _Display Mapping Object_. User Agents ****SHOULD**** render the data in an area of UI that is appropreate for verbose, descriptive textual data.
-- The object ****MAY**** contain a `properties` property, and if present, its value ****MUST**** be an array of _Display Mapping Objects_. User Agents ****SHOULD**** render the data specified by each _Display Mapping Object_ in an area of UI that is appropreate for the rendering of a flat list of labeled values.
+- The object ****MAY**** contain a `title` property, and if present, its value ****MUST**** be a [[ref:Display Mapping Object]]. User Agents ****SHOULD**** render the data in an area of UI that conveys the general title of the credential being rendered.
+- The object ****MAY**** contain a `subtitle` property, and if present, its value ****MUST**** be a [[ref:Display Mapping Object]]. User Agents ****SHOULD**** render the data in close proximity to the `title` value and ****SHOULD**** display the information in a way that is noticably less pronounced than that of the `title` value.
+- The object ****MAY**** contain a `description` property, and if present, its value ****MUST**** be a [[ref:Display Mapping Object]]. User Agents ****SHOULD**** render the data in an area of UI that is appropreate for verbose, descriptive textual data.
+- The object ****MAY**** contain a `properties` property, and if present, its value ****MUST**** be an array of [[ref:Labeled Display Mapping Objects]]. User Agents ****SHOULD**** render the data specified by each _Display Mapping Object_ in an area of UI that is appropreate for the rendering of a flat list of labeled values.
 
-#### _Display Mapping Objects_
+### Display Mapping Object
 
 ::: example Display Mapping Object
 ```json
@@ -275,15 +281,29 @@ The `credential` property of a `Credential Manifest` is an object that ****MAY**
   "display": {
     "title": {
       "path": ["$.name", "$.vc.name"],
-      "text": "Washington State Driver License"
+      "fallback": "Washington State Driver License"
     },
     "properties": [
       {
+        "path": ["$.issuanceDate", "$.vc.issuanceDate"],
+        "schema": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "label": "Issuance Date"
+      },
+      {
         "path": ["$.vision_aid", "$.vc.vision_aid"],
+        "schema": {
+          "type": "boolean"
+        },
         "label": "Vision aid required"
       },
       {
         "path": ["$.donor", "$.vc.donor"],
+        "schema": {
+          "type": "boolean"
+        },
         "label": "Organ Donor"
       }
     ]
@@ -292,13 +312,232 @@ The `credential` property of a `Credential Manifest` is an object that ****MAY**
 ```
 :::
 
-The _Display Mapping Objects_ are JSON objects constructed as follows:
+[[ref:Display Mapping Objects]] can be used to either pull data from the target Claim with the `path` property OR display infomation about the target Claim with the `text` property
 
-- The object ****MAY**** contain a `path` property, and if present, its value ****MUST**** be a [JSONPath](https://goessner.net/articles/JsonPath/) string expression.
-- The object ****MAY**** contain a `text` property, and if present, its value ****MUST**** be a string or numeric value that is rendered in the UI if no `path` property is specified within the object, or all of the `path` property's array of [JSONPath](https://goessner.net/articles/JsonPath/) string expressions fail to select data within the target credential.
-- The object ****MAY**** contain a `label` property, and if present, its value ****MUST**** be a string that is rendered in the UI where a labled display of the `path` or `text` value is appropreate. If the property is intended for labeled display, the label ****SHOULD**** be shown in the UI and the value paired with the label ****SHOULD**** be either data selected from the processing of the `path` property's [JSONPath](https://goessner.net/articles/JsonPath/) string expressions, or the value specified by the `text` property. If neither is present, display of the label and any fallback value is at the election of the implementer.
+#### Using `path`
+
+:::example Display Mapping Object with path
+```json
+{
+  "title": {
+    "path": ["$.name", "$.vc.name"],
+    "schema": {
+      "type": "string"
+    },
+    "fallback": "Washington State Driver License"
+  },
+  "subtitle": {
+    "path": ["$.issuanceDate", "$.vc.issuanceDate"],
+    "schema": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "fallback": "Issuance Date Unknown"
+  }
+}
+```
+:::
+
+- The object ****MUST**** contain a `path` property and its value must be an array of [JSONPath](https://goessner.net/articles/JsonPath/) string expressions.
+- The object ****MUST*** contain a `schema` property and its value must be an object that is composed as follows:
+  - The `schema` property ****MUST**** contain a `type` property and its value must be "string", "boolean", "number", or "integer". The `type` property ****MUST**** represent the type of the data found with the `path` property of the Display Mapping Object.
+  - The `schema` property ****MAY**** contain a `format` property IF the `type` property is `"string"` and its value must be "date-time", "time", "date", "email", "idn-email", "hostname", "idn-hostname", "ipv4", "ipv6", "uri", "uri-reference", "iri", or "iri-reference". This property is to be used to transform the property in the rendered UI, for example tranforming an ISO Date string into a human readable string.
+- The object ****MAY**** contain a `fallback` property and its value ****MUST**** be a string value. This value is to be used to rendered into the UI if all the `path` property's items fail to select data within the target Claim.
+
+#### Using `text`
+
+:::example Display Mapping Object with text
+```json
+{
+  "title": {
+    "text": "Washington State Driver License"
+  }
+}
+```
+:::
+
+- The object ****MUST**** contain a `text` property and its value ****MUST**** be a string value
+
+#### JSON Schema
+
+The following JSON Schema Draft 7 definition summarizes the format-related rules above:
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "schema": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "string",
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "date-time",
+                "time",
+                "date",
+                "email",
+                "idn-email",
+                "hostname",
+                "idn-hostname",
+                "ipv4",
+                "ipv6",
+                "uri",
+                "uri-reference",
+                "iri",
+                "iri-reference"
+              ]
+            }
+          },
+          "required": ["type"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["boolean", "number", "integer"]
+            },
+          },
+          "required": ["type"],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "schema": { "$ref": "#/definitions/schema" },
+        "fallback": { "type": "string" }
+      },
+      "required": ["path", "schema"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" }
+      },
+      "required": ["text"],
+      "additionalProperties": false
+    }
+  ],
+}
+```
+
+### Labeled Display Mapping Object
+
+:::example Display Mapping Object with path
+```json
+{
+  "properties": [
+    {
+      "label": "Organ Donor",
+      "path": ["$.donor", "$.vc.donor"],
+      "schema": {
+        "type": "boolean"
+      }
+    }
+  ]
+}
+```
+:::
+
+[[ref:Labeled Display Mapping Objects]] extend from [[ref:Display Mapping Objects]]. In addition to the base Display Mapping Objects they have the following extra fields:
+
+- The object ****MUST**** include a `label` property and its value ****MUST**** be a string that is rendered in the UI where a labled display of the `path`/`fallback` or `text` value is appropriate.
+
+#### JSON Schema
+
+The following JSON Schema Draft 7 definition summarizes the format-related rules above:
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "schema": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "const": "string",
+            },
+            "format": {
+              "type": "string",
+              "enum": [
+                "date-time",
+                "time",
+                "date",
+                "email",
+                "idn-email",
+                "hostname",
+                "idn-hostname",
+                "ipv4",
+                "ipv6",
+                "uri",
+                "uri-reference",
+                "iri",
+                "iri-reference"
+              ]
+            }
+          },
+          "required": ["type"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["boolean", "number", "integer"]
+            },
+          },
+          "required": ["type"],
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "schema": { "$ref": "#/definitions/schema" },
+        "fallback": { "type": "string" },
+        "label": { "type": "string" }
+      },
+      "required": ["path", "schema", "label"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "label": { "type": "string" }
+      },
+      "required": ["text", "label"],
+      "additionalProperties": false
+    }
+  ],
+}
+```
 
 ## Resource Location
 
 Credential Manifests ****should**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
-

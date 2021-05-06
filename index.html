@@ -87,8 +87,8 @@ Credential, Assertion, Attestation, etc.</dd>
 <dd>Output Descriptors are used by an Issuer to describe the credentials they are offering to a <a class="term-reference" href="#term:holder">Holder</a>. See <a href="#output-descriptor" >Output Descriptor</a></dd>
 <dt><span id="term:output-descriptor-objects"><span id="term:output-descriptor-object">Output Descriptor Object</span></span></dt>
 <dd>Output Descriptor Objects are populated with properties describing the <a class="term-reference" href="#term:claims">Claims</a> the <a class="term-reference" href="#term:issuer">Issuer</a> is offering the <a class="term-reference" href="#term:holder">Holder</a></dd>
-<dt><span id="term:format-selections"><span id="term:format-selection">Format Selection</span></span></dt>
-<dd>Format Selections are objects embedded within target claim negotiation formats that signify the proof formats the <a class="term-reference" href="#term:holder">Holder</a> wants from the <a class="term-reference" href="#term:issuer">Issuer</a>. See <a href="#format-selection" >Format Selection</a></dd>
+<dt><span id="term:credential-submissions"><span id="term:credential-submission">Credential Submission</span></span></dt>
+<dd>Credential Submission are objects embedded within target claim negotiation formats that pass information from the <a class="term-reference" href="#term:holder">Holder</a> to the <a class="term-reference" href="#term:issuer">Issuer</a>. See <a href="#credential-submission" >Credential Submission</a></dd>
 </dl>
 <h2 id="resource-definition"><a class="toc-anchor" href="#resource-definition" >§</a> Resource Definition</h2>
 <p><em>Credential Manifests</em> are a resource format that defines preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.</p>
@@ -215,7 +215,7 @@ For example:</li>
 <h3 id="output-descriptor"><a class="toc-anchor" href="#output-descriptor" >§</a> Output Descriptor</h3>
 <p><a class="term-reference" href="#term:output-descriptors">Output Descriptors</a> are objects used to describe the <a class="term-reference" href="#term:claims">Claims</a> a <a class="term-reference" href="#term:issuer">Issuer</a> if offering to a <a class="term-reference" href="#term:holder">Holder</a>.</p>
 <p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.</p>
-<div id="example-2" class="notice example"><a class="notice-link" href="#example-2">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="example-9" class="notice example"><a class="notice-link" href="#example-9">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token string">"https://schema.org/EducationalOccupationalCredential"</span><span class="token punctuation">,</span>
@@ -331,43 +331,36 @@ For example:</li>
 </ul>
 <h2 id="resource-location"><a class="toc-anchor" href="#resource-location" >§</a> Resource Location</h2>
 <p>Credential Manifests <strong><strong>should</strong></strong> be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers <strong><strong>SHOULD</strong></strong> make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).</p>
-<h2 id="format-selection"><a class="toc-anchor" href="#format-selection" >§</a> Format Selection</h2>
-<p><a class="term-reference" href="#term:format-selections">Format Selections</a> are objects embedded within target <a class="term-reference" href="#term:claim">Claim</a> negotiation formats that express the formats the <a class="term-reference" href="#term:holder">Holder</a> wants for each issued <a class="term-reference" href="#term:claim">Claim</a> identified in the Credential Manifest’s <a class="term-reference" href="#term:ouput-descriptors">Ouput Descriptors</a>. It allows the <a class="term-reference" href="#term:holder">Holder</a> to request the same <a class="term-reference" href="#term:claim">Claim</a> be issued in multiple formats.</p>
+<h2 id="credential-submission"><a class="toc-anchor" href="#credential-submission" >§</a> Credential Submission</h2>
+<p>Credential Submission are objects embedded within target claim negotiation formats that pass information from the <a class="term-reference" href="#term:holder">Holder</a> to the <a class="term-reference" href="#term:issuer">Issuer</a></p>
 <ul>
-<li>The <code>format_selection</code> object <strong><strong>MUST</strong></strong> be included at the top-level of an Embed Target, or in the specific location described in the <a href="#embed-locations" >Embeded Locations table</a> in the <a href="#embed-target" >Emded Target</a> section below</li>
-<li>The <code>format_selection</code> object <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a unique identifier, such as a UUID</li>
-<li>The <code>format_selection</code> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code> property. The value of this property <strong><strong>MUST</strong></strong> be the id of a valid Credential Manifest.</li>
-<li>The <code>format_selection</code> object <strong><strong>MUST</strong></strong> include a <code>selection_map</code> property. the value of this property <strong><strong>MUST</strong></strong> be an array of <em>Format Selection Mapping Objects</em>, composes as follows:
+<li>The <a class="term-reference" href="#term:credential-submission">Credential Submission</a> object <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a unique identifier, such as a UUID</li>
+<li>The <a class="term-reference" href="#term:credential-submission">Credential Submission</a> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code> property. The value of this property <strong><strong>MUST</strong></strong> be the id of a valid Credential Manifest.</li>
+<li>The <a class="term-reference" href="#term:credential-submission">Credential Submission</a> <strong><strong>MUST</strong></strong> have a <code>format</code> property if the related <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> specifies a <code>format</code> property. Its value <strong><strong>MUST</strong></strong> be an object with the following optional properties:
 <ul>
-<li>The <code>selection_map</code> object <strong><strong>MUST</strong></strong> include an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a string that matches the <code>id</code> property of the <a class="term-reference" href="#term:output-descriptor">Output Descriptor</a> in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:format-selection">Format Selection</a> is related to.</li>
-<li>The <code>selection_map</code> object <strong><strong>MUST</strong></strong> include a <code>format</code> property. The value of this property <strong><strong>MUST</strong></strong> be a <em>subset</em> of the <code>format</code> property in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:format-selection">Format Selection</a> is related to.</li>
+<li>The <code>format</code> object *<em><strong>MUST</strong></em> include a <code>format</code> property. The value of this property <strong><strong>MUST</strong></strong> be a <em>subset</em> of the <code>format</code> property in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:credential-submission">Credential Submission</a> is related to. This object informs the <a class="term-reference" href="#term:issuer">Issuer</a> which formats the <a class="term-reference" href="#term:holder">Holder</a> wants to recieve the <a class="term-reference" href="#term:claims">Claims</a> in.</li>
 </ul>
 </li>
 </ul>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"format_selection"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+  <span class="token property">"credential_submission"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"</span><span class="token punctuation">,</span>
     <span class="token property">"manifest_id"</span><span class="token operator">:</span> <span class="token string">"WA-DL-CLASS-A"</span><span class="token punctuation">,</span>
-    <span class="token property">"selection_map"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"driver_license_output"</span><span class="token punctuation">,</span>
-        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"ldp_vc"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-            <span class="token property">"proof_type"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-              <span class="token string">"JsonWebSignature2020"</span><span class="token punctuation">,</span>
-              <span class="token string">"EcdsaSecp256k1Signature2019"</span>
-            <span class="token punctuation">]</span>
-          <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
+    <span class="token property">"format"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"ldp_vc"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"proof_type"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token string">"JsonWebSignature2020"</span><span class="token punctuation">,</span>
+          <span class="token string">"EcdsaSecp256k1Signature2019"</span>
+        <span class="token punctuation">]</span>
       <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="embed-targets"><a class="toc-anchor" href="#embed-targets" >§</a> Embed Targets</h3>
-<p>The following section details where the <em>Format Selection</em> is to be embedded within a target data structure.</p>
+<p>The following section details where the <em>Credential Submission</em> is to be embedded within a target data structure.</p>
 <h4 id="embed-locations"><a class="toc-anchor" href="#embed-locations" >§</a> Embed Locations</h4>
-<p>The following are the locations at which the <code>format_selection</code> object <strong><strong>MUST</strong></strong> be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.</p>
+<p>The following are the locations at which the <code>credential_submission</code> object <strong><strong>MUST</strong></strong> be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.</p>
 <table>
 <thead>
 <tr>
@@ -425,7 +418,7 @@ For example:</li>
 </ul>
 </li>
 <li><a href="#resource-location" >Resource Location</a></li>
-<li><a href="#format-selection" >Format Selection</a>
+<li><a href="#credential-submission" >Credential Submission</a>
 <ul>
 <li><a href="#embed-targets" >Embed Targets</a>
 <ul>

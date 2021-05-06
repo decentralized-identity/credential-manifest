@@ -52,8 +52,8 @@ Credential, Assertion, Attestation, etc.
 [[def:Output Descriptor Object, Output Descriptor Objects]]
 ~ Output Descriptor Objects are populated with properties describing the [[ref:Claims]] the [[ref:Issuer]] is offering the [[ref:Holder]]
 
-[[def:Format Selection, Format Selections]]
-~ Format Selections are objects embedded within target claim negotiation formats that signify the proof formats the [[ref:Holder]] wants from the [[ref:Issuer]]. See [Format Selection](#format-selection)
+[[def:Credential Submission, Credential Submissions]]
+~ Credential Submission are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]. See [Credential Submission](#credential-submission)
 
 ## Resource Definition
 
@@ -305,46 +305,39 @@ The _Display Mapping Objects_ are JSON objects constructed as follows:
 
 Credential Manifests ****should**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
 
-## Format Selection
+## Credential Submission
 
-[[ref:Format Selections]] are objects embedded within target [[ref:Claim]] negotiation formats that express the formats the [[ref:Holder]] wants for each issued [[ref:Claim]] identified in the Credential Manifest's [[ref:Ouput Descriptors]]. It allows the [[ref:Holder]] to request the same [[ref:Claim]] be issued in multiple formats.
+Credential Submission are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]
 
-- The `format_selection` object ****MUST**** be included at the top-level of an Embed Target, or in the specific location described in the [Embeded Locations table](#embed-locations) in the [Emded Target](#embed-target) section below
-- The `format_selection` object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a UUID
-- The `format_selection` object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the id of a valid Credential Manifest.
-- The `format_selection` object ****MUST**** include a `selection_map` property. the value of this property ****MUST**** be an array of _Format Selection Mapping Objects_, composes as follows:
-    - The `selection_map` object ****MUST**** include an `id` property. The value of this property ****MUST**** be a string that matches the `id` property of the [[ref:Output Descriptor]] in the [[ref:Credential Manifest]] that this [[ref:Format Selection]] is related to.
-    - The `selection_map` object ****MUST**** include a `format` property. The value of this property ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Format Selection]] is related to.
+- The [[ref:Credential Submission]] object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a UUID
+- The [[ref:Credential Submission]] object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the id of a valid Credential Manifest.
+- The [[ref:Credential Submission]] ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be an object with the following optional properties:
+  - The `format` object ****MUST*** include a `format` property. The value of this property ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to recieve the [[ref:Claims]] in.
 
 ```json
 {
-  "format_selection": {
+  "credential_submission": {
     "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "manifest_id": "WA-DL-CLASS-A",
-    "selection_map": [
-      {
-        "id": "driver_license_output",
-        "format": {
-          "ldp_vc": {
-            "proof_type": [
-              "JsonWebSignature2020",
-              "EcdsaSecp256k1Signature2019"
-            ]
-          }
-        }
+    "format": {
+      "ldp_vc": {
+        "proof_type": [
+          "JsonWebSignature2020",
+          "EcdsaSecp256k1Signature2019"
+        ]
       }
-    ]
+    }
   }
 }
 ```
 
 ### Embed Targets
 
-The following section details where the _Format Selection_ is to be embedded within a target data structure.
+The following section details where the _Credential Submission_ is to be embedded within a target data structure.
 
 #### Embed Locations
 
-The following are the locations at which the `format_selection` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
+The following are the locations at which the `credential_submission` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
 
 Target | Location
 ------ | --------

@@ -339,10 +339,30 @@ Within a `Credential Manifest`, there are two areas where styling affordances ar
 :::
 
 - The object ****MUST**** contain a `path` property and its value must be an array of [JSONPath](https://goessner.net/articles/JsonPath/) string expressions.
-- The object ****MUST*** contain a `schema` property and its value must be an object that is composed as follows:
-  - The `schema` property ****MUST**** contain a `type` property and its value must be "string", "boolean", "number", or "integer". The `type` property ****MUST**** represent the type of the data found with the `path` property of the Display Mapping Object.
+- The object ****MUST**** contain a `schema` property and its value must be an object that is composed as follows:
+  - The `schema` property ****MUST**** contain a `type` property and its value must be "string", "boolean", "number", or "integer". The `type` property ****MUST**** represent the type of the data found with the `path` property of the Display Mapping Object. [See below](#type-specific-configuration) for "type" specific configurations.
   - The `schema` property ****MAY**** contain a `format` property IF the `type` property is `"string"` and its value must be "date-time", "time", "date", "email", "idn-email", "hostname", "idn-hostname", "ipv4", "ipv6", "uri", "uri-reference", "iri", or "iri-reference". This property is to be used to transform the property in the rendered UI, for example tranforming an ISO Date string into a human readable string.
 - The object ****MAY**** contain a `fallback` property and its value ****MUST**** be a string value. This value is to be used to rendered into the UI if all the `path` property's items fail to select data within the target Claim.
+
+##### Type specific configuration
+
+When `schema.type` is set to `"string"` the object ****MAY**** contain a format property. It's value can be one of the following:
+
+| Value | Description | Spec |
+| ----- | ----------- | ---- |
+| "date-time" | Date and time together, for example, `2018-11-13T20:20:39+00:00` | [[spec:rfc3339]] |
+| "time" | Time, for example `20:20:39+00:00` | [[spec:rfc3339]] |
+| "date" | Date, for example `2018-11-13` | [[spec:rfc3339]] |
+| "email" | Internet email address | [[spec:rfc5322]] |
+| "idn-email" | The internationalized form of an Internet email address | [[spec:rfc6531]] |
+| "hostname" | Internet host name | [[spec:rfc1034]] |
+| "idn-hostname" | The internationalized form of an Internet host name | [[spec:rfc5890]] |
+| "ipv4" | IPv4 address | [[spec:rfc2673]] |
+| "ipv6" | IPv6 address | [[spec:rfc2373]] |
+| "uri" | A universal resource identifier | [[spec:rfc3986]] |
+| "uri-reference" | A URI reference | [[spec:rfc3986]] |
+| "iri" | The internationalized equivalent of a "uri" | [[spec:rfc3987]] |
+| "iri-reference" | The internationalized equivalent of a "uri-reference" | [[spec:rfc3987]] |
 
 #### Using `text`
 
@@ -540,4 +560,8 @@ The following JSON Schema Draft 7 definition summarizes the format-related rules
 
 ## Resource Location
 
-Credential Manifests ****should**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
+Credential Manifests ****SHOULD**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
+
+## References
+
+[[spec]]

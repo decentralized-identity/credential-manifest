@@ -217,7 +217,7 @@ For example:</li>
 <h3 id="output-descriptor"><a class="toc-anchor" href="#output-descriptor" >§</a> Output Descriptor</h3>
 <p><a class="term-reference" href="#term:output-descriptors">Output Descriptors</a> are objects used to describe the <a class="term-reference" href="#term:claims">Claims</a> a <a class="term-reference" href="#term:issuer">Issuer</a> if offering to a <a class="term-reference" href="#term:holder">Holder</a>.</p>
 <p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.</p>
-<div id="example-4" class="notice example"><a class="notice-link" href="#example-4">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="example-5" class="notice example"><a class="notice-link" href="#example-5">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token string">"https://schema.org/EducationalOccupationalCredential"</span><span class="token punctuation">,</span>
@@ -362,14 +362,92 @@ For example:</li>
 </div>
 <ul>
 <li>The object <strong><strong>MUST</strong></strong> contain a <code>path</code> property and its value must be an array of <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> string expressions.</li>
-<li>The object *<em><strong>MUST</strong></em> contain a <code>schema</code> property and its value must be an object that is composed as follows:
+<li>The object <strong><strong>MUST</strong></strong> contain a <code>schema</code> property and its value must be an object that is composed as follows:
 <ul>
-<li>The <code>schema</code> property <strong><strong>MUST</strong></strong> contain a <code>type</code> property and its value must be “string”, “boolean”, “number”, or “integer”. The <code>type</code> property <strong><strong>MUST</strong></strong> represent the type of the data found with the <code>path</code> property of the Display Mapping Object.</li>
+<li>The <code>schema</code> property <strong><strong>MUST</strong></strong> contain a <code>type</code> property and its value must be “string”, “boolean”, “number”, or “integer”. The <code>type</code> property <strong><strong>MUST</strong></strong> represent the type of the data found with the <code>path</code> property of the Display Mapping Object. <a href="#type-specific-configuration" >See below</a> for “type” specific configurations.</li>
 <li>The <code>schema</code> property <strong><strong>MAY</strong></strong> contain a <code>format</code> property IF the <code>type</code> property is <code>&quot;string&quot;</code> and its value must be “date-time”, “time”, “date”, “email”, “idn-email”, “hostname”, “idn-hostname”, “ipv4”, “ipv6”, “uri”, “uri-reference”, “iri”, or “iri-reference”. This property is to be used to transform the property in the rendered UI, for example tranforming an ISO Date string into a human readable string.</li>
 </ul>
 </li>
 <li>The object <strong><strong>MAY</strong></strong> contain a <code>fallback</code> property and its value <strong><strong>MUST</strong></strong> be a string value. This value is to be used to rendered into the UI if all the <code>path</code> property’s items fail to select data within the target Claim.</li>
 </ul>
+<h5 id="type-specific-configuration"><a class="toc-anchor" href="#type-specific-configuration" >§</a> Type specific configuration</h5>
+<p>When <code>schema.type</code> is set to <code>&quot;string&quot;</code> the object <strong><strong>MAY</strong></strong> contain a format property. It’s value can be one of the following:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+<th>Spec</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“date-time”</td>
+<td>Date and time together, for example, <code>2018-11-13T20:20:39+00:00</code></td>
+<td>[<a class="spec-reference" href="#ref:RFC3339">RFC3339</a>]</td>
+</tr>
+<tr>
+<td>“time”</td>
+<td>Time, for example <code>20:20:39+00:00</code></td>
+<td>[<a class="spec-reference" href="#ref:RFC3339">RFC3339</a>]</td>
+</tr>
+<tr>
+<td>“date”</td>
+<td>Date, for example <code>2018-11-13</code></td>
+<td>[<a class="spec-reference" href="#ref:RFC3339">RFC3339</a>]</td>
+</tr>
+<tr>
+<td>“email”</td>
+<td>Internet email address</td>
+<td>[<a class="spec-reference" href="#ref:RFC5322">RFC5322</a>]</td>
+</tr>
+<tr>
+<td>“idn-email”</td>
+<td>The internationalized form of an Internet email address</td>
+<td>[<a class="spec-reference" href="#ref:RFC6531">RFC6531</a>]</td>
+</tr>
+<tr>
+<td>“hostname”</td>
+<td>Internet host name</td>
+<td>[<a class="spec-reference" href="#ref:RFC1034">RFC1034</a>]</td>
+</tr>
+<tr>
+<td>“idn-hostname”</td>
+<td>The internationalized form of an Internet host name</td>
+<td>[<a class="spec-reference" href="#ref:RFC5890">RFC5890</a>]</td>
+</tr>
+<tr>
+<td>“ipv4”</td>
+<td>IPv4 address</td>
+<td>[<a class="spec-reference" href="#ref:RFC2673">RFC2673</a>]</td>
+</tr>
+<tr>
+<td>“ipv6”</td>
+<td>IPv6 address</td>
+<td>[<a class="spec-reference" href="#ref:RFC2373">RFC2373</a>]</td>
+</tr>
+<tr>
+<td>“uri”</td>
+<td>A universal resource identifier</td>
+<td>[<a class="spec-reference" href="#ref:RFC3986">RFC3986</a>]</td>
+</tr>
+<tr>
+<td>“uri-reference”</td>
+<td>A URI reference</td>
+<td>[<a class="spec-reference" href="#ref:RFC3986">RFC3986</a>]</td>
+</tr>
+<tr>
+<td>“iri”</td>
+<td>The internationalized equivalent of a “uri”</td>
+<td>[<a class="spec-reference" href="#ref:RFC3987">RFC3987</a>]</td>
+</tr>
+<tr>
+<td>“iri-reference”</td>
+<td>The internationalized equivalent of a “uri-reference”</td>
+<td>[<a class="spec-reference" href="#ref:RFC3987">RFC3987</a>]</td>
+</tr>
+</tbody>
+</table>
 <h4 id="using-text"><a class="toc-anchor" href="#using-text" >§</a> Using <code>text</code></h4>
 <div id="display-mapping-object-with-text" class="notice example"><a class="notice-link" href="#display-mapping-object-with-text">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -550,7 +628,66 @@ For example:</li>
 <span class="token punctuation">}</span>
 </code></pre>
 <h2 id="resource-location"><a class="toc-anchor" href="#resource-location" >§</a> Resource Location</h2>
-<p>Credential Manifests <strong><strong>should</strong></strong> be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers <strong><strong>SHOULD</strong></strong> make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).</p>
+<p>Credential Manifests <strong><strong>SHOULD</strong></strong> be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers <strong><strong>SHOULD</strong></strong> make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).</p>
+<h2 id="references"><a class="toc-anchor" href="#references" >§</a> References</h2>
+<p>
+<dl class="reference-list">
+        <dt id="ref:RFC1034">RFC1034</dt>
+        <dd>
+          <cite><a href="https://tools.ietf.org/html/rfc1034">Domain names - concepts and facilities</a></cite>. 
+          P.V. Mockapetris; 1987-11. <span class="reference-status">Status: Internet Standard</span>.
+        </dd>
+      
+        <dt id="ref:RFC2373">RFC2373</dt>
+        <dd>
+          <cite><a href="https://tools.ietf.org/html/rfc2373">IP Version 6 Addressing Architecture</a></cite>. 
+          R. Hinden; S. Deering; 1998-07. <span class="reference-status">Status: Proposed Standard</span>.
+        </dd>
+      
+        <dt id="ref:RFC2673">RFC2673</dt>
+        <dd>
+          <cite><a href="https://tools.ietf.org/html/rfc2673">Binary Labels in the Domain Name System</a></cite>. 
+          M. Crawford; 1999-08. <span class="reference-status">Status: Historic</span>.
+        </dd>
+      
+        <dt id="ref:RFC3339">RFC3339</dt>
+        <dd>
+          <cite><a href="https://tools.ietf.org/html/rfc3339">Date and Time on the Internet: Timestamps</a></cite>. 
+          G. Klyne; C. Newman; 2002-07. <span class="reference-status">Status: Proposed Standard</span>.
+        </dd>
+      
+        <dt id="ref:RFC3986">RFC3986</dt>
+        <dd>
+          <cite><a href="https://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a></cite>. 
+          T. Berners-Lee; R. Fielding; L. Masinter; 2005-01. <span class="reference-status">Status: Internet Standard</span>.
+        </dd>
+      
+        <dt id="ref:RFC3987">RFC3987</dt>
+        <dd>
+          <cite><a href="https://tools.ietf.org/html/rfc3987">Internationalized Resource Identifiers (IRIs)</a></cite>. 
+          M. Duerst; M. Suignard; 2005-01. <span class="reference-status">Status: Proposed Standard</span>.
+        </dd>
+      
+        <dt id="ref:RFC5322">RFC5322</dt>
+        <dd>
+          <cite><a href="https://tools.ietf.org/html/rfc5322">Internet Message Format</a></cite>. 
+          P. Resnick, Ed.; 2008-10. <span class="reference-status">Status: Draft Standard</span>.
+        </dd>
+      
+        <dt id="ref:RFC5890">RFC5890</dt>
+        <dd>
+          <cite><a href="https://tools.ietf.org/html/rfc5890">Internationalized Domain Names for Applications (IDNA): Definitions and Document Framework</a></cite>. 
+          J. Klensin; 2010-08. <span class="reference-status">Status: Proposed Standard</span>.
+        </dd>
+      
+        <dt id="ref:RFC6531">RFC6531</dt>
+        <dd>
+          <cite><a href="https://tools.ietf.org/html/rfc6531">SMTP Extension for Internationalized Email</a></cite>. 
+          J. Yao; W. Mao; 2012-02. <span class="reference-status">Status: Proposed Standard</span>.
+        </dd>
+      
+</dl>
+</p>
 
                     </article>    
       
@@ -603,6 +740,7 @@ For example:</li>
 </ul>
 </li>
 <li><a href="#resource-location" >Resource Location</a></li>
+<li><a href="#references" >References</a></li>
 </ul>
 
                       </div>

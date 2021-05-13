@@ -49,13 +49,16 @@ Credential, Assertion, Attestation, etc.
 [[def:Output Descriptor Object, Output Descriptor Objects]]
 ~ Output Descriptor Objects are populated with properties describing the [[ref:Claims]] the [[ref:Issuer]] is offering the [[ref:Holder]]
 
+[[def:Credential Submission, Credential Submissions]]
+~ Credential Submission are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]. See [Credential Submission](#credential-submission)
+
 [[def:Display Mapping Object, Display Mapping Objects]]
 ~ Display Mapping Objects are used to render UI based on information from and about a [[ref:Claim]]. See [Display Mapping Object](#display-mapping-object)
 
 [[def:Labeled Display Mapping Object, Labeled Display Mapping Objects]]
 ~ ref:Labeled Display Mapping Objects extend from [[ref:Display Mapping Objects]]. See [Labeled Display Mapping Object](#labeled-display-mapping-object)
-[[def:Credential Fulfillment, Credential Fulfillments]]
 
+[[def:Credential Fulfillment, Credential Fulfillments]]
 ~ Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. See [Credential Fulfillment](#credential-fulfillment).
 
 ## Resource Definition
@@ -564,6 +567,44 @@ The following JSON Schema Draft 7 definition summarizes the format-related rules
 ## Resource Location
 
 Credential Manifests ****SHOULD**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
+
+## Credential Submission
+
+Credential Submission are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]
+
+- The [[ref:Credential Submission]] object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a UUID
+- The [[ref:Credential Submission]] object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the id of a valid Credential Manifest.
+- The [[ref:Credential Submission]] ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be an object with the following optional properties:
+  - The `format` object ****MUST*** include a `format` property. The value of this property ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to recieve the [[ref:Claims]] in.
+
+```json
+{
+  "credential_submission": {
+    "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+    "manifest_id": "WA-DL-CLASS-A",
+    "format": {
+      "ldp_vc": {
+        "proof_type": [
+          "JsonWebSignature2020",
+          "EcdsaSecp256k1Signature2019"
+        ]
+      }
+    }
+  }
+}
+```
+
+### Embed Targets
+
+The following section details where the _Credential Submission_ is to be embedded within a target data structure.
+
+#### Embed Locations
+
+The following are the locations at which the `credential_submission` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
+
+Target | Location
+------ | --------
+       |
 
 ## Credential Fulfillment
 

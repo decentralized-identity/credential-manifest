@@ -72,42 +72,26 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <h2 id="terminology"><a class="toc-anchor" href="#terminology" >§</a> Terminology</h2>
 <dl>
 <dt><span id="term:did"><span id="term:decentralized-identifier"><span id="term:decentralized-identifiers">Decentralized Identifiers</span></span></span></dt>
-<dd>
-<p>Unique ID URI string and PKI metadata document format for describing the cryptographic keys and other fundamental PKI values linked to a unique, user-controlled, self-sovereign identifier in a target system (i.e. blockchain, distributed ledger).</p>
-</dd>
+<dd>Unique ID URI string and PKI metadata document format for describing the cryptographic keys and other fundamental PKI values linked to a unique, user-controlled, self-sovereign identifier in a target system (i.e. blockchain, distributed ledger).</dd>
 <dt><span id="term:claims"><span id="term:claim">Claim</span></span></dt>
-<dd>
-<p>An assertion made about a <a class="term-reference" href="#term:subject">Subject</a>. Used as an umbrella term for
-Credential, Assertion, Attestation, etc.</p>
-</dd>
+<dd>An assertion made about a <a class="term-reference" href="#term:subject">Subject</a>. Used as an umbrella term for
+Credential, Assertion, Attestation, etc.</dd>
 <dt><span id="term:issuers"><span id="term:issuer">Issuer</span></span></dt>
-<dd>
-<p>Issuers are entities that issue credentials to a <a class="term-reference" href="#term:holder">Holder</a>.</p>
-</dd>
+<dd>Issuers are entities that issue credentials to a <a class="term-reference" href="#term:holder">Holder</a>.</dd>
 <dt><span id="term:holders"><span id="term:holder">Holder</span></span></dt>
-<dd>
-<p>Holders are entities that recieve credentials from <a class="term-reference" href="#term:issuers">Issuers</a>, possibly first submitting proofs the the Issuer to satisfy the requirements described in a Presentation Definition.</p>
-</dd>
+<dd>Holders are entities that recieve credentials from <a class="term-reference" href="#term:issuers">Issuers</a>, possibly first submitting proofs the the Issuer to satisfy the requirements described in a Presentation Definition.</dd>
 <dt><span id="term:output-descriptors"><span id="term:output-descriptor">Output Descriptor</span></span></dt>
-<dd>
-<p>Output Descriptors are used by an Issuer to describe the credentials they are offering to a <a class="term-reference" href="#term:holder">Holder</a>. See <a href="#output-descriptor" >Output Descriptor</a></p>
-</dd>
+<dd>Output Descriptors are used by an Issuer to describe the credentials they are offering to a <a class="term-reference" href="#term:holder">Holder</a>. See <a href="#output-descriptor" >Output Descriptor</a></dd>
 <dt><span id="term:output-descriptor-objects"><span id="term:output-descriptor-object">Output Descriptor Object</span></span></dt>
-<dd>
-<p>Output Descriptor Objects are populated with properties describing the <a class="term-reference" href="#term:claims">Claims</a> the <a class="term-reference" href="#term:issuer">Issuer</a> is offering the <a class="term-reference" href="#term:holder">Holder</a></p>
-</dd>
+<dd>Output Descriptor Objects are populated with properties describing the <a class="term-reference" href="#term:claims">Claims</a> the <a class="term-reference" href="#term:issuer">Issuer</a> is offering the <a class="term-reference" href="#term:holder">Holder</a></dd>
+<dt><span id="term:credential-submissions"><span id="term:credential-submission">Credential Submission</span></span></dt>
+<dd>Credential Submission are objects embedded within target claim negotiation formats that pass information from the <a class="term-reference" href="#term:holder">Holder</a> to the <a class="term-reference" href="#term:issuer">Issuer</a>. See <a href="#credential-submission" >Credential Submission</a></dd>
 <dt><span id="term:display-mapping-objects"><span id="term:display-mapping-object">Display Mapping Object</span></span></dt>
-<dd>
-<p>Display Mapping Objects are used to render UI based on information from and about a <a class="term-reference" href="#term:claim">Claim</a>. See <a href="#display-mapping-object" >Display Mapping Object</a></p>
-</dd>
+<dd>Display Mapping Objects are used to render UI based on information from and about a <a class="term-reference" href="#term:claim">Claim</a>. See <a href="#display-mapping-object" >Display Mapping Object</a></dd>
 <dt><span id="term:labeled-display-mapping-objects"><span id="term:labeled-display-mapping-object">Labeled Display Mapping Object</span></span></dt>
-<dd>
-<p>ref:Labeled Display Mapping Objects extend from <a class="term-reference" href="#term:display-mapping-objects">Display Mapping Objects</a>. See <a href="#labeled-display-mapping-object" >Labeled Display Mapping Object</a>
-<span id="term:credential-fulfillments"><span id="term:credential-fulfillment">Credential Fulfillment</span></span></p>
-</dd>
-<dd>
-<p>Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of <a class="term-reference" href="#term:claims">Claims</a> to a <a class="term-reference" href="#term:holder">Holder</a> in accordance with the output an <a class="term-reference" href="#term:issuer">Issuer</a> specified in a <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>. See <a href="#credential-fulfillment" >Credential Fulfillment</a>.</p>
-</dd>
+<dd>ref:Labeled Display Mapping Objects extend from <a class="term-reference" href="#term:display-mapping-objects">Display Mapping Objects</a>. See <a href="#labeled-display-mapping-object" >Labeled Display Mapping Object</a></dd>
+<dt><span id="term:credential-fulfillments"><span id="term:credential-fulfillment">Credential Fulfillment</span></span></dt>
+<dd>Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of <a class="term-reference" href="#term:claims">Claims</a> to a <a class="term-reference" href="#term:holder">Holder</a> in accordance with the output an <a class="term-reference" href="#term:issuer">Issuer</a> specified in a <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>. See <a href="#credential-fulfillment" >Credential Fulfillment</a>.</dd>
 </dl>
 <h2 id="resource-definition"><a class="toc-anchor" href="#resource-definition" >§</a> Resource Definition</h2>
 <p><em>Credential Manifests</em> are a resource format that defines preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.</p>
@@ -234,7 +218,7 @@ For example:</li>
 <h3 id="output-descriptor"><a class="toc-anchor" href="#output-descriptor" >§</a> Output Descriptor</h3>
 <p><a class="term-reference" href="#term:output-descriptors">Output Descriptors</a> are objects used to describe the <a class="term-reference" href="#term:claims">Claims</a> a <a class="term-reference" href="#term:issuer">Issuer</a> if offering to a <a class="term-reference" href="#term:holder">Holder</a>.</p>
 <p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.</p>
-<div id="example-2" class="notice example"><a class="notice-link" href="#example-2">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="example-1" class="notice example"><a class="notice-link" href="#example-1">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"driver_license_output"</span><span class="token punctuation">,</span>
@@ -652,6 +636,49 @@ For example:</li>
 </code></pre>
 <h2 id="resource-location"><a class="toc-anchor" href="#resource-location" >§</a> Resource Location</h2>
 <p>Credential Manifests <strong><strong>SHOULD</strong></strong> be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers <strong><strong>SHOULD</strong></strong> make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).</p>
+<h2 id="credential-submission"><a class="toc-anchor" href="#credential-submission" >§</a> Credential Submission</h2>
+<p>Credential Submission are objects embedded within target claim negotiation formats that pass information from the <a class="term-reference" href="#term:holder">Holder</a> to the <a class="term-reference" href="#term:issuer">Issuer</a></p>
+<ul>
+<li>The <a class="term-reference" href="#term:credential-submission">Credential Submission</a> object <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a unique identifier, such as a UUID</li>
+<li>The <a class="term-reference" href="#term:credential-submission">Credential Submission</a> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code> property. The value of this property <strong><strong>MUST</strong></strong> be the id of a valid Credential Manifest.</li>
+<li>The <a class="term-reference" href="#term:credential-submission">Credential Submission</a> <strong><strong>MUST</strong></strong> have a <code>format</code> property if the related <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> specifies a <code>format</code> property. Its value <strong><strong>MUST</strong></strong> be an object with the following optional properties:
+<ul>
+<li>The <code>format</code> object *<em><strong>MUST</strong></em> include a <code>format</code> property. The value of this property <strong><strong>MUST</strong></strong> be a <em>subset</em> of the <code>format</code> property in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:credential-submission">Credential Submission</a> is related to. This object informs the <a class="term-reference" href="#term:issuer">Issuer</a> which formats the <a class="term-reference" href="#term:holder">Holder</a> wants to recieve the <a class="term-reference" href="#term:claims">Claims</a> in.</li>
+</ul>
+</li>
+</ul>
+<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"credential_submission"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"</span><span class="token punctuation">,</span>
+    <span class="token property">"manifest_id"</span><span class="token operator">:</span> <span class="token string">"WA-DL-CLASS-A"</span><span class="token punctuation">,</span>
+    <span class="token property">"format"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"ldp_vc"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"proof_type"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token string">"JsonWebSignature2020"</span><span class="token punctuation">,</span>
+          <span class="token string">"EcdsaSecp256k1Signature2019"</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="embed-targets"><a class="toc-anchor" href="#embed-targets" >§</a> Embed Targets</h3>
+<p>The following section details where the <em>Credential Submission</em> is to be embedded within a target data structure.</p>
+<h4 id="embed-locations"><a class="toc-anchor" href="#embed-locations" >§</a> Embed Locations</h4>
+<p>The following are the locations at which the <code>credential_submission</code> object <strong><strong>MUST</strong></strong> be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
 <h2 id="credential-fulfillment"><a class="toc-anchor" href="#credential-fulfillment" >§</a> Credential Fulfillment</h2>
 <p><a class="term-reference" href="#term:credential-fulfillments">Credential Fulfillments</a> are objects embedded within target <a class="term-reference" href="#term:claim">Claim</a> negotiation formats that express how the outputs presented as proofs to a <a class="term-reference" href="#term:holder">Holder</a> are provided in accordance with the outpus specified in a <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>. Embedded <a class="term-reference" href="#term:credential-fulfillment">Credential Fulfillment</a> objects <strong><strong>MUST</strong></strong> be located within target data format as the value of a <code>credential_fulfillment</code> property, which is composed and embedded as follows:</p>
 <ul>
@@ -737,9 +764,9 @@ object, process as follows:</p>
 </li>
 <li>If parsing of the <em>Nested Submission Traversal Objects</em> in the <code>path_nested</code> property produced a valid value, process it as the submission against the <a class="term-reference" href="#term:output-descriptor">Output Descriptor</a> indicated by the <code>id</code> property of the containing <em>Output Descriptor Mapping Object</em>.</li>
 </ol>
-<h3 id="embed-targets"><a class="toc-anchor" href="#embed-targets" >§</a> Embed Targets</h3>
+<h3 id="embed-targets-2"><a class="toc-anchor" href="#embed-targets-2" >§</a> Embed Targets</h3>
 <p>The following section details where the <em>Credential Fulfillment</em> is to be embedded within a target data structure, as well as how to formulate the <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> expressions to select the <a class="term-reference" href="#term:claims">Claims</a> within the target data structure.</p>
-<h4 id="embed-locations"><a class="toc-anchor" href="#embed-locations" >§</a> Embed Locations</h4>
+<h4 id="embed-locations-2"><a class="toc-anchor" href="#embed-locations-2" >§</a> Embed Locations</h4>
 <p>The following are the locations at which the <code>credential_manifest</code> object <strong><strong>MUST</strong></strong> be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.</p>
 <table>
 <thead>
@@ -1025,12 +1052,21 @@ object, process as follows:</p>
 </ul>
 </li>
 <li><a href="#resource-location" >Resource Location</a></li>
-<li><a href="#credential-fulfillment" >Credential Fulfillment</a>
+<li><a href="#credential-submission" >Credential Submission</a>
 <ul>
-<li><a href="#processing-of-path_nested-entries" >Processing of <code>path_nested</code> Entries</a></li>
 <li><a href="#embed-targets" >Embed Targets</a>
 <ul>
 <li><a href="#embed-locations" >Embed Locations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#credential-fulfillment" >Credential Fulfillment</a>
+<ul>
+<li><a href="#processing-of-path_nested-entries" >Processing of <code>path_nested</code> Entries</a></li>
+<li><a href="#embed-targets-2" >Embed Targets</a>
+<ul>
+<li><a href="#embed-locations-2" >Embed Locations</a></li>
 </ul>
 </li>
 <li><a href="#json-schema-3" >JSON Schema</a></li>

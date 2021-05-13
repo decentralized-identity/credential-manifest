@@ -31,10 +31,7 @@ Credential Manifest is a draft specification being developed within the [Decentr
 ## Terminology
 
 [[def:Decentralized Identifiers, Decentralized Identifier, DID]]
-~ Unique ID URI string and PKI metadata document format for describing the
-cryptographic keys and other fundamental PKI values linked to a unique,
-user-controlled, self-sovereign identifier in a target system (i.e. blockchain,
-distributed ledger).
+~ Unique ID URI string and PKI metadata document format for describing the cryptographic keys and other fundamental PKI values linked to a unique, user-controlled, self-sovereign identifier in a target system (i.e. blockchain, distributed ledger).
 
 [[def:Claim, Claims]]
 ~ An assertion made about a [[ref:Subject]]. Used as an umbrella term for
@@ -51,6 +48,9 @@ Credential, Assertion, Attestation, etc.
 
 [[def:Output Descriptor Object, Output Descriptor Objects]]
 ~ Output Descriptor Objects are populated with properties describing the [[ref:Claims]] the [[ref:Issuer]] is offering the [[ref:Holder]]
+
+[[def:Credential Fulfillment, Credential Fulfillments]]
+~ Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. See [Credential Fulfillment](#credential-fulfillment).
 
 ## Resource Definition
 
@@ -191,6 +191,7 @@ _Credential Manifests_ are JSON objects composed as follows:
 {
   "output_descriptors": [
     {
+      "id": "driver_license_output",
       "schema": "https://schema.org/EducationalOccupationalCredential",
       "display": {
         "title": {
@@ -237,6 +238,7 @@ _Credential Manifests_ are JSON objects composed as follows:
 
 [[ref:Output Descriptor Objects]] are composed as follows:
 
+- The [[ref:Output Descriptor Object]] ****MUST**** contain an `id` property. The value of the `id` property ****MUST**** be a string that does not conflict with the `id` of another [[ref:Output Descriptor Object]] in the same [[ref:Credential Manifest]].
 - The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be an array composed of schema objects for the schema(s) of the credentials to be issued.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
@@ -302,3 +304,270 @@ The _Display Mapping Objects_ are JSON objects constructed as follows:
 
 Credential Manifests ****should**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
 
+## Credential Fulfillment
+
+[[ref:Credential Fulfillments]] are objects embedded within target [[ref:Claim]] negotiation formats that express how the outputs presented as proofs to a [[ref:Holder]] are provided in accordance with the outpus specified in a [[ref:Credential Manifest]]. Embedded [[ref:Credential Fulfillment]] objects ****MUST**** be located within target data format as the value of a `credential_fulfillment` property, which is composed and embedded as follows:
+
+- The `credential_fulfillment` object ****MUST**** be included at the top-level of an Embed Target, or in the specific location described in the [Embed Locations table](#embed-locations) in the [Embed Target](#embed-target) section below.
+- The `credential_fulfillment` object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a [UUID](https://tools.ietf.org/html/rfc4122).
+- The `credential_fulfillment` object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Manifest]].
+- The `credential_fulfillment` object ****MUST**** include a `descriptor_map` property. The value of thi property ****MUST**** be an array of _Output Descriptor Mapping Objects_, composed as follows:
+    - The `descriptor_map` object ****MUST**** include an `id` property. The value of this property ****MUST**** be a string that matches the `id` property of the [[ref:Output Descriptor]] in the [[ref:Credential Manifest]] that this [[ref:Credential Fulfillment]] is related to.
+    - The `descriptor_map` object ****MUST**** include a `format` property. The value of this property ****MUST**** be a string that matches one of the [Claim Format Designation](#claim-format-designations). This denotes the data format of the [[ref:Claim]].
+    - The `descriptor_map` object ****MUST**** include a `path` property. The value of this property ****MUST**** be a [JSONPath](https://goessner.net/articles/JsonPath/) string expression. The `path` property indicates the [[ref:Claim]] submitted in relation to the identified [[ref:Output Descriptor]], when executed against the top-level of the object the [[ref:Credential Fulfillment]] is embedded within.
+    - The object ****MAY**** include a `path_nested` object to indicate the presence of a multi-[[ref:Claim]] envelope format. This means the [[ref:Claim]] indicated is to be decoded separately from its parent enclosure.
+      + The format of a `path_nested` object mirrors that of a `descriptor_map` property. The nesting may be any number of levels deep. The `id` property ****MUST**** be the same for each level of nesting.
+      + The `path` property inside each `path_nested` property provides a _relative path_ within a given nested value.
+
+::: example Basic Credential Fulfillment
+```json
+{
+  // NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be here
+
+  "credential_fulfillment": {
+    "id": "a30e3b91-fb77-4d22-95fa-871689c322e2",
+    "manifest_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
+    "descriptor_map": [
+      {
+        "id": "banking_output_2",
+        "format": "jwt_vc",
+        "path": "$.verifiableCredential[0]"
+      },
+      {
+        "id": "employment_output",
+        "format": "ldp_vc",
+        "path": "$.verifiableCredential[1]"
+      },
+      {
+        "id": "citizenship_output_1",
+        "format": "ldp_vc",
+        "path": "$.verifiableCredential[2]"
+      }
+    ]
+  }
+}
+```
+:::
+
+### Processing of `path_nested` Entries
+
+::: example Nested Credential Fulfillment
+```json
+{
+  "credential_fulfillment": {
+    "id": "a30e3b91-fb77-4d22-95fa-871689c322e2",
+    "manifest_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
+    "descriptor_map": [
+      {
+        "id": "banking_output_2",
+        "format": "jwt_vp",
+        "path": "$.outerClaim[0]",
+        "path_nested": {
+          "id": "banking_output_2",
+          "format": "ldp_vc",
+          "path": "$.innerClaim[1]",
+          "path_nested": {
+            "id": "banking_output_2",
+            "format": "jwt_vc",
+            "path": "$.mostInnerClaim[2]"
+          }
+        }
+      }
+    ]
+  }
+}
+```
+:::
+
+When the `path_nested` property is present in a [[ref:Credential Fulfillment]]
+object, process as follows:
+
+1. For each _Nested Submission Traversal Object_ in the `path_nested` array:
+   1. Execute the [JSONPath](https://goessner.net/articles/JsonPath/) expression string on the [_Current Traversal Object_](#current-traversal-object){id="current-traversal-object"}, or if none is designated, the top level of the Embed Target.
+   1. Decode and parse the value returned from [JSONPath](https://goessner.net/articles/JsonPath/) execution in accordance with the [Claim Format Designation](#claim-format-designations) specified in the object's `format` property. If the value parses and validates in accordance with the [Claim Format Designation](#claim-format-designations) specified, let the resulting object be the [_Current Traversal Object_](#current-traversal-object)
+   1. If present, process the next _Nested Submission Traversal Object_ in the current `path_nested` property.
+2. If parsing of the _Nested Submission Traversal Objects_ in the `path_nested` property produced a valid value, process it as the submission against the [[ref:Output Descriptor]] indicated by the `id` property of the containing _Output Descriptor Mapping Object_.
+
+### Embed Targets
+
+The following section details where the _Credential Fulfillment_ is to be embedded within a target data structure, as well as how to formulate the [JSONPath](https://goessner.net/articles/JsonPath/) expressions to select the [[ref:Claims]] within the target data structure.
+
+#### Embed Locations
+
+The following are the locations at which the `credential_manifest` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
+
+Target     | Location
+---------- | --------
+VP         | top-level
+
+### JSON Schema
+The following JSON Schema Draft 7 definition summarizes the rules above:
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Credential Fulfillment",
+  "type": "object",
+  "properties": {
+    "credential_fulfillment": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "manifest_id": { "type": "string" },
+        "descriptor_map": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/descriptor" }
+        }
+      },
+      "required": ["id", "manifest_id", "descriptor_map"],
+      "additionalProperties": false
+    }
+  },
+  "definitions": {
+    "descriptor": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "path": { "type": "string" },
+        "path_nested": {
+          "type": "object",
+            "$ref": "#/definitions/descriptor"
+        },
+        "format": {
+          "type": "string",
+          "enum": ["jwt", "jwt_vc", "jwt_vp", "ldp", "ldp_vc", "ldp_vp"]
+        }
+      },
+      "required": ["id", "path", "format"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["credential_fulfillment"],
+  "additionalProperties": false
+}
+```
+
+## Appendix
+
+### Embed Target Examples
+
+#### Credential Fulfillment
+
+<tab-panels selected-index="0">
+
+<nav>
+  <button type="button">Verifiable Presentation</button>
+</nav>
+
+<section>
+
+::: example Credential Fulfillment - Verifiable Presentation
+```json
+{
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1",
+    "https://identity.foundation/credential-manifest/fulfillment/v1"
+  ],
+  "type": [
+    "VerifiablePresentation",
+    "CredentialFulfillment"
+  ],
+  "credential_fulfillment": {
+    "id": "a30e3b91-fb77-4d22-95fa-871689c322e2",
+    "manifest_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
+    "descriptor_map": [
+      {
+        "id": "banking_output_2",
+        "format": "jwt_vc",
+        "path": "$.verifiableCredential[0]"
+      },
+      {
+        "id": "employment_output",
+        "format": "ldp_vc",
+        "path": "$.verifiableCredential[1]"
+      },
+      {
+        "id": "citizenship_output_1",
+        "format": "ldp_vc",
+        "path": "$.verifiableCredential[2]"
+      }
+    ]
+  },
+  "verifiableCredential": [
+    {
+      "comment": "IN REALWORLD VPs, THIS WILL BE A BIG UGLY OBJECT INSTEAD OF THE DECODED JWT PAYLOAD THAT FOLLOWS",
+      "vc": {
+        "@context": "https://www.w3.org/2018/credentials/v1",
+        "id": "https://eu.com/claims/DriversLicense",
+        "type": ["EUDriversLicense"],
+        "issuer": "did:example:123",
+        "issuanceDate": "2010-01-01T19:73:24Z",
+        "credentialSubject": {
+          "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+          "accounts": [
+            {
+              "id": "1234567890",
+              "route": "DE-9876543210"
+            },
+            {
+              "id": "2457913570",
+              "route": "DE-0753197542"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "@context": "https://www.w3.org/2018/credentials/v1",
+      "id": "https://business-standards.org/schemas/employment-history.json",
+      "type": ["VerifiableCredential", "GenericEmploymentCredential"],
+      "issuer": "did:foo:123",
+      "issuanceDate": "2010-01-01T19:73:24Z",
+      "credentialSubject": {
+        "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+        "active": true
+      },
+      "proof": {
+        "type": "EcdsaSecp256k1VerificationKey2019",
+        "created": "2017-06-18T21:19:10Z",
+        "proofPurpose": "assertionMethod",
+        "verificationMethod": "https://example.edu/issuers/keys/1",
+        "jws": "..."
+      }
+    },
+    {
+      "@context": "https://www.w3.org/2018/credentials/v1",
+      "id": "https://eu.com/claims/DriversLicense",
+      "type": ["EUDriversLicense"],
+      "issuer": "did:foo:123",
+      "issuanceDate": "2010-01-01T19:73:24Z",
+      "credentialSubject": {
+        "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
+        "license": {
+          "number": "34DGE352",
+          "dob": "07/13/80"
+        }
+      },
+      "proof": {
+        "type": "RsaSignature2018",
+        "created": "2017-06-18T21:19:10Z",
+        "proofPurpose": "assertionMethod",
+        "verificationMethod": "https://example.edu/issuers/keys/1",
+        "jws": "..."
+      }
+    }
+  ],
+  "proof": {
+    "type": "RsaSignature2018",
+    "created": "2018-09-14T21:19:10Z",
+    "proofPurpose": "authentication",
+    "verificationMethod": "did:example:ebfeb1f712ebc6f1c276e12ec21#keys-1",
+    "challenge": "1f44d55f-f161-4938-a659-f8026467f126",
+    "domain": "4jt78h47fh47",
+    "jws": "..."
+  }
+}
+```
+:::
+
+</section>

@@ -98,11 +98,11 @@ _Credential Manifests_ are a resource format that defines preconditional require
       "display": {
         "title": {
           "path": ["$.name", "$.vc.name"],
-          "text": "Washington State Driver License"
+          "fallback": "Washington State Driver License"
         },
         "subtitle": {
           "path": ["$.class", "$.vc.class"],
-          "text": "Class A, Commercial"
+          "fallback": "Class A, Commercial"
         },
         "description": {
           "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
@@ -110,6 +110,7 @@ _Credential Manifests_ are a resource format that defines preconditional require
         "properties": [
           {
             "path": ["$.donor", "$.vc.donor"],
+            "fallback": "Unknown",
             "label": "Organ Donor"
           }
         ]
@@ -205,11 +206,11 @@ _Credential Manifests_ are JSON objects composed as follows:
       "display": {
         "title": {
           "path": ["$.name", "$.vc.name"],
-          "text": "Washington State Driver License"
+          "fallback": "Washington State Driver License"
         },
         "subtitle": {
           "path": ["$.class", "$.vc.class"],
-          "text": "Class A, Commercial"
+          "fallback": "Class A, Commercial"
         },
         "description": {
           "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
@@ -217,6 +218,7 @@ _Credential Manifests_ are JSON objects composed as follows:
         "properties": [
           {
             "path": ["$.donor", "$.vc.donor"],
+            "fallback": "Unknown",
             "label": "Organ Donor"
           }
         ]
@@ -613,13 +615,7 @@ Target | Location
 - The `credential_fulfillment` object ****MUST**** be included at the top-level of an Embed Target, or in the specific location described in the [Embed Locations table](#embed-locations) in the [Embed Target](#embed-target) section below.
 - The `credential_fulfillment` object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a [UUID](https://tools.ietf.org/html/rfc4122).
 - The `credential_fulfillment` object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Manifest]].
-- The `credential_fulfillment` object ****MUST**** include a `descriptor_map` property. The value of thi property ****MUST**** be an array of _Output Descriptor Mapping Objects_, composed as follows:
-    - The `descriptor_map` object ****MUST**** include an `id` property. The value of this property ****MUST**** be a string that matches the `id` property of the [[ref:Output Descriptor]] in the [[ref:Credential Manifest]] that this [[ref:Credential Fulfillment]] is related to.
-    - The `descriptor_map` object ****MUST**** include a `format` property. The value of this property ****MUST**** be a string that matches one of the [Claim Format Designation](#claim-format-designations). This denotes the data format of the [[ref:Claim]].
-    - The `descriptor_map` object ****MUST**** include a `path` property. The value of this property ****MUST**** be a [JSONPath](https://goessner.net/articles/JsonPath/) string expression. The `path` property indicates the [[ref:Claim]] submitted in relation to the identified [[ref:Output Descriptor]], when executed against the top-level of the object the [[ref:Credential Fulfillment]] is embedded within.
-    - The object ****MAY**** include a `path_nested` object to indicate the presence of a multi-[[ref:Claim]] envelope format. This means the [[ref:Claim]] indicated is to be decoded separately from its parent enclosure.
-      + The format of a `path_nested` object mirrors that of a `descriptor_map` property. The nesting may be any number of levels deep. The `id` property ****MUST**** be the same for each level of nesting.
-      + The `path` property inside each `path_nested` property provides a _relative path_ within a given nested value.
+- The `credential_fulfillment` object ****MUST**** include a `descriptor_map` property. The value of this property ****MUST**** be an array of _Output Descriptor Mapping Objects_, just like [Presentation Submission's](https://identity.foundation/presentation-exchange/#presentation-submission) `descriptor_map` property.
 
 ::: example Basic Credential Fulfillment
 ```json
@@ -650,45 +646,6 @@ Target | Location
 }
 ```
 :::
-
-### Processing of `path_nested` Entries
-
-::: example Nested Credential Fulfillment
-```json
-{
-  "credential_fulfillment": {
-    "id": "a30e3b91-fb77-4d22-95fa-871689c322e2",
-    "manifest_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
-    "descriptor_map": [
-      {
-        "id": "banking_output_2",
-        "format": "jwt_vp",
-        "path": "$.outerClaim[0]",
-        "path_nested": {
-          "id": "banking_output_2",
-          "format": "ldp_vc",
-          "path": "$.innerClaim[1]",
-          "path_nested": {
-            "id": "banking_output_2",
-            "format": "jwt_vc",
-            "path": "$.mostInnerClaim[2]"
-          }
-        }
-      }
-    ]
-  }
-}
-```
-:::
-
-When the `path_nested` property is present in a [[ref:Credential Fulfillment]]
-object, process as follows:
-
-1. For each _Nested Submission Traversal Object_ in the `path_nested` array:
-   1. Execute the [JSONPath](https://goessner.net/articles/JsonPath/) expression string on the [_Current Traversal Object_](#current-traversal-object){id="current-traversal-object"}, or if none is designated, the top level of the Embed Target.
-   1. Decode and parse the value returned from [JSONPath](https://goessner.net/articles/JsonPath/) execution in accordance with the [Claim Format Designation](#claim-format-designations) specified in the object's `format` property. If the value parses and validates in accordance with the [Claim Format Designation](#claim-format-designations) specified, let the resulting object be the [_Current Traversal Object_](#current-traversal-object)
-   1. If present, process the next _Nested Submission Traversal Object_ in the current `path_nested` property.
-2. If parsing of the _Nested Submission Traversal Objects_ in the `path_nested` property produced a valid value, process it as the submission against the [[ref:Output Descriptor]] indicated by the `id` property of the containing _Output Descriptor Mapping Object_.
 
 ### Embed Targets
 

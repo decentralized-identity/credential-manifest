@@ -126,11 +126,11 @@ Credential, Assertion, Attestation, etc.</dd>
       <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
+          <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token property">"subtitle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.class"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.class"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"Class A, Commercial"</span>
+          <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Class A, Commercial"</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token property">"description"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."</span>
@@ -138,6 +138,7 @@ Credential, Assertion, Attestation, etc.</dd>
         <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
           <span class="token punctuation">{</span>
             <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.donor"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.donor"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Unknown"</span><span class="token punctuation">,</span>
             <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Organ Donor"</span>
           <span class="token punctuation">}</span>
         <span class="token punctuation">]</span>
@@ -218,7 +219,7 @@ For example:</li>
 <h3 id="output-descriptor"><a class="toc-anchor" href="#output-descriptor" >§</a> Output Descriptor</h3>
 <p><a class="term-reference" href="#term:output-descriptors">Output Descriptors</a> are objects used to describe the <a class="term-reference" href="#term:claims">Claims</a> a <a class="term-reference" href="#term:issuer">Issuer</a> if offering to a <a class="term-reference" href="#term:holder">Holder</a>.</p>
 <p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.</p>
-<div id="example-1" class="notice example"><a class="notice-link" href="#example-1">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="example-4" class="notice example"><a class="notice-link" href="#example-4">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"driver_license_output"</span><span class="token punctuation">,</span>
@@ -226,11 +227,11 @@ For example:</li>
       <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
+          <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token property">"subtitle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.class"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.class"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"Class A, Commercial"</span>
+          <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Class A, Commercial"</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token property">"description"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."</span>
@@ -238,6 +239,7 @@ For example:</li>
         <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
           <span class="token punctuation">{</span>
             <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.donor"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.donor"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Unknown"</span><span class="token punctuation">,</span>
             <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Organ Donor"</span>
           <span class="token punctuation">}</span>
         <span class="token punctuation">]</span>
@@ -685,19 +687,7 @@ For example:</li>
 <li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> be included at the top-level of an Embed Target, or in the specific location described in the <a href="#embed-locations" >Embed Locations table</a> in the <a href="#embed-target" >Embed Target</a> section below.</li>
 <li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a unique identifier, such as a <a path-0="tools.ietf.org"path-1="html"path-2="rfc4122"href="https://tools.ietf.org/html/rfc4122" >UUID</a>.</li>
 <li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code> property. The value of this property <strong><strong>MUST</strong></strong> be the <code>id</code> value of a valid <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>.</li>
-<li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> include a <code>descriptor_map</code> property. The value of thi property <strong><strong>MUST</strong></strong> be an array of <em>Output Descriptor Mapping Objects</em>, composed as follows:
-<ul>
-<li>The <code>descriptor_map</code> object <strong><strong>MUST</strong></strong> include an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a string that matches the <code>id</code> property of the <a class="term-reference" href="#term:output-descriptor">Output Descriptor</a> in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:credential-fulfillment">Credential Fulfillment</a> is related to.</li>
-<li>The <code>descriptor_map</code> object <strong><strong>MUST</strong></strong> include a <code>format</code> property. The value of this property <strong><strong>MUST</strong></strong> be a string that matches one of the <a href="#claim-format-designations" >Claim Format Designation</a>. This denotes the data format of the <a class="term-reference" href="#term:claim">Claim</a>.</li>
-<li>The <code>descriptor_map</code> object <strong><strong>MUST</strong></strong> include a <code>path</code> property. The value of this property <strong><strong>MUST</strong></strong> be a <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> string expression. The <code>path</code> property indicates the <a class="term-reference" href="#term:claim">Claim</a> submitted in relation to the identified <a class="term-reference" href="#term:output-descriptor">Output Descriptor</a>, when executed against the top-level of the object the <a class="term-reference" href="#term:credential-fulfillment">Credential Fulfillment</a> is embedded within.</li>
-<li>The object <strong><strong>MAY</strong></strong> include a <code>path_nested</code> object to indicate the presence of a multi-<a class="term-reference" href="#term:claim">Claim</a> envelope format. This means the <a class="term-reference" href="#term:claim">Claim</a> indicated is to be decoded separately from its parent enclosure.
-<ul>
-<li>The format of a <code>path_nested</code> object mirrors that of a <code>descriptor_map</code> property. The nesting may be any number of levels deep. The <code>id</code> property <strong><strong>MUST</strong></strong> be the same for each level of nesting.</li>
-<li>The <code>path</code> property inside each <code>path_nested</code> property provides a <em>relative path</em> within a given nested value.</li>
-</ul>
-</li>
-</ul>
-</li>
+<li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> include a <code>descriptor_map</code> property. The value of this property <strong><strong>MUST</strong></strong> be an array of <em>Output Descriptor Mapping Objects</em>, just like <a path-0="identity.foundation"path-1="presentation-exchange"path-2="#presentation-submission"href="https://identity.foundation/presentation-exchange/#presentation-submission" >Presentation Submission’s</a> <code>descriptor_map</code> property.</li>
 </ul>
 <div id="basic-credential-fulfillment" class="notice example"><a class="notice-link" href="#basic-credential-fulfillment">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token comment">// NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be here</span>
@@ -726,44 +716,6 @@ For example:</li>
 <span class="token punctuation">}</span>
 </code></pre>
 </div>
-<h3 id="processing-of-path_nested-entries"><a class="toc-anchor" href="#processing-of-path_nested-entries" >§</a> Processing of <code>path_nested</code> Entries</h3>
-<div id="nested-credential-fulfillment" class="notice example"><a class="notice-link" href="#nested-credential-fulfillment">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"credential_fulfillment"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"a30e3b91-fb77-4d22-95fa-871689c322e2"</span><span class="token punctuation">,</span>
-    <span class="token property">"manifest_id"</span><span class="token operator">:</span> <span class="token string">"32f54163-7166-48f1-93d8-ff217bdb0653"</span><span class="token punctuation">,</span>
-    <span class="token property">"descriptor_map"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"banking_output_2"</span><span class="token punctuation">,</span>
-        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"jwt_vp"</span><span class="token punctuation">,</span>
-        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"$.outerClaim[0]"</span><span class="token punctuation">,</span>
-        <span class="token property">"path_nested"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"banking_output_2"</span><span class="token punctuation">,</span>
-          <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"ldp_vc"</span><span class="token punctuation">,</span>
-          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"$.innerClaim[1]"</span><span class="token punctuation">,</span>
-          <span class="token property">"path_nested"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-            <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"banking_output_2"</span><span class="token punctuation">,</span>
-            <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"jwt_vc"</span><span class="token punctuation">,</span>
-            <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"$.mostInnerClaim[2]"</span>
-          <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-</div>
-<p>When the <code>path_nested</code> property is present in a <a class="term-reference" href="#term:credential-fulfillment">Credential Fulfillment</a>
-object, process as follows:</p>
-<ol>
-<li>For each <em>Nested Submission Traversal Object</em> in the <code>path_nested</code> array:
-<ol>
-<li>Execute the <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> expression string on the <a href="#current-traversal-object" id="current-traversal-object" ><em>Current Traversal Object</em></a>, or if none is designated, the top level of the Embed Target.</li>
-<li>Decode and parse the value returned from <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> execution in accordance with the <a href="#claim-format-designations" >Claim Format Designation</a> specified in the object’s <code>format</code> property. If the value parses and validates in accordance with the <a href="#claim-format-designations" >Claim Format Designation</a> specified, let the resulting object be the <a href="#current-traversal-object" ><em>Current Traversal Object</em></a></li>
-<li>If present, process the next <em>Nested Submission Traversal Object</em> in the current <code>path_nested</code> property.</li>
-</ol>
-</li>
-<li>If parsing of the <em>Nested Submission Traversal Objects</em> in the <code>path_nested</code> property produced a valid value, process it as the submission against the <a class="term-reference" href="#term:output-descriptor">Output Descriptor</a> indicated by the <code>id</code> property of the containing <em>Output Descriptor Mapping Object</em>.</li>
-</ol>
 <h3 id="embed-targets-2"><a class="toc-anchor" href="#embed-targets-2" >§</a> Embed Targets</h3>
 <p>The following section details where the <em>Credential Fulfillment</em> is to be embedded within a target data structure, as well as how to formulate the <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> expressions to select the <a class="term-reference" href="#term:claims">Claims</a> within the target data structure.</p>
 <h4 id="embed-locations-2"><a class="toc-anchor" href="#embed-locations-2" >§</a> Embed Locations</h4>
@@ -1063,7 +1015,6 @@ object, process as follows:</p>
 </li>
 <li><a href="#credential-fulfillment" >Credential Fulfillment</a>
 <ul>
-<li><a href="#processing-of-path_nested-entries" >Processing of <code>path_nested</code> Entries</a></li>
 <li><a href="#embed-targets-2" >Embed Targets</a>
 <ul>
 <li><a href="#embed-locations-2" >Embed Locations</a></li>

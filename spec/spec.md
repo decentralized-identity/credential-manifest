@@ -73,23 +73,7 @@ _Credential Manifests_ are a resource format that defines preconditional require
   "issuer": {
     "id": "did:example:123?linked-domains=3",
     "name": "Washington State Government",
-    "styles": {
-      "thumbnail": {
-        "uri": "https://dol.wa.com/logo.png",
-        "alt": "Washington State Seal"
-      },
-      "hero": {
-        "uri": "https://dol.wa.com/people-working.png",
-        "alt": "People working on serious things"
-      },
-      "background": {
-        "color": "#ff0000"
-      },
-      "text": {
-        "color": "#d4d400"
-      }
-    }
-  },
+    "styles": // Entity Styles object or URI,
   "output_descriptors": [
     {
       "schema": [{
@@ -115,22 +99,7 @@ _Credential Manifests_ are a resource format that defines preconditional require
           }
         ]
       },
-      "styles": {
-        "thumbnail": {
-          "uri": "https://dol.wa.com/logo.png",
-          "alt": "Washington State Seal"
-        },
-        "hero": {
-          "uri": "https://dol.wa.com/happy-people-driving.png",
-          "alt": "Happy people driving"
-        },
-        "background": {
-          "color": "#ff0000"
-        },
-        "text": {
-          "color": "#d4d400"
-        }
-      }
+      "styles": // Entity Styles object or URI
     }
   ],
   "presentation_definition": {
@@ -148,7 +117,7 @@ _Credential Manifests_ are JSON objects composed as follows:
 - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
     - The object ****MUST**** contain a `id` property, and its value ****MUST**** be a valid URI string that identifies who the issuer of the credential(s) will be.
     - The object ****MAY**** contain a `name` property, and its value ****MUST**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
-    - The object ****MAY**** contain a `styles` property, and its value ****MUST**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
+    - The object ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI, as defined by the Entity Styles specification.
 - The object ****MUST**** contain an `output_descriptors` property. It's vault ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below
 - The [[ref:Credential Manifest]] ****MAY**** include a `format` property. If present, its value ****MUST**** be the same structure as [Presentation Definition's `format` property](https://identity.foundation/presentation-exchange/#presentation-definition). This property informs the [[ref:Holder]] of the [[ref:Calim]] format the [[ref:Issuer]] can issuer in.
     For example:
@@ -223,22 +192,7 @@ _Credential Manifests_ are JSON objects composed as follows:
           }
         ]
       },
-      "styles": {
-        "thumbnail": {
-          "uri": "https://dol.wa.com/logo.png",
-          "alt": "Washington State Seal"
-        },
-        "hero": {
-          "uri": "https://dol.wa.com/happy-people-driving.png",
-          "alt": "Happy people driving"
-        },
-        "background": {
-          "color": "#ff0000"
-        },
-        "text": {
-          "color": "#d4d400"
-        }
-      }
+      "styles": // Entity Styles Object or URI
     }
   ]
 }
@@ -253,23 +207,12 @@ _Credential Manifests_ are JSON objects composed as follows:
 - The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be an array composed of schema objects for the schema(s) of the credentials to be issued.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****MUST**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI, as defined by the Entity Styles specification.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****MUST**** be an object composed as defined in the [`display` properties](#display-properties) section.
 
 ### `styles` properties
 
-Within a `Credential Manifest`, there are two areas where styling affordances are provided: under the `issuer` property, where the Issuer expresses information about themselves - including how a User Agent should style UI that represents the Issuer, and under the `credential` property, where the Issuer expresses information about the credntial itself - including how a User Agent should style UI for the credential itself. Under each of these areas an implementer ****MAY**** include a `styles` property, and if present, its value ****MUST**** be an object composed of the following properties:
-
-- The object ****MAY**** contain a `thumbnail` property, and if present, its value ****MUST**** be an object with the following optional properties:
-    - The object ****MUST**** contain a `uri` property, and if present its value ****MUST**** be a valid URI string to an image resource.
-    - The object ****MAY**** contain an `alt` property, and if present its value ****MUST**** be a string that describes the alternate text for the logo image.
-- The object ****MAY**** contain a `hero` property, and if present, its value ****MUST**** be an object with the following optional properties:
-    - The object ****MUST**** contain a `uri` property, and if present its value ****MUST**** be a valid URI string to an image resource.
-    - The object ****MAY**** contain an `alt` property, and if present its value ****MUST**** be a string that describes the alternate text for the logo image.
-- The object ****MAY**** contain a `background` property, and if present, its value ****MUST**** be an object with the following optional properties:
-    - The object ****MAY**** contain a `color` property, and if present its value ****MUST**** be a HEX string color value (e.g. #000000).
-- The object ****MAY**** contain a `text` property, and if present, its value ****MUST**** be an object with the following optional properties:
-    - The object ****MAY**** contain a `color` property, and if present its value ****MUST**** be a HEX string color value (e.g. #000000).
+Within a `Credential Manifest`, there are two areas where styling affordances are provided: under the `issuer` property, where the Issuer may express styling information about themselves, and under the `credential` property, where the Issuer may express styling information about the credential itself. Under each of these areas, an implementer ****MAY**** include a `styles` property, and if present, its value ****MUST**** be an object or URI that conforms to the Entity Styles specification.
 
 ### `display` properties
 

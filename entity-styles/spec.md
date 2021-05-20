@@ -37,37 +37,27 @@ _Entity Style Descriptors_ are a resource format that defines a set of suggested
 ::: example Credential Manifest - All features exercised
 ```json
 {
-  "styles": {
-      "thumbnail": {
-        "uri": "https://dol.wa.com/logo.png",
-        "alt": "Washington State Seal"
-      },
-      "hero": {
-        "uri": "https://dol.wa.com/people-working.png",
-        "alt": "People working on serious things"
-      },
-      "background": {
-        "color": "#ff0000"
-      },
-      "text": {
-        "color": "#d4d400"
-      }
-    }
+  "thumbnail": {
+    "uri": "https://dol.wa.com/logo.png",
+    "alt": "Washington State Seal"
+  },
+  "hero": {
+    "uri": "https://dol.wa.com/people-working.png",
+    "alt": "People working on serious things"
+  },
+  "background": {
+    "color": "#ff0000"
+  },
+  "text": {
+    "color": "#d4d400"
   }
 }
 ```
 :::
 
  
-### General Composition
 
-_Entity Styles_ are JSON objects composed as follows:
-
-  - The object ****MUST**** contain a `styles` property, and its value ****must**** be an object composed as defined in the [`styles` properties](#styles-properties) section.
-
-### `styles` properties
-
-Within a `Credential Manifest`, there are two areas where styling affordances are provided: under the `issuer` property, where the Issuer expresses information about themselves - including how a User Agent should style UI that represents the Issuer, and under the `credential` property, where the Issuer expresses information about the credntial itself - including how a User Agent should style UI for the credential itself. Under each of these areas an implementer ****MAY**** include a `styles` property, and if present, its value ****must**** be an object composed of the following properties:
+An _Entity Style Descriptor_, value ****must**** be an object composed of the following properties:
 
 - The object ****MAY**** contain a `thumbnail` property, and if present, its value ****MUST**** be an object with the following optional properties:
     - The object ****MUST**** contain a `uri` property, and if present its value ****MUST**** be a valid URI string to an image resource.

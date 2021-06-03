@@ -73,7 +73,7 @@ _Credential Manifests_ are a resource format that defines preconditional require
   "issuer": {
     "id": "did:example:123?linked-domains=3",
     "name": "Washington State Government",
-    "styles": // Entity Styles object or URI,
+    "style": // Entity Style object or URI,
   "output_descriptors": [
     {
       "schema": [{
@@ -99,7 +99,7 @@ _Credential Manifests_ are a resource format that defines preconditional require
           }
         ]
       },
-      "styles": // Entity Styles object or URI
+      "style": // Entity Style object or URI
     }
   ],
   "presentation_definition": {
@@ -117,7 +117,7 @@ _Credential Manifests_ are JSON objects composed as follows:
 - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
     - The object ****MUST**** contain a `id` property, and its value ****MUST**** be a valid URI string that identifies who the issuer of the credential(s) will be.
     - The object ****MAY**** contain a `name` property, and its value ****MUST**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
-    - The object ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI, as defined by the Entity Styles specification.
+    - The object ****MAY**** contain a `style` property, and its value ****MUST**** be an object or URI, as defined by the Entity Styles specification.
 - The object ****MUST**** contain an `output_descriptors` property. It's vault ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below
 - The [[ref:Credential Manifest]] ****MAY**** include a `format` property. If present, its value ****MUST**** be the same structure as [Presentation Definition's `format` property](https://identity.foundation/presentation-exchange/#presentation-definition). This property informs the [[ref:Holder]] of the [[ref:Calim]] format the [[ref:Issuer]] can issuer in.
     For example:
@@ -192,7 +192,7 @@ _Credential Manifests_ are JSON objects composed as follows:
           }
         ]
       },
-      "styles": "https://lotsofstyle.org/wallet/display/style/credential?schema=EducationalOccupationalCredential"
+      "style": "https://lotsofstyle.org/wallet/display/style/credential?schema=EducationalOccupationalCredential"
     }
   ]
 }
@@ -207,7 +207,7 @@ _Credential Manifests_ are JSON objects composed as follows:
 - The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be an array composed of schema objects for the schema(s) of the credentials to be issued.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI, as defined by the [DIF Entity Styles](https://identity.foundation/wallet-rendering/#entity-styles) specification.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `style` property, and its value ****MUST**** be an object or URI, as defined by the [DIF Entity Styles](https://identity.foundation/wallet-rendering/#entity-styles) specification.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****MUST**** be an object composed as defined in the [DIF Data Display](https://identity.foundation/wallet-rendering/#data-display) specification.
 
 ## Resource Location

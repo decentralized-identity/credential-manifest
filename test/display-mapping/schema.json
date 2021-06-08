@@ -1,0 +1,327 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+      {
+          "display": {
+              "title": {
+                  "path": [
+                      "$.name",
+                      "$.vc.name"
+                  ],
+                  "fallback": "Washington State Driver License"
+              },
+              "properties": [
+                  {
+                      "path": [
+                          "$.issuanceDate",
+                          "$.vc.issuanceDate"
+                      ],
+                      "schema": {
+                          "type": "string",
+                          "format": "date-time"
+                      },
+                      "label": "Issuance Date"
+                  },
+                  {
+                      "path": [
+                          "$.vision_aid",
+                          "$.vc.vision_aid"
+                      ],
+                      "schema": {
+                          "type": "boolean"
+                      },
+                      "label": "Vision aid required"
+                  },
+                  {
+                      "path": [
+                          "$.donor",
+                          "$.vc.donor"
+                      ],
+                      "schema": {
+                          "type": "boolean"
+                      },
+                      "label": "Organ Donor"
+                  }
+              ]
+          }
+      }
+  ],
+  "required": [
+      "display"
+  ],
+  "properties": {
+      "display": {
+          "$id": "#/properties/display",
+          "type": "object",
+          "title": "The display schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": {},
+          "examples": [
+              {
+                  "title": {
+                      "path": [
+                          "$.name",
+                          "$.vc.name"
+                      ],
+                      "fallback": "Washington State Driver License"
+                  },
+                  "properties": [
+                      {
+                          "path": [
+                              "$.issuanceDate",
+                              "$.vc.issuanceDate"
+                          ],
+                          "schema": {
+                              "type": "string",
+                              "format": "date-time"
+                          },
+                          "label": "Issuance Date"
+                      },
+                      {
+                          "path": [
+                              "$.vision_aid",
+                              "$.vc.vision_aid"
+                          ],
+                          "schema": {
+                              "type": "boolean"
+                          },
+                          "label": "Vision aid required"
+                      },
+                      {
+                          "path": [
+                              "$.donor",
+                              "$.vc.donor"
+                          ],
+                          "schema": {
+                              "type": "boolean"
+                          },
+                          "label": "Organ Donor"
+                      }
+                  ]
+              }
+          ],
+          "required": [
+              "title",
+              "properties"
+          ],
+          "properties": {
+              "title": {
+                  "$id": "#/properties/display/properties/title",
+                  "type": "object",
+                  "title": "The title schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": {},
+                  "examples": [
+                      {
+                          "path": [
+                              "$.name",
+                              "$.vc.name"
+                          ],
+                          "fallback": "Washington State Driver License"
+                      }
+                  ],
+                  "required": [
+                      "path",
+                      "fallback"
+                  ],
+                  "properties": {
+                      "path": {
+                          "$id": "#/properties/display/properties/title/properties/path",
+                          "type": "array",
+                          "title": "The path schema",
+                          "description": "An explanation about the purpose of this instance.",
+                          "default": [],
+                          "examples": [
+                              [
+                                  "$.name",
+                                  "$.vc.name"
+                              ]
+                          ],
+                          "additionalItems": true,
+                          "items": {
+                              "$id": "#/properties/display/properties/title/properties/path/items",
+                              "anyOf": [
+                                  {
+                                      "$id": "#/properties/display/properties/title/properties/path/items/anyOf/0",
+                                      "type": "string",
+                                      "title": "The first anyOf schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": "",
+                                      "examples": [
+                                          "$.name",
+                                          "$.vc.name"
+                                      ]
+                                  }
+                              ]
+                          }
+                      },
+                      "fallback": {
+                          "$id": "#/properties/display/properties/title/properties/fallback",
+                          "type": "string",
+                          "title": "The fallback schema",
+                          "description": "An explanation about the purpose of this instance.",
+                          "default": "",
+                          "examples": [
+                              "Washington State Driver License"
+                          ]
+                      }
+                  },
+                  "additionalProperties": true
+              },
+              "properties": {
+                  "$id": "#/properties/display/properties/properties",
+                  "type": "array",
+                  "title": "The properties schema",
+                  "description": "An explanation about the purpose of this instance.",
+                  "default": [],
+                  "examples": [
+                      [
+                          {
+                              "path": [
+                                  "$.issuanceDate",
+                                  "$.vc.issuanceDate"
+                              ],
+                              "schema": {
+                                  "type": "string",
+                                  "format": "date-time"
+                              },
+                              "label": "Issuance Date"
+                          },
+                          {
+                              "path": [
+                                  "$.vision_aid",
+                                  "$.vc.vision_aid"
+                              ],
+                              "schema": {
+                                  "type": "boolean"
+                              },
+                              "label": "Vision aid required"
+                          }
+                      ]
+                  ],
+                  "additionalItems": true,
+                  "items": {
+                      "$id": "#/properties/display/properties/properties/items",
+                      "anyOf": [
+                          {
+                              "$id": "#/properties/display/properties/properties/items/anyOf/0",
+                              "type": "object",
+                              "title": "The first anyOf schema",
+                              "description": "An explanation about the purpose of this instance.",
+                              "default": {},
+                              "examples": [
+                                  {
+                                      "path": [
+                                          "$.issuanceDate",
+                                          "$.vc.issuanceDate"
+                                      ],
+                                      "schema": {
+                                          "type": "string",
+                                          "format": "date-time"
+                                      },
+                                      "label": "Issuance Date"
+                                  }
+                              ],
+                              "required": [
+                                  "path",
+                                  "schema",
+                                  "label"
+                              ],
+                              "properties": {
+                                  "path": {
+                                      "$id": "#/properties/display/properties/properties/items/anyOf/0/properties/path",
+                                      "type": "array",
+                                      "title": "The path schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": [],
+                                      "examples": [
+                                          [
+                                              "$.issuanceDate",
+                                              "$.vc.issuanceDate"
+                                          ]
+                                      ],
+                                      "additionalItems": true,
+                                      "items": {
+                                          "$id": "#/properties/display/properties/properties/items/anyOf/0/properties/path/items",
+                                          "anyOf": [
+                                              {
+                                                  "$id": "#/properties/display/properties/properties/items/anyOf/0/properties/path/items/anyOf/0",
+                                                  "type": "string",
+                                                  "title": "The first anyOf schema",
+                                                  "description": "An explanation about the purpose of this instance.",
+                                                  "default": "",
+                                                  "examples": [
+                                                      "$.issuanceDate",
+                                                      "$.vc.issuanceDate"
+                                                  ]
+                                              }
+                                          ]
+                                      }
+                                  },
+                                  "schema": {
+                                      "$id": "#/properties/display/properties/properties/items/anyOf/0/properties/schema",
+                                      "type": "object",
+                                      "title": "The schema schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": {},
+                                      "examples": [
+                                          {
+                                              "type": "string",
+                                              "format": "date-time"
+                                          }
+                                      ],
+                                      "required": [
+                                          "type",
+                                          "format"
+                                      ],
+                                      "properties": {
+                                          "type": {
+                                              "$id": "#/properties/display/properties/properties/items/anyOf/0/properties/schema/properties/type",
+                                              "type": "string",
+                                              "title": "The type schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": "",
+                                              "examples": [
+                                                  "string"
+                                              ]
+                                          },
+                                          "format": {
+                                              "$id": "#/properties/display/properties/properties/items/anyOf/0/properties/schema/properties/format",
+                                              "type": "string",
+                                              "title": "The format schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": "",
+                                              "examples": [
+                                                  "date-time"
+                                              ]
+                                          }
+                                      },
+                                      "additionalProperties": true
+                                  },
+                                  "label": {
+                                      "$id": "#/properties/display/properties/properties/items/anyOf/0/properties/label",
+                                      "type": "string",
+                                      "title": "The label schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": "",
+                                      "examples": [
+                                          "Issuance Date"
+                                      ]
+                                  }
+                              },
+                              "additionalProperties": true
+                          }
+                      ]
+                  }
+              }
+          },
+          "additionalProperties": true
+      }
+  },
+  "additionalProperties": true
+}

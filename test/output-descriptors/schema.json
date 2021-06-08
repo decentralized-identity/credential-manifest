@@ -1,0 +1,693 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+      {
+          "output_descriptors": [
+              {
+                  "id": "driver_license_output",
+                  "schema": "https://schema.org/EducationalOccupationalCredential",
+                  "display": {
+                      "title": {
+                          "path": [
+                              "$.name",
+                              "$.vc.name"
+                          ],
+                          "fallback": "Washington State Driver License"
+                      },
+                      "subtitle": {
+                          "path": [
+                              "$.class",
+                              "$.vc.class"
+                          ],
+                          "fallback": "Class A, Commercial"
+                      },
+                      "description": {
+                          "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
+                      },
+                      "properties": [
+                          {
+                              "path": [
+                                  "$.donor",
+                                  "$.vc.donor"
+                              ],
+                              "fallback": "Unknown",
+                              "label": "Organ Donor"
+                          }
+                      ]
+                  },
+                  "styles": {
+                      "thumbnail": {
+                          "uri": "https://dol.wa.com/logo.png",
+                          "alt": "Washington State Seal"
+                      },
+                      "hero": {
+                          "uri": "https://dol.wa.com/happy-people-driving.png",
+                          "alt": "Happy people driving"
+                      },
+                      "background": {
+                          "color": "#ff0000"
+                      },
+                      "text": {
+                          "color": "#d4d400"
+                      }
+                  }
+              }
+          ]
+      }
+  ],
+  "required": [
+      "output_descriptors"
+  ],
+  "properties": {
+      "output_descriptors": {
+          "$id": "#/properties/output_descriptors",
+          "type": "array",
+          "title": "The output_descriptors schema",
+          "description": "An explanation about the purpose of this instance.",
+          "default": [],
+          "examples": [
+              [
+                  {
+                      "id": "driver_license_output",
+                      "schema": "https://schema.org/EducationalOccupationalCredential",
+                      "display": {
+                          "title": {
+                              "path": [
+                                  "$.name",
+                                  "$.vc.name"
+                              ],
+                              "fallback": "Washington State Driver License"
+                          },
+                          "subtitle": {
+                              "path": [
+                                  "$.class",
+                                  "$.vc.class"
+                              ],
+                              "fallback": "Class A, Commercial"
+                          },
+                          "description": {
+                              "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
+                          },
+                          "properties": [
+                              {
+                                  "path": [
+                                      "$.donor",
+                                      "$.vc.donor"
+                                  ],
+                                  "fallback": "Unknown",
+                                  "label": "Organ Donor"
+                              }
+                          ]
+                      },
+                      "styles": {
+                          "thumbnail": {
+                              "uri": "https://dol.wa.com/logo.png",
+                              "alt": "Washington State Seal"
+                          },
+                          "hero": {
+                              "uri": "https://dol.wa.com/happy-people-driving.png",
+                              "alt": "Happy people driving"
+                          },
+                          "background": {
+                              "color": "#ff0000"
+                          },
+                          "text": {
+                              "color": "#d4d400"
+                          }
+                      }
+                  }
+              ]
+          ],
+          "additionalItems": true,
+          "items": {
+              "$id": "#/properties/output_descriptors/items",
+              "anyOf": [
+                  {
+                      "$id": "#/properties/output_descriptors/items/anyOf/0",
+                      "type": "object",
+                      "title": "The first anyOf schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": {},
+                      "examples": [
+                          {
+                              "id": "driver_license_output",
+                              "schema": "https://schema.org/EducationalOccupationalCredential",
+                              "display": {
+                                  "title": {
+                                      "path": [
+                                          "$.name",
+                                          "$.vc.name"
+                                      ],
+                                      "fallback": "Washington State Driver License"
+                                  },
+                                  "subtitle": {
+                                      "path": [
+                                          "$.class",
+                                          "$.vc.class"
+                                      ],
+                                      "fallback": "Class A, Commercial"
+                                  },
+                                  "description": {
+                                      "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
+                                  },
+                                  "properties": [
+                                      {
+                                          "path": [
+                                              "$.donor",
+                                              "$.vc.donor"
+                                          ],
+                                          "fallback": "Unknown",
+                                          "label": "Organ Donor"
+                                      }
+                                  ]
+                              },
+                              "styles": {
+                                  "thumbnail": {
+                                      "uri": "https://dol.wa.com/logo.png",
+                                      "alt": "Washington State Seal"
+                                  },
+                                  "hero": {
+                                      "uri": "https://dol.wa.com/happy-people-driving.png",
+                                      "alt": "Happy people driving"
+                                  },
+                                  "background": {
+                                      "color": "#ff0000"
+                                  },
+                                  "text": {
+                                      "color": "#d4d400"
+                                  }
+                              }
+                          }
+                      ],
+                      "required": [
+                          "id",
+                          "schema",
+                          "display",
+                          "styles"
+                      ],
+                      "properties": {
+                          "id": {
+                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/id",
+                              "type": "string",
+                              "title": "The id schema",
+                              "description": "An explanation about the purpose of this instance.",
+                              "default": "",
+                              "examples": [
+                                  "driver_license_output"
+                              ]
+                          },
+                          "schema": {
+                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/schema",
+                              "type": "string",
+                              "title": "The schema schema",
+                              "description": "An explanation about the purpose of this instance.",
+                              "default": "",
+                              "examples": [
+                                  "https://schema.org/EducationalOccupationalCredential"
+                              ]
+                          },
+                          "display": {
+                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display",
+                              "type": "object",
+                              "title": "The display schema",
+                              "description": "An explanation about the purpose of this instance.",
+                              "default": {},
+                              "examples": [
+                                  {
+                                      "title": {
+                                          "path": [
+                                              "$.name",
+                                              "$.vc.name"
+                                          ],
+                                          "fallback": "Washington State Driver License"
+                                      },
+                                      "subtitle": {
+                                          "path": [
+                                              "$.class",
+                                              "$.vc.class"
+                                          ],
+                                          "fallback": "Class A, Commercial"
+                                      },
+                                      "description": {
+                                          "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
+                                      },
+                                      "properties": [
+                                          {
+                                              "path": [
+                                                  "$.donor",
+                                                  "$.vc.donor"
+                                              ],
+                                              "fallback": "Unknown",
+                                              "label": "Organ Donor"
+                                          }
+                                      ]
+                                  }
+                              ],
+                              "required": [
+                                  "title",
+                                  "subtitle",
+                                  "description",
+                                  "properties"
+                              ],
+                              "properties": {
+                                  "title": {
+                                      "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/title",
+                                      "type": "object",
+                                      "title": "The title schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": {},
+                                      "examples": [
+                                          {
+                                              "path": [
+                                                  "$.name",
+                                                  "$.vc.name"
+                                              ],
+                                              "fallback": "Washington State Driver License"
+                                          }
+                                      ],
+                                      "required": [
+                                          "path",
+                                          "fallback"
+                                      ],
+                                      "properties": {
+                                          "path": {
+                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/title/properties/path",
+                                              "type": "array",
+                                              "title": "The path schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": [],
+                                              "examples": [
+                                                  [
+                                                      "$.name",
+                                                      "$.vc.name"
+                                                  ]
+                                              ],
+                                              "additionalItems": true,
+                                              "items": {
+                                                  "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/title/properties/path/items",
+                                                  "anyOf": [
+                                                      {
+                                                          "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/title/properties/path/items/anyOf/0",
+                                                          "type": "string",
+                                                          "title": "The first anyOf schema",
+                                                          "description": "An explanation about the purpose of this instance.",
+                                                          "default": "",
+                                                          "examples": [
+                                                              "$.name",
+                                                              "$.vc.name"
+                                                          ]
+                                                      }
+                                                  ]
+                                              }
+                                          },
+                                          "fallback": {
+                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/title/properties/fallback",
+                                              "type": "string",
+                                              "title": "The fallback schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": "",
+                                              "examples": [
+                                                  "Washington State Driver License"
+                                              ]
+                                          }
+                                      },
+                                      "additionalProperties": true
+                                  },
+                                  "subtitle": {
+                                      "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/subtitle",
+                                      "type": "object",
+                                      "title": "The subtitle schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": {},
+                                      "examples": [
+                                          {
+                                              "path": [
+                                                  "$.class",
+                                                  "$.vc.class"
+                                              ],
+                                              "fallback": "Class A, Commercial"
+                                          }
+                                      ],
+                                      "required": [
+                                          "path",
+                                          "fallback"
+                                      ],
+                                      "properties": {
+                                          "path": {
+                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/subtitle/properties/path",
+                                              "type": "array",
+                                              "title": "The path schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": [],
+                                              "examples": [
+                                                  [
+                                                      "$.class",
+                                                      "$.vc.class"
+                                                  ]
+                                              ],
+                                              "additionalItems": true,
+                                              "items": {
+                                                  "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/subtitle/properties/path/items",
+                                                  "anyOf": [
+                                                      {
+                                                          "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/subtitle/properties/path/items/anyOf/0",
+                                                          "type": "string",
+                                                          "title": "The first anyOf schema",
+                                                          "description": "An explanation about the purpose of this instance.",
+                                                          "default": "",
+                                                          "examples": [
+                                                              "$.class",
+                                                              "$.vc.class"
+                                                          ]
+                                                      }
+                                                  ]
+                                              }
+                                          },
+                                          "fallback": {
+                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/subtitle/properties/fallback",
+                                              "type": "string",
+                                              "title": "The fallback schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": "",
+                                              "examples": [
+                                                  "Class A, Commercial"
+                                              ]
+                                          }
+                                      },
+                                      "additionalProperties": true
+                                  },
+                                  "description": {
+                                      "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/description",
+                                      "type": "object",
+                                      "title": "The description schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": {},
+                                      "examples": [
+                                          {
+                                              "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
+                                          }
+                                      ],
+                                      "required": [
+                                          "text"
+                                      ],
+                                      "properties": {
+                                          "text": {
+                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/description/properties/text",
+                                              "type": "string",
+                                              "title": "The text schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": "",
+                                              "examples": [
+                                                  "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
+                                              ]
+                                          }
+                                      },
+                                      "additionalProperties": true
+                                  },
+                                  "properties": {
+                                      "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/properties",
+                                      "type": "array",
+                                      "title": "The properties schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": [],
+                                      "examples": [
+                                          [
+                                              {
+                                                  "path": [
+                                                      "$.donor",
+                                                      "$.vc.donor"
+                                                  ],
+                                                  "fallback": "Unknown",
+                                                  "label": "Organ Donor"
+                                              }
+                                          ]
+                                      ],
+                                      "additionalItems": true,
+                                      "items": {
+                                          "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/properties/items",
+                                          "anyOf": [
+                                              {
+                                                  "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/properties/items/anyOf/0",
+                                                  "type": "object",
+                                                  "title": "The first anyOf schema",
+                                                  "description": "An explanation about the purpose of this instance.",
+                                                  "default": {},
+                                                  "examples": [
+                                                      {
+                                                          "path": [
+                                                              "$.donor",
+                                                              "$.vc.donor"
+                                                          ],
+                                                          "fallback": "Unknown",
+                                                          "label": "Organ Donor"
+                                                      }
+                                                  ],
+                                                  "required": [
+                                                      "path",
+                                                      "fallback",
+                                                      "label"
+                                                  ],
+                                                  "properties": {
+                                                      "path": {
+                                                          "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/properties/items/anyOf/0/properties/path",
+                                                          "type": "array",
+                                                          "title": "The path schema",
+                                                          "description": "An explanation about the purpose of this instance.",
+                                                          "default": [],
+                                                          "examples": [
+                                                              [
+                                                                  "$.donor",
+                                                                  "$.vc.donor"
+                                                              ]
+                                                          ],
+                                                          "additionalItems": true,
+                                                          "items": {
+                                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/properties/items/anyOf/0/properties/path/items",
+                                                              "anyOf": [
+                                                                  {
+                                                                      "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/properties/items/anyOf/0/properties/path/items/anyOf/0",
+                                                                      "type": "string",
+                                                                      "title": "The first anyOf schema",
+                                                                      "description": "An explanation about the purpose of this instance.",
+                                                                      "default": "",
+                                                                      "examples": [
+                                                                          "$.donor",
+                                                                          "$.vc.donor"
+                                                                      ]
+                                                                  }
+                                                              ]
+                                                          }
+                                                      },
+                                                      "fallback": {
+                                                          "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/properties/items/anyOf/0/properties/fallback",
+                                                          "type": "string",
+                                                          "title": "The fallback schema",
+                                                          "description": "An explanation about the purpose of this instance.",
+                                                          "default": "",
+                                                          "examples": [
+                                                              "Unknown"
+                                                          ]
+                                                      },
+                                                      "label": {
+                                                          "$id": "#/properties/output_descriptors/items/anyOf/0/properties/display/properties/properties/items/anyOf/0/properties/label",
+                                                          "type": "string",
+                                                          "title": "The label schema",
+                                                          "description": "An explanation about the purpose of this instance.",
+                                                          "default": "",
+                                                          "examples": [
+                                                              "Organ Donor"
+                                                          ]
+                                                      }
+                                                  },
+                                                  "additionalProperties": true
+                                              }
+                                          ]
+                                      }
+                                  }
+                              },
+                              "additionalProperties": true
+                          },
+                          "styles": {
+                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/styles",
+                              "type": "object",
+                              "title": "The styles schema",
+                              "description": "An explanation about the purpose of this instance.",
+                              "default": {},
+                              "examples": [
+                                  {
+                                      "thumbnail": {
+                                          "uri": "https://dol.wa.com/logo.png",
+                                          "alt": "Washington State Seal"
+                                      },
+                                      "hero": {
+                                          "uri": "https://dol.wa.com/happy-people-driving.png",
+                                          "alt": "Happy people driving"
+                                      },
+                                      "background": {
+                                          "color": "#ff0000"
+                                      },
+                                      "text": {
+                                          "color": "#d4d400"
+                                      }
+                                  }
+                              ],
+                              "required": [
+                                  "thumbnail",
+                                  "hero",
+                                  "background",
+                                  "text"
+                              ],
+                              "properties": {
+                                  "thumbnail": {
+                                      "$id": "#/properties/output_descriptors/items/anyOf/0/properties/styles/properties/thumbnail",
+                                      "type": "object",
+                                      "title": "The thumbnail schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": {},
+                                      "examples": [
+                                          {
+                                              "uri": "https://dol.wa.com/logo.png",
+                                              "alt": "Washington State Seal"
+                                          }
+                                      ],
+                                      "required": [
+                                          "uri",
+                                          "alt"
+                                      ],
+                                      "properties": {
+                                          "uri": {
+                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/styles/properties/thumbnail/properties/uri",
+                                              "type": "string",
+                                              "title": "The uri schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": "",
+                                              "examples": [
+                                                  "https://dol.wa.com/logo.png"
+                                              ]
+                                          },
+                                          "alt": {
+                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/styles/properties/thumbnail/properties/alt",
+                                              "type": "string",
+                                              "title": "The alt schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": "",
+                                              "examples": [
+                                                  "Washington State Seal"
+                                              ]
+                                          }
+                                      },
+                                      "additionalProperties": true
+                                  },
+                                  "hero": {
+                                      "$id": "#/properties/output_descriptors/items/anyOf/0/properties/styles/properties/hero",
+                                      "type": "object",
+                                      "title": "The hero schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": {},
+                                      "examples": [
+                                          {
+                                              "uri": "https://dol.wa.com/happy-people-driving.png",
+                                              "alt": "Happy people driving"
+                                          }
+                                      ],
+                                      "required": [
+                                          "uri",
+                                          "alt"
+                                      ],
+                                      "properties": {
+                                          "uri": {
+                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/styles/properties/hero/properties/uri",
+                                              "type": "string",
+                                              "title": "The uri schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": "",
+                                              "examples": [
+                                                  "https://dol.wa.com/happy-people-driving.png"
+                                              ]
+                                          },
+                                          "alt": {
+                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/styles/properties/hero/properties/alt",
+                                              "type": "string",
+                                              "title": "The alt schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": "",
+                                              "examples": [
+                                                  "Happy people driving"
+                                              ]
+                                          }
+                                      },
+                                      "additionalProperties": true
+                                  },
+                                  "background": {
+                                      "$id": "#/properties/output_descriptors/items/anyOf/0/properties/styles/properties/background",
+                                      "type": "object",
+                                      "title": "The background schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": {},
+                                      "examples": [
+                                          {
+                                              "color": "#ff0000"
+                                          }
+                                      ],
+                                      "required": [
+                                          "color"
+                                      ],
+                                      "properties": {
+                                          "color": {
+                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/styles/properties/background/properties/color",
+                                              "type": "string",
+                                              "title": "The color schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": "",
+                                              "examples": [
+                                                  "#ff0000"
+                                              ]
+                                          }
+                                      },
+                                      "additionalProperties": true
+                                  },
+                                  "text": {
+                                      "$id": "#/properties/output_descriptors/items/anyOf/0/properties/styles/properties/text",
+                                      "type": "object",
+                                      "title": "The text schema",
+                                      "description": "An explanation about the purpose of this instance.",
+                                      "default": {},
+                                      "examples": [
+                                          {
+                                              "color": "#d4d400"
+                                          }
+                                      ],
+                                      "required": [
+                                          "color"
+                                      ],
+                                      "properties": {
+                                          "color": {
+                                              "$id": "#/properties/output_descriptors/items/anyOf/0/properties/styles/properties/text/properties/color",
+                                              "type": "string",
+                                              "title": "The color schema",
+                                              "description": "An explanation about the purpose of this instance.",
+                                              "default": "",
+                                              "examples": [
+                                                  "#d4d400"
+                                              ]
+                                          }
+                                      },
+                                      "additionalProperties": true
+                                  }
+                              },
+                              "additionalProperties": true
+                          }
+                      },
+                      "additionalProperties": true
+                  }
+              ]
+          }
+      }
+  },
+  "additionalProperties": true
+}

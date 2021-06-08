@@ -93,27 +93,37 @@ Credential, Assertion, Attestation, etc.</dd>
 <dt><span id="term:credential-fulfillments"><span id="term:credential-fulfillment">Credential Fulfillment</span></span></dt>
 <dd>Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of <a class="term-reference" href="#term:claims">Claims</a> to a <a class="term-reference" href="#term:holder">Holder</a> in accordance with the output an <a class="term-reference" href="#term:issuer">Issuer</a> specified in a <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>. See <a href="#credential-fulfillment" >Credential Fulfillment</a>.</dd>
 </dl>
-<h2 id="resource-definition"><a class="toc-anchor" href="#resource-definition" >§</a> Resource Definition</h2>
+<h2 id="credential-manifest-2"><a class="toc-anchor" href="#credential-manifest-2" >§</a> Credential Manifest</h2>
 <p><em>Credential Manifests</em> are a resource format that defines preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.</p>
+<section>
 <div id="credential-manifest---all-features-exercised" class="notice example"><a class="notice-link" href="#credential-manifest---all-features-exercised">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"WA-DL-CLASS-A"</span><span class="token punctuation">,</span>
   <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"0.1.0"</span><span class="token punctuation">,</span>
   <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:123?linked-domains=3"</span><span class="token punctuation">,</span>
     <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Washington State Government"</span><span class="token punctuation">,</span>
-    <span class="token property">"styles"</span><span class="token operator">:</span> <span class="token comment">// Entity Styles object or URI,</span>
+    <span class="token property">"styles"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
-      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
-        <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"http://washington-state-schemas.org/1.0.0/driver-license.json"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"http://washington-state-schemas.org/1.0.0/driver-license.json"</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
       <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"$.name"</span><span class="token punctuation">,</span>
+            <span class="token string">"$.vc.name"</span>
+          <span class="token punctuation">]</span><span class="token punctuation">,</span>
           <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token property">"subtitle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.class"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.class"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">"$.class"</span><span class="token punctuation">,</span>
+            <span class="token string">"$.vc.class"</span>
+          <span class="token punctuation">]</span><span class="token punctuation">,</span>
           <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Class A, Commercial"</span>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token property">"description"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
@@ -121,21 +131,22 @@ Credential, Assertion, Attestation, etc.</dd>
         <span class="token punctuation">}</span><span class="token punctuation">,</span>
         <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
           <span class="token punctuation">{</span>
-            <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.donor"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.donor"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+              <span class="token string">"$.donor"</span><span class="token punctuation">,</span>
+              <span class="token string">"$.vc.donor"</span>
+            <span class="token punctuation">]</span><span class="token punctuation">,</span>
             <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Unknown"</span><span class="token punctuation">,</span>
             <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Organ Donor"</span>
           <span class="token punctuation">}</span>
         <span class="token punctuation">]</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"styles"</span><span class="token operator">:</span> <span class="token comment">// Entity Styles object or URI</span>
+      <span class="token property">"styles"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
-  <span class="token property">"presentation_definition"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token comment">// As defined in the Presentation Exchange specification</span>
-  <span class="token punctuation">}</span>
+  <span class="token property">"presentation_definition"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-</div>
+</section>
 <h3 id="general-composition"><a class="toc-anchor" href="#general-composition" >§</a> General Composition</h3>
 <p><em>Credential Manifests</em> are JSON objects composed as follows:</p>
 <ul>
@@ -290,27 +301,28 @@ For example:</li>
 </section>
 <p><a class="term-reference" href="#term:display-mapping-objects">Display Mapping Objects</a> can be used to either pull data from the target Claim with the <code>path</code> property OR display infomation about the target Claim with the <code>text</code> property</p>
 <h4 id="using-path"><a class="toc-anchor" href="#using-path" >§</a> Using <code>path</code></h4>
-<div id="display-mapping-object-with-path" class="notice example"><a class="notice-link" href="#display-mapping-object-with-path">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
+<section>
+<div id="display-mapping-oubject-with-path" class="notice example"><a class="notice-link" href="#display-mapping-oubject-with-path">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
     <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
-  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">"subtitle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.issuanceDate"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.issuanceDate"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-      <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"date-time"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Issuance Date Unknown"</span>
+    <span class="token property">"subtitle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.issuanceDate"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.issuanceDate"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"date-time"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Issuance Date Unknown"</span>
+    <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-</div>
-</div>
-</div>
+</section>
 <ul>
 <li>The object <strong><strong>MUST</strong></strong> contain a <code>path</code> property and its value must be an array of <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> string expressions.</li>
 <li>The object <strong><strong>MUST</strong></strong> contain a <code>schema</code> property and its value must be an object that is composed as follows:
@@ -411,6 +423,10 @@ For example:</li>
 <span class="token punctuation">}</span>
 </code></pre>
 </div>
+</div>
+</div>
+</div>
+</div>
 <ul>
 <li>The object <strong><strong>MUST</strong></strong> contain a <code>text</code> property and its value <strong><strong>MUST</strong></strong> be a string value</li>
 </ul>
@@ -489,7 +505,7 @@ For example:</li>
 <span class="token punctuation">}</span>
 </code></pre>
 <h3 id="labeled-display-mapping-object"><a class="toc-anchor" href="#labeled-display-mapping-object" >§</a> Labeled Display Mapping Object</h3>
-<div id="display-mapping-object-with-path-1" class="notice example"><a class="notice-link" href="#display-mapping-object-with-path-1">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="display-mapping-object-with-path" class="notice example"><a class="notice-link" href="#display-mapping-object-with-path">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
       <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Organ Donor"</span><span class="token punctuation">,</span>
@@ -511,330 +527,93 @@ For example:</li>
 <section>
 <div id="display-mapping---schema" class="notice example"><a class="notice-link" href="#display-mapping---schema">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"$schema"</span><span class="token operator">:</span> <span class="token string">"http://json-schema.org/draft-07/schema"</span><span class="token punctuation">,</span>
-  <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"http://example.com/example.json"</span><span class="token punctuation">,</span>
-  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
-  <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The root schema"</span><span class="token punctuation">,</span>
-  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"The root schema comprises the entire JSON document."</span><span class="token punctuation">,</span>
-  <span class="token property">"default"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token punctuation">{</span>
-          <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-              <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                  <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                      <span class="token string">"$.name"</span><span class="token punctuation">,</span>
-                      <span class="token string">"$.vc.name"</span>
-                  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                  <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
-              <span class="token punctuation">}</span><span class="token punctuation">,</span>
-              <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                  <span class="token punctuation">{</span>
-                      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                          <span class="token string">"$.issuanceDate"</span><span class="token punctuation">,</span>
-                          <span class="token string">"$.vc.issuanceDate"</span>
-                      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-                          <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"date-time"</span>
-                      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                      <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Issuance Date"</span>
-                  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                  <span class="token punctuation">{</span>
-                      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                          <span class="token string">"$.vision_aid"</span><span class="token punctuation">,</span>
-                          <span class="token string">"$.vc.vision_aid"</span>
-                      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"boolean"</span>
-                      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                      <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Vision aid required"</span>
-                  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                  <span class="token punctuation">{</span>
-                      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                          <span class="token string">"$.donor"</span><span class="token punctuation">,</span>
-                          <span class="token string">"$.vc.donor"</span>
-                      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"boolean"</span>
-                      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                      <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Organ Donor"</span>
-                  <span class="token punctuation">}</span>
-              <span class="token punctuation">]</span>
+  <span class="token property">"definitions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+      <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"type"</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"display_mapping"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+      <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"path"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"array"</span><span class="token punctuation">,</span>
+          <span class="token property">"items"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
           <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"#/definitions/schema"</span>
+        <span class="token punctuation">}</span>
       <span class="token punctuation">}</span>
-  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
   <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token string">"display"</span>
+    <span class="token string">"display"</span>
   <span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display"</span><span class="token punctuation">,</span>
-          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
-          <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The display schema"</span><span class="token punctuation">,</span>
-          <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-          <span class="token property">"default"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-          <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+      <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"#/definitions/display_mapping"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"subtitle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"#/definitions/display_mapping"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"array"</span><span class="token punctuation">,</span>
+          <span class="token property">"additionalItems"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+          <span class="token property">"items"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"anyOf"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
               <span class="token punctuation">{</span>
-                  <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                          <span class="token string">"$.name"</span><span class="token punctuation">,</span>
-                          <span class="token string">"$.vc.name"</span>
-                      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                      <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
+                <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+                <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                  <span class="token string">"path"</span><span class="token punctuation">,</span>
+                  <span class="token string">"schema"</span>
+                <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                  <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"array"</span><span class="token punctuation">,</span>
+                    <span class="token property">"items"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                      <span class="token punctuation">{</span>
+                        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
+                      <span class="token punctuation">}</span>
+                    <span class="token punctuation">]</span>
                   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                  <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                      <span class="token punctuation">{</span>
-                          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                              <span class="token string">"$.issuanceDate"</span><span class="token punctuation">,</span>
-                              <span class="token string">"$.vc.issuanceDate"</span>
-                          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                          <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                              <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-                              <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"date-time"</span>
-                          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                          <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Issuance Date"</span>
-                      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                      <span class="token punctuation">{</span>
-                          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                              <span class="token string">"$.vision_aid"</span><span class="token punctuation">,</span>
-                              <span class="token string">"$.vc.vision_aid"</span>
-                          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                          <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                              <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"boolean"</span>
-                          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                          <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Vision aid required"</span>
-                      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                      <span class="token punctuation">{</span>
-                          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                              <span class="token string">"$.donor"</span><span class="token punctuation">,</span>
-                              <span class="token string">"$.vc.donor"</span>
-                          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                          <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                              <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"boolean"</span>
-                          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                          <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Organ Donor"</span>
-                      <span class="token punctuation">}</span>
-                  <span class="token punctuation">]</span>
-              <span class="token punctuation">}</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-              <span class="token string">"title"</span><span class="token punctuation">,</span>
-              <span class="token string">"properties"</span>
-          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-          <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-              <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                  <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/title"</span><span class="token punctuation">,</span>
-                  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
-                  <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The title schema"</span><span class="token punctuation">,</span>
-                  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                  <span class="token property">"default"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                  <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                      <span class="token punctuation">{</span>
-                          <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                              <span class="token string">"$.name"</span><span class="token punctuation">,</span>
-                              <span class="token string">"$.vc.name"</span>
-                          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                          <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
-                      <span class="token punctuation">}</span>
-                  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                  <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                      <span class="token string">"path"</span><span class="token punctuation">,</span>
-                      <span class="token string">"fallback"</span>
-                  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                  <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                          <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/title/properties/path"</span><span class="token punctuation">,</span>
-                          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"array"</span><span class="token punctuation">,</span>
-                          <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The path schema"</span><span class="token punctuation">,</span>
-                          <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                          <span class="token property">"default"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-                          <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                              <span class="token punctuation">[</span>
-                                  <span class="token string">"$.name"</span><span class="token punctuation">,</span>
-                                  <span class="token string">"$.vc.name"</span>
-                              <span class="token punctuation">]</span>
-                          <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                          <span class="token property">"additionalItems"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-                          <span class="token property">"items"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                              <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/title/properties/path/items"</span><span class="token punctuation">,</span>
-                              <span class="token property">"anyOf"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                  <span class="token punctuation">{</span>
-                                      <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/title/properties/path/items/anyOf/0"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The first anyOf schema"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                                      <span class="token property">"default"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
-                                      <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                          <span class="token string">"$.name"</span><span class="token punctuation">,</span>
-                                          <span class="token string">"$.vc.name"</span>
-                                      <span class="token punctuation">]</span>
-                                  <span class="token punctuation">}</span>
-                              <span class="token punctuation">]</span>
-                          <span class="token punctuation">}</span>
-                      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                      <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                          <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/title/properties/fallback"</span><span class="token punctuation">,</span>
-                          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-                          <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The fallback schema"</span><span class="token punctuation">,</span>
-                          <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                          <span class="token property">"default"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
-                          <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                              <span class="token string">"Washington State Driver License"</span>
-                          <span class="token punctuation">]</span>
-                      <span class="token punctuation">}</span>
+                  <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                    <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"#/definitions/schema"</span>
                   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                  <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">true</span>
-              <span class="token punctuation">}</span><span class="token punctuation">,</span>
-              <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                  <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/properties"</span><span class="token punctuation">,</span>
-                  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"array"</span><span class="token punctuation">,</span>
-                  <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The properties schema"</span><span class="token punctuation">,</span>
-                  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                  <span class="token property">"default"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-                  <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                      <span class="token punctuation">[</span>
-                          <span class="token punctuation">{</span>
-                              <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                  <span class="token string">"$.issuanceDate"</span><span class="token punctuation">,</span>
-                                  <span class="token string">"$.vc.issuanceDate"</span>
-                              <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                              <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                                  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-                                  <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"date-time"</span>
-                              <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                              <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Issuance Date"</span>
-                          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                          <span class="token punctuation">{</span>
-                              <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                  <span class="token string">"$.vision_aid"</span><span class="token punctuation">,</span>
-                                  <span class="token string">"$.vc.vision_aid"</span>
-                              <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                              <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                                  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"boolean"</span>
-                              <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                              <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Vision aid required"</span>
-                          <span class="token punctuation">}</span>
-                      <span class="token punctuation">]</span>
-                  <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                  <span class="token property">"additionalItems"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-                  <span class="token property">"items"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                      <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/properties/items"</span><span class="token punctuation">,</span>
-                      <span class="token property">"anyOf"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                          <span class="token punctuation">{</span>
-                              <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/properties/items/anyOf/0"</span><span class="token punctuation">,</span>
-                              <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
-                              <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The first anyOf schema"</span><span class="token punctuation">,</span>
-                              <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                              <span class="token property">"default"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                              <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                  <span class="token punctuation">{</span>
-                                      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                          <span class="token string">"$.issuanceDate"</span><span class="token punctuation">,</span>
-                                          <span class="token string">"$.vc.issuanceDate"</span>
-                                      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                                      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                                          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-                                          <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"date-time"</span>
-                                      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                                      <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Issuance Date"</span>
-                                  <span class="token punctuation">}</span>
-                              <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                              <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                  <span class="token string">"path"</span><span class="token punctuation">,</span>
-                                  <span class="token string">"schema"</span><span class="token punctuation">,</span>
-                                  <span class="token string">"label"</span>
-                              <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                              <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                                  <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                                      <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/properties/items/anyOf/0/properties/path"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"array"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The path schema"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                                      <span class="token property">"default"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-                                      <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                          <span class="token punctuation">[</span>
-                                              <span class="token string">"$.issuanceDate"</span><span class="token punctuation">,</span>
-                                              <span class="token string">"$.vc.issuanceDate"</span>
-                                          <span class="token punctuation">]</span>
-                                      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                                      <span class="token property">"additionalItems"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-                                      <span class="token property">"items"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                                          <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/properties/items/anyOf/0/properties/path/items"</span><span class="token punctuation">,</span>
-                                          <span class="token property">"anyOf"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                              <span class="token punctuation">{</span>
-                                                  <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/properties/items/anyOf/0/properties/path/items/anyOf/0"</span><span class="token punctuation">,</span>
-                                                  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-                                                  <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The first anyOf schema"</span><span class="token punctuation">,</span>
-                                                  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                                                  <span class="token property">"default"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
-                                                  <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                                      <span class="token string">"$.issuanceDate"</span><span class="token punctuation">,</span>
-                                                      <span class="token string">"$.vc.issuanceDate"</span>
-                                                  <span class="token punctuation">]</span>
-                                              <span class="token punctuation">}</span>
-                                          <span class="token punctuation">]</span>
-                                      <span class="token punctuation">}</span>
-                                  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                                  <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                                      <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/properties/items/anyOf/0/properties/schema"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The schema schema"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                                      <span class="token property">"default"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-                                      <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                          <span class="token punctuation">{</span>
-                                              <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-                                              <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"date-time"</span>
-                                          <span class="token punctuation">}</span>
-                                      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                                      <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                          <span class="token string">"type"</span><span class="token punctuation">,</span>
-                                          <span class="token string">"format"</span>
-                                      <span class="token punctuation">]</span><span class="token punctuation">,</span>
-                                      <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                                          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                                              <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/properties/items/anyOf/0/properties/schema/properties/type"</span><span class="token punctuation">,</span>
-                                              <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-                                              <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The type schema"</span><span class="token punctuation">,</span>
-                                              <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                                              <span class="token property">"default"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
-                                              <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                                  <span class="token string">"string"</span>
-                                              <span class="token punctuation">]</span>
-                                          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                                          <span class="token property">"format"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                                              <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/properties/items/anyOf/0/properties/schema/properties/format"</span><span class="token punctuation">,</span>
-                                              <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-                                              <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The format schema"</span><span class="token punctuation">,</span>
-                                              <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                                              <span class="token property">"default"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
-                                              <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                                  <span class="token string">"date-time"</span>
-                                              <span class="token punctuation">]</span>
-                                          <span class="token punctuation">}</span>
-                                      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                                      <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">true</span>
-                                  <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                                  <span class="token property">"label"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-                                      <span class="token property">"$id"</span><span class="token operator">:</span> <span class="token string">"#/properties/display/properties/properties/items/anyOf/0/properties/label"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"The label schema"</span><span class="token punctuation">,</span>
-                                      <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"An explanation about the purpose of this instance."</span><span class="token punctuation">,</span>
-                                      <span class="token property">"default"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
-                                      <span class="token property">"examples"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-                                          <span class="token string">"Issuance Date"</span>
-                                      <span class="token punctuation">]</span>
-                                  <span class="token punctuation">}</span>
-                              <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                              <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">true</span>
-                          <span class="token punctuation">}</span>
-                      <span class="token punctuation">]</span>
+                  <span class="token property">"label"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
                   <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">false</span>
               <span class="token punctuation">}</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span>
-          <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">true</span>
-      <span class="token punctuation">}</span>
+            <span class="token punctuation">]</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
-  <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">false</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </section>
@@ -891,8 +670,11 @@ For example:</li>
 <li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code> property. The value of this property <strong><strong>MUST</strong></strong> be the <code>id</code> value of a valid <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>.</li>
 <li>The <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> include a <code>descriptor_map</code> property. The value of this property <strong><strong>MUST</strong></strong> be an array of <em>Output Descriptor Mapping Objects</em>, just like <a path-0="identity.foundation"path-1="presentation-exchange"path-2="#presentation-submission"href="https://identity.foundation/presentation-exchange/#presentation-submission" >Presentation Submission’s</a> <code>descriptor_map</code> property.</li>
 </ul>
+<pre><code>// NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer
+</code></pre>
 <section>
-<div id="credential-fulfillment---simple-example" class="notice example"><a class="notice-link" href="#credential-fulfillment---simple-example">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span><span class="token property">"credential_fulfillment"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+<div id="credential-fulfillment---simple-example" class="notice example"><a class="notice-link" href="#credential-fulfillment---simple-example">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>  
+  <span class="token property">"credential_fulfillment"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"a30e3b91-fb77-4d22-95fa-871689c322e2"</span><span class="token punctuation">,</span>
     <span class="token property">"manifest_id"</span><span class="token operator">:</span> <span class="token string">"32f54163-7166-48f1-93d8-ff217bdb0653"</span><span class="token punctuation">,</span>
     <span class="token property">"descriptor_map"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -1096,10 +878,6 @@ For example:</li>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-</div>
-</div>
-</div>
-</div>
 </section>
 <h2 id="references"><a class="toc-anchor" href="#references" >§</a> References</h2>
 <p>
@@ -1160,6 +938,10 @@ For example:</li>
       
 </dl>
 </p>
+</div>
+</div>
+</div>
+</div>
 
                     </article>    
       
@@ -1187,7 +969,7 @@ For example:</li>
 <li><a href="#abstract" >Abstract</a></li>
 <li><a href="#status-of-this-document" >Status of This Document</a></li>
 <li><a href="#terminology" >Terminology</a></li>
-<li><a href="#resource-definition" >Resource Definition</a>
+<li><a href="#credential-manifest-2" >Credential Manifest</a>
 <ul>
 <li><a href="#general-composition" >General Composition</a></li>
 <li><a href="#output-descriptor" >Output Descriptor</a>

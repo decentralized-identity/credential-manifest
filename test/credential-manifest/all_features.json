@@ -8,16 +8,24 @@
   },
   "output_descriptors": [
     {
-      "schema": [{
-        "uri": "http://washington-state-schemas.org/1.0.0/driver-license.json"
-      }],
+      "schema": [
+        {
+          "uri": "http://washington-state-schemas.org/1.0.0/driver-license.json"
+        }
+      ],
       "display": {
         "title": {
-          "path": ["$.name", "$.vc.name"],
+          "path": [
+            "$.name",
+            "$.vc.name"
+          ],
           "fallback": "Washington State Driver License"
         },
         "subtitle": {
-          "path": ["$.class", "$.vc.class"],
+          "path": [
+            "$.class",
+            "$.vc.class"
+          ],
           "fallback": "Class A, Commercial"
         },
         "description": {
@@ -25,7 +33,10 @@
         },
         "properties": [
           {
-            "path": ["$.donor", "$.vc.donor"],
+            "path": [
+              "$.donor",
+              "$.vc.donor"
+            ],
             "fallback": "Unknown",
             "label": "Organ Donor"
           }
@@ -34,7 +45,5 @@
       "styles": {}
     }
   ],
-  "presentation_definition": {
-  }
+  "presentation_definition": {}
 }
-

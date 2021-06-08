@@ -61,53 +61,19 @@ Credential, Assertion, Attestation, etc.
 [[def:Credential Fulfillment, Credential Fulfillments]]
 ~ Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. See [Credential Fulfillment](#credential-fulfillment).
 
-## Resource Definition
+## Credential Manifest
 
 _Credential Manifests_ are a resource format that defines preconditional requirements, Issuer style preferences, and other facets User Agents utilize to help articulate and select the inputs necessary for processing and issuance of a specified credential.
 
+
+<section>
+
 ::: example Credential Manifest - All features exercised
 ```json
-{
-  "id": "WA-DL-CLASS-A",
-  "version": "0.1.0",
-  "issuer": {
-    "id": "did:example:123?linked-domains=3",
-    "name": "Washington State Government",
-    "styles": // Entity Styles object or URI,
-  "output_descriptors": [
-    {
-      "schema": [{
-        "uri": "http://washington-state-schemas.org/1.0.0/driver-license.json"
-      }],
-      "display": {
-        "title": {
-          "path": ["$.name", "$.vc.name"],
-          "fallback": "Washington State Driver License"
-        },
-        "subtitle": {
-          "path": ["$.class", "$.vc.class"],
-          "fallback": "Class A, Commercial"
-        },
-        "description": {
-          "text": "License to operate a vehicle with a gross combined weight rating (GCWR) of 26,001 or more pounds, as long as the GVWR of the vehicle(s) being towed is over 10,000 pounds."
-        },
-        "properties": [
-          {
-            "path": ["$.donor", "$.vc.donor"],
-            "fallback": "Unknown",
-            "label": "Organ Donor"
-          }
-        ]
-      },
-      "styles": // Entity Styles object or URI
-    }
-  ],
-  "presentation_definition": {
-    // As defined in the Presentation Exchange specification
-  }
-}
+[[insert: ./test/credential-manifest/all_features.json]]
 ```
-:::
+
+</section>
 
 
 ### General Composition
@@ -169,7 +135,7 @@ _Credential Manifests_ are JSON objects composed as follows:
 
 ::: example Output Descriptors - Simple Example
 ```json
-[[insert: ./test/output-descriptors/sample.json]]
+[[insert: ./test/output-descriptors/simple.json]]
 ```
 
 </section>
@@ -204,7 +170,7 @@ Within a `Credential Manifest`, there are two areas where styling affordances ar
 
 ::: example Display Mapping - Simple Example
 ```json
-[[insert: ./test/display-mapping/sample.json]]
+[[insert: ./test/display-mapping/simple.json]]
 ```
 
 </section>
@@ -213,27 +179,15 @@ Within a `Credential Manifest`, there are two areas where styling affordances ar
 
 #### Using `path`
 
-:::example Display Mapping Object with path
+
+<section>
+
+::: example Display Mapping Oubject with path
 ```json
-{
-  "title": {
-    "path": ["$.name", "$.vc.name"],
-    "schema": {
-      "type": "string"
-    },
-    "fallback": "Washington State Driver License"
-  },
-  "subtitle": {
-    "path": ["$.issuanceDate", "$.vc.issuanceDate"],
-    "schema": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "fallback": "Issuance Date Unknown"
-  }
-}
+[[insert: ./test/display-mapping/with_path.json]]
 ```
-:::
+
+</section>
 
 - The object ****MUST**** contain a `path` property and its value must be an array of [JSONPath](https://goessner.net/articles/JsonPath/) string expressions.
 - The object ****MUST**** contain a `schema` property and its value must be an object that is composed as follows:
@@ -440,6 +394,9 @@ Target | Location
 - The `credential_fulfillment` object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Manifest]].
 - The `credential_fulfillment` object ****MUST**** include a `descriptor_map` property. The value of this property ****MUST**** be an array of _Output Descriptor Mapping Objects_, just like [Presentation Submission's](https://identity.foundation/presentation-exchange/#presentation-submission) `descriptor_map` property.
 
+```
+// NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer
+```
 
 <section>
 
@@ -490,114 +447,11 @@ The following JSON Schema Draft 7 definition summarizes the rules above:
 
 ::: example Credential Fulfillment - Verifiable Presentation
 ```json
-{
-  "@context": [
-    "https://www.w3.org/2018/credentials/v1",
-    "https://identity.foundation/credential-manifest/fulfillment/v1"
-  ],
-  "type": [
-    "VerifiablePresentation",
-    "CredentialFulfillment"
-  ],
-  "credential_fulfillment": {
-    "id": "a30e3b91-fb77-4d22-95fa-871689c322e2",
-    "manifest_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
-    "descriptor_map": [
-      {
-        "id": "banking_output_2",
-        "format": "jwt_vc",
-        "path": "$.verifiableCredential[0]"
-      },
-      {
-        "id": "employment_output",
-        "format": "ldp_vc",
-        "path": "$.verifiableCredential[1]"
-      },
-      {
-        "id": "citizenship_output_1",
-        "format": "ldp_vc",
-        "path": "$.verifiableCredential[2]"
-      }
-    ]
-  },
-  "verifiableCredential": [
-    {
-      "comment": "IN REALWORLD VPs, THIS WILL BE A BIG UGLY OBJECT INSTEAD OF THE DECODED JWT PAYLOAD THAT FOLLOWS",
-      "vc": {
-        "@context": "https://www.w3.org/2018/credentials/v1",
-        "id": "https://eu.com/claims/DriversLicense",
-        "type": ["EUDriversLicense"],
-        "issuer": "did:example:123",
-        "issuanceDate": "2010-01-01T19:73:24Z",
-        "credentialSubject": {
-          "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
-          "accounts": [
-            {
-              "id": "1234567890",
-              "route": "DE-9876543210"
-            },
-            {
-              "id": "2457913570",
-              "route": "DE-0753197542"
-            }
-          ]
-        }
-      }
-    },
-    {
-      "@context": "https://www.w3.org/2018/credentials/v1",
-      "id": "https://business-standards.org/schemas/employment-history.json",
-      "type": ["VerifiableCredential", "GenericEmploymentCredential"],
-      "issuer": "did:foo:123",
-      "issuanceDate": "2010-01-01T19:73:24Z",
-      "credentialSubject": {
-        "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
-        "active": true
-      },
-      "proof": {
-        "type": "EcdsaSecp256k1VerificationKey2019",
-        "created": "2017-06-18T21:19:10Z",
-        "proofPurpose": "assertionMethod",
-        "verificationMethod": "https://example.edu/issuers/keys/1",
-        "jws": "..."
-      }
-    },
-    {
-      "@context": "https://www.w3.org/2018/credentials/v1",
-      "id": "https://eu.com/claims/DriversLicense",
-      "type": ["EUDriversLicense"],
-      "issuer": "did:foo:123",
-      "issuanceDate": "2010-01-01T19:73:24Z",
-      "credentialSubject": {
-        "id": "did:example:ebfeb1f712ebc6f1c276e12ec21",
-        "license": {
-          "number": "34DGE352",
-          "dob": "07/13/80"
-        }
-      },
-      "proof": {
-        "type": "RsaSignature2018",
-        "created": "2017-06-18T21:19:10Z",
-        "proofPurpose": "assertionMethod",
-        "verificationMethod": "https://example.edu/issuers/keys/1",
-        "jws": "..."
-      }
-    }
-  ],
-  "proof": {
-    "type": "RsaSignature2018",
-    "created": "2018-09-14T21:19:10Z",
-    "proofPurpose": "authentication",
-    "verificationMethod": "did:example:ebfeb1f712ebc6f1c276e12ec21#keys-1",
-    "challenge": "1f44d55f-f161-4938-a659-f8026467f126",
-    "domain": "4jt78h47fh47",
-    "jws": "..."
-  }
-}
+[[insert: ./test/credential-fulfillment/appendix.json]]
 ```
-:::
 
 </section>
+
 
 ## References
 

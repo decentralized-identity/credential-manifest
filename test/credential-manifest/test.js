@@ -7,7 +7,7 @@ describe('Credential Manifest', function () {
   describe('JSON Schema', function () {
     it('should validate the basic example object using JSON Schema Draft 7', function () {
       const schema = JSON.parse(fs.readFileSync(__dirname + '/schema.json'));
-      const data = JSON.parse(fs.readFileSync(__dirname + '/sample.json'));
+      const data = JSON.parse(fs.readFileSync(__dirname + '/all_features.json'));
       const jv = new ajv({allErrors: true});
       const validate = jv.compile(schema);
       const valid = validate(data);

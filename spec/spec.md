@@ -9,6 +9,9 @@ Credential Manifest
 **Editors:**
 ~ [Daniel Buchner](https://www.linkedin.com/in/dbuchner/) (Microsoft)
 ~ [Brent Zundel](https://www.linkedin.com/in/bzundel/) (Evernym)
+~ [Jace Hensley](https://www.linkedin.com/in/jacehensley/) (Bloom)
+~ [Daniel McGrogan](https://www.linkedin.com/in/dtmcgrogan/) (Workday)
+
 <!-- -->
 **Participate:**
 ~ [GitHub repo](https://github.com/decentralized-identity/credential-manifest)
@@ -153,82 +156,11 @@ _Credential Manifests_ are JSON objects composed as follows:
 
 ### `styles` properties
 
-Within a `Credential Manifest`, there are two areas where styling affordances are provided: under the `issuer` property, where the Issuer may express styling information about themselves, and under the `credential` property, where the Issuer may express styling information about the credential itself. Under each of these areas, an implementer ****MAY**** include a `styles` property, and if present, its value ****MUST**** be an object or URI that conforms to the Entity Styles specification.
+Within a `Credential Manifest`, there are two areas where styling affordances are provided: under the `issuer` property, where the Issuer may express styling information about themselves, and under the `credential` property, where the Issuer may express styling information about the credential itself. Under each of these areas, an implementer ****MAY**** include a `styles` property, and if present, its value ****MUST**** be an object or URI that conforms to the [Wallet Rendering](https://identity.foundation/credential-manifest/wallet-rendering) specification.
 
 ### `display` properties
 
-[[ref:Output Descriptor Objects]] ****MAY**** contain a `display` property defining various content and data pointers for representation of a credential in UI. The properties in the object use _Display Mapping Objects_ to assign text and data about the credential to common UI presentation elements, either by selecting data from the credential itself or providing it directly. The `display` object is constructed as follows
-
-- The object ****MAY**** contain a `title` property, and if present, its value ****MUST**** be a [[ref:Display Mapping Object]]. User Agents ****SHOULD**** render the data in an area of UI that conveys the general title of the credential being rendered.
-- The object ****MAY**** contain a `subtitle` property, and if present, its value ****MUST**** be a [[ref:Display Mapping Object]]. User Agents ****SHOULD**** render the data in close proximity to the `title` value and ****SHOULD**** display the information in a way that is noticably less pronounced than that of the `title` value.
-- The object ****MAY**** contain a `description` property, and if present, its value ****MUST**** be a [[ref:Display Mapping Object]]. User Agents ****SHOULD**** render the data in an area of UI that is appropreate for verbose, descriptive textual data.
-- The object ****MAY**** contain a `properties` property, and if present, its value ****MUST**** be an array of [[ref:Labeled Display Mapping Objects]]. User Agents ****SHOULD**** render the data specified by each _Display Mapping Object_ in an area of UI that is appropreate for the rendering of a flat list of labeled values.
-
-### Display Mapping Object
-
-<section>
-
-::: example Display Mapping - Simple Example
-```json
-[[insert: ./test/display-mapping/simple.json]]
-```
-
-</section>
-
-[[ref:Display Mapping Objects]] can be used to either pull data from the target Claim with the `path` property OR display infomation about the target Claim with the `text` property
-
-#### Using `path`
-
-
-<section>
-
-::: example Display Mapping Oubject with path
-```json
-[[insert: ./test/display-mapping/with_path.json]]
-```
-
-</section>
-
-- The object ****MUST**** contain a `path` property and its value must be an array of [JSONPath](https://goessner.net/articles/JsonPath/) string expressions.
-- The object ****MUST**** contain a `schema` property and its value must be an object that is composed as follows:
-  - The `schema` property ****MUST**** contain a `type` property and its value must be "string", "boolean", "number", or "integer". The `type` property ****MUST**** represent the type of the data found with the `path` property of the Display Mapping Object. [See below](#type-specific-configuration) for "type" specific configurations.
-  - The `schema` property ****MAY**** contain a `format` property IF the `type` property is `"string"` and its value must be "date-time", "time", "date", "email", "idn-email", "hostname", "idn-hostname", "ipv4", "ipv6", "uri", "uri-reference", "iri", or "iri-reference". This property is to be used to transform the property in the rendered UI, for example tranforming an ISO Date string into a human readable string.
-- The object ****MAY**** contain a `fallback` property and its value ****MUST**** be a string value. This value is to be used to rendered into the UI if all the `path` property's item's value is undefined OR optionally if when the [[ref:Holder]] processes the value and it does not comply with the [type specific configuration](#type-specific-configuration) below.
-  - If the `path`'s value does not comply with the [type specific configuration](#type-specific-configuration) below the [[ref:Holder]] may use the raw value OR use the [[ref:Claim]] itself to help figure out the type of the value.
-
-##### Type specific configuration
-
-When `schema.type` is set to `"string"` the object ****MAY**** contain a format property. It's value can be one of the following:
-
-| Value | Description | Spec |
-| ----- | ----------- | ---- |
-| "date-time" | Date and time together, for example, `2018-11-13T20:20:39+00:00` | [[spec:rfc3339]] |
-| "time" | Time, for example `20:20:39+00:00` | [[spec:rfc3339]] |
-| "date" | Date, for example `2018-11-13` | [[spec:rfc3339]] |
-| "email" | Internet email address | [[spec:rfc5322]] |
-| "idn-email" | The internationalized form of an Internet email address | [[spec:rfc6531]] |
-| "hostname" | Internet host name | [[spec:rfc1034]] |
-| "idn-hostname" | The internationalized form of an Internet host name | [[spec:rfc5890]] |
-| "ipv4" | IPv4 address | [[spec:rfc2673]] |
-| "ipv6" | IPv6 address | [[spec:rfc2373]] |
-| "uri" | A universal resource identifier | [[spec:rfc3986]] |
-| "uri-reference" | A URI reference | [[spec:rfc3986]] |
-| "iri" | The internationalized equivalent of a "uri" | [[spec:rfc3987]] |
-| "iri-reference" | The internationalized equivalent of a "uri-reference" | [[spec:rfc3987]] |
-
-#### Using `text`
-
-:::example Display Mapping Object with text
-```json
-{
-  "title": {
-    "text": "Washington State Driver License"
-  }
-}
-```
-:::
-
-- The object ****MUST**** contain a `text` property and its value ****MUST**** be a string value
+[[ref:Output Descriptor Objects]] ****MAY**** contain a `display` property defining various content and data pointers for representation of a credential in UI. The object is used to assign text and data about the credential to common UI presentation elements, either by selecting data from the credential itself or providing it directly. If present, the `display` property value ****MUST**** be an object or URI that conforms to the [Wallet Rendering](https://identity.foundation/credential-manifest/wallet-rendering) specification.
 
 #### JSON Schema
 
@@ -381,9 +313,12 @@ The following section details where the _Credential Submission_ is to be embedde
 
 The following are the locations at which the `credential_submission` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
 
-Target | Location
------- | --------
-       |
+Target     | Location      
+---------- | --------
+OpenID     | top-level 
+DIDComms   | `$.presentations~attach.data.json`
+VP         | top-level
+CHAPI      | `$.data`
 
 ## Credential Fulfillment
 
@@ -413,11 +348,14 @@ The following section details where the _Credential Fulfillment_ is to be embedd
 
 #### Embed Locations
 
-The following are the locations at which the `credential_manifest` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
+The following are the locations at which the `credential_fulfillment` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
 
-Target     | Location
+Target     | Location      
 ---------- | --------
+OpenID     | top-level 
+DIDComms   | `$.presentations~attach.data.json`
 VP         | top-level
+CHAPI      | `$.data`
 
 ### JSON Schema
 The following JSON Schema Draft 7 definition summarizes the rules above:

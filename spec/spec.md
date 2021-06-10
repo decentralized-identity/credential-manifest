@@ -348,11 +348,14 @@ The following section details where the _Credential Fulfillment_ is to be embedd
 
 #### Embed Locations
 
-The following are the locations at which the `credential_manifest` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
+The following are the locations at which the `credential_fulfillment` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
 
-Target     | Location
+Target     | Location      
 ---------- | --------
+OpenID     | top-level 
+DIDComms   | `$.presentations~attach.data.json`
 VP         | top-level
+CHAPI      | `$.data`
 
 ### JSON Schema
 The following JSON Schema Draft 7 definition summarizes the rules above:

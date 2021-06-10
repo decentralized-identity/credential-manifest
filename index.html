@@ -55,6 +55,8 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <dt><strong>Editors:</strong></dt>
 <dd><a path-0="www.linkedin.com"path-1="in"path-2="dbuchner"path-3=""href="https://www.linkedin.com/in/dbuchner/" >Daniel Buchner</a> (Microsoft)</dd>
 <dd><a path-0="www.linkedin.com"path-1="in"path-2="bzundel"path-3=""href="https://www.linkedin.com/in/bzundel/" >Brent Zundel</a> (Evernym)</dd>
+<dd><a path-0="www.linkedin.com"path-1="in"path-2="jacehensley"path-3=""href="https://www.linkedin.com/in/jacehensley/" >Jace Hensley</a> (Bloom)</dd>
+<dd><a path-0="www.linkedin.com"path-1="in"path-2="dtmcgrogan"path-3=""href="https://www.linkedin.com/in/dtmcgrogan/" >Daniel McGrogan</a> (Workday)</dd>
 </dl>
 <!-- -->
 <dl>
@@ -253,183 +255,9 @@ For example:</li>
 <li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MAY</strong></strong> contain a <code>display</code> property, and its value <strong><strong>MUST</strong></strong> be an object composed as defined in the <a href="#display-properties" ><code>display</code> properties</a> section.</li>
 </ul>
 <h3 id="styles-properties"><a class="toc-anchor" href="#styles-properties" >§</a> <code>styles</code> properties</h3>
-<p>Within a <code>Credential Manifest</code>, there are two areas where styling affordances are provided: under the <code>issuer</code> property, where the Issuer may express styling information about themselves, and under the <code>credential</code> property, where the Issuer may express styling information about the credential itself. Under each of these areas, an implementer <strong><strong>MAY</strong></strong> include a <code>styles</code> property, and if present, its value <strong><strong>MUST</strong></strong> be an object or URI that conforms to the Entity Styles specification.</p>
+<p>Within a <code>Credential Manifest</code>, there are two areas where styling affordances are provided: under the <code>issuer</code> property, where the Issuer may express styling information about themselves, and under the <code>credential</code> property, where the Issuer may express styling information about the credential itself. Under each of these areas, an implementer <strong><strong>MAY</strong></strong> include a <code>styles</code> property, and if present, its value <strong><strong>MUST</strong></strong> be an object or URI that conforms to the <a path-0="identity.foundation"path-1="credential-manifest"path-2="wallet-rendering"href="https://identity.foundation/credential-manifest/wallet-rendering" >Wallet Rendering</a> specification.</p>
 <h3 id="display-properties"><a class="toc-anchor" href="#display-properties" >§</a> <code>display</code> properties</h3>
-<p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> <strong><strong>MAY</strong></strong> contain a <code>display</code> property defining various content and data pointers for representation of a credential in UI. The properties in the object use <em>Display Mapping Objects</em> to assign text and data about the credential to common UI presentation elements, either by selecting data from the credential itself or providing it directly. The <code>display</code> object is constructed as follows</p>
-<ul>
-<li>The object <strong><strong>MAY</strong></strong> contain a <code>title</code> property, and if present, its value <strong><strong>MUST</strong></strong> be a <a class="term-reference" href="#term:display-mapping-object">Display Mapping Object</a>. User Agents <strong><strong>SHOULD</strong></strong> render the data in an area of UI that conveys the general title of the credential being rendered.</li>
-<li>The object <strong><strong>MAY</strong></strong> contain a <code>subtitle</code> property, and if present, its value <strong><strong>MUST</strong></strong> be a <a class="term-reference" href="#term:display-mapping-object">Display Mapping Object</a>. User Agents <strong><strong>SHOULD</strong></strong> render the data in close proximity to the <code>title</code> value and <strong><strong>SHOULD</strong></strong> display the information in a way that is noticably less pronounced than that of the <code>title</code> value.</li>
-<li>The object <strong><strong>MAY</strong></strong> contain a <code>description</code> property, and if present, its value <strong><strong>MUST</strong></strong> be a <a class="term-reference" href="#term:display-mapping-object">Display Mapping Object</a>. User Agents <strong><strong>SHOULD</strong></strong> render the data in an area of UI that is appropreate for verbose, descriptive textual data.</li>
-<li>The object <strong><strong>MAY</strong></strong> contain a <code>properties</code> property, and if present, its value <strong><strong>MUST</strong></strong> be an array of <a class="term-reference" href="#term:labeled-display-mapping-objects">Labeled Display Mapping Objects</a>. User Agents <strong><strong>SHOULD</strong></strong> render the data specified by each <em>Display Mapping Object</em> in an area of UI that is appropreate for the rendering of a flat list of labeled values.</li>
-</ul>
-<h3 id="display-mapping-object"><a class="toc-anchor" href="#display-mapping-object" >§</a> Display Mapping Object</h3>
-<section>
-<div id="display-mapping---simple-example" class="notice example"><a class="notice-link" href="#display-mapping---simple-example">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.issuanceDate"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.issuanceDate"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-          <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"date-time"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Issuance Date"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.vision_aid"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.vision_aid"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"boolean"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Vision aid required"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token punctuation">{</span>
-        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.donor"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.donor"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-        <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"boolean"</span>
-        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token property">"label"</span><span class="token operator">:</span> <span class="token string">"Organ Donor"</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">]</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
-</code></pre>
-</section>
-<p><a class="term-reference" href="#term:display-mapping-objects">Display Mapping Objects</a> can be used to either pull data from the target Claim with the <code>path</code> property OR display infomation about the target Claim with the <code>text</code> property</p>
-<h4 id="using-path"><a class="toc-anchor" href="#using-path" >§</a> Using <code>path</code></h4>
-<section>
-<div id="display-mapping-oubject-with-path" class="notice example"><a class="notice-link" href="#display-mapping-oubject-with-path">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
-    <span class="token punctuation">}</span><span class="token punctuation">,</span>
-    <span class="token property">"subtitle"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.issuanceDate"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.issuanceDate"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
-        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"date-time"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"fallback"</span><span class="token operator">:</span> <span class="token string">"Issuance Date Unknown"</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-</section>
-<ul>
-<li>The object <strong><strong>MUST</strong></strong> contain a <code>path</code> property and its value must be an array of <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> string expressions.</li>
-<li>The object <strong><strong>MUST</strong></strong> contain a <code>schema</code> property and its value must be an object that is composed as follows:
-<ul>
-<li>The <code>schema</code> property <strong><strong>MUST</strong></strong> contain a <code>type</code> property and its value must be “string”, “boolean”, “number”, or “integer”. The <code>type</code> property <strong><strong>MUST</strong></strong> represent the type of the data found with the <code>path</code> property of the Display Mapping Object. <a href="#type-specific-configuration" >See below</a> for “type” specific configurations.</li>
-<li>The <code>schema</code> property <strong><strong>MAY</strong></strong> contain a <code>format</code> property IF the <code>type</code> property is <code>&quot;string&quot;</code> and its value must be “date-time”, “time”, “date”, “email”, “idn-email”, “hostname”, “idn-hostname”, “ipv4”, “ipv6”, “uri”, “uri-reference”, “iri”, or “iri-reference”. This property is to be used to transform the property in the rendered UI, for example tranforming an ISO Date string into a human readable string.</li>
-</ul>
-</li>
-<li>The object <strong><strong>MAY</strong></strong> contain a <code>fallback</code> property and its value <strong><strong>MUST</strong></strong> be a string value. This value is to be used to rendered into the UI if all the <code>path</code> property’s item’s value is undefined OR optionally if when the <a class="term-reference" href="#term:holder">Holder</a> processes the value and it does not comply with the <a href="#type-specific-configuration" >type specific configuration</a> below.
-<ul>
-<li>If the <code>path</code>'s value does not comply with the <a href="#type-specific-configuration" >type specific configuration</a> below the <a class="term-reference" href="#term:holder">Holder</a> may use the raw value OR use the <a class="term-reference" href="#term:claim">Claim</a> itself to help figure out the type of the value.</li>
-</ul>
-</li>
-</ul>
-<h5 id="type-specific-configuration"><a class="toc-anchor" href="#type-specific-configuration" >§</a> Type specific configuration</h5>
-<p>When <code>schema.type</code> is set to <code>&quot;string&quot;</code> the object <strong><strong>MAY</strong></strong> contain a format property. It’s value can be one of the following:</p>
-<table>
-<thead>
-<tr>
-<th>Value</th>
-<th>Description</th>
-<th>Spec</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>“date-time”</td>
-<td>Date and time together, for example, <code>2018-11-13T20:20:39+00:00</code></td>
-<td>[<a class="spec-reference" href="#ref:RFC3339">RFC3339</a>]</td>
-</tr>
-<tr>
-<td>“time”</td>
-<td>Time, for example <code>20:20:39+00:00</code></td>
-<td>[<a class="spec-reference" href="#ref:RFC3339">RFC3339</a>]</td>
-</tr>
-<tr>
-<td>“date”</td>
-<td>Date, for example <code>2018-11-13</code></td>
-<td>[<a class="spec-reference" href="#ref:RFC3339">RFC3339</a>]</td>
-</tr>
-<tr>
-<td>“email”</td>
-<td>Internet email address</td>
-<td>[<a class="spec-reference" href="#ref:RFC5322">RFC5322</a>]</td>
-</tr>
-<tr>
-<td>“idn-email”</td>
-<td>The internationalized form of an Internet email address</td>
-<td>[<a class="spec-reference" href="#ref:RFC6531">RFC6531</a>]</td>
-</tr>
-<tr>
-<td>“hostname”</td>
-<td>Internet host name</td>
-<td>[<a class="spec-reference" href="#ref:RFC1034">RFC1034</a>]</td>
-</tr>
-<tr>
-<td>“idn-hostname”</td>
-<td>The internationalized form of an Internet host name</td>
-<td>[<a class="spec-reference" href="#ref:RFC5890">RFC5890</a>]</td>
-</tr>
-<tr>
-<td>“ipv4”</td>
-<td>IPv4 address</td>
-<td>[<a class="spec-reference" href="#ref:RFC2673">RFC2673</a>]</td>
-</tr>
-<tr>
-<td>“ipv6”</td>
-<td>IPv6 address</td>
-<td>[<a class="spec-reference" href="#ref:RFC2373">RFC2373</a>]</td>
-</tr>
-<tr>
-<td>“uri”</td>
-<td>A universal resource identifier</td>
-<td>[<a class="spec-reference" href="#ref:RFC3986">RFC3986</a>]</td>
-</tr>
-<tr>
-<td>“uri-reference”</td>
-<td>A URI reference</td>
-<td>[<a class="spec-reference" href="#ref:RFC3986">RFC3986</a>]</td>
-</tr>
-<tr>
-<td>“iri”</td>
-<td>The internationalized equivalent of a “uri”</td>
-<td>[<a class="spec-reference" href="#ref:RFC3987">RFC3987</a>]</td>
-</tr>
-<tr>
-<td>“iri-reference”</td>
-<td>The internationalized equivalent of a “uri-reference”</td>
-<td>[<a class="spec-reference" href="#ref:RFC3987">RFC3987</a>]</td>
-</tr>
-</tbody>
-</table>
-<h4 id="using-text"><a class="toc-anchor" href="#using-text" >§</a> Using <code>text</code></h4>
-<div id="display-mapping-object-with-text" class="notice example"><a class="notice-link" href="#display-mapping-object-with-text">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-    <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"Washington State Driver License"</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<ul>
-<li>The object <strong><strong>MUST</strong></strong> contain a <code>text</code> property and its value <strong><strong>MUST</strong></strong> be a string value</li>
-</ul>
+<p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> <strong><strong>MAY</strong></strong> contain a <code>display</code> property defining various content and data pointers for representation of a credential in UI. The object is used to assign text and data about the credential to common UI presentation elements, either by selecting data from the credential itself or providing it directly. If present, the <code>display</code> property value <strong><strong>MUST</strong></strong> be an object or URI that conforms to the <a path-0="identity.foundation"path-1="credential-manifest"path-2="wallet-rendering"href="https://identity.foundation/credential-manifest/wallet-rendering" >Wallet Rendering</a> specification.</p>
 <h4 id="json-schema"><a class="toc-anchor" href="#json-schema" >§</a> JSON Schema</h4>
 <p>The following JSON Schema Draft 7 definition summarizes the format-related rules above:</p>
 <pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
@@ -517,6 +345,8 @@ For example:</li>
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
+</div>
+</div>
 </div>
 <p><a class="term-reference" href="#term:labeled-display-mapping-objects">Labeled Display Mapping Objects</a> extend from <a class="term-reference" href="#term:display-mapping-objects">Display Mapping Objects</a>. In addition to the base Display Mapping Objects they have the following extra fields:</p>
 <ul>
@@ -658,7 +488,20 @@ For example:</li>
 </thead>
 <tbody>
 <tr>
-<td></td>
+<td>OpenID</td>
+<td>top-level</td>
+</tr>
+<tr>
+<td>DIDComms</td>
+<td><code>$.presentations~attach.data.json</code></td>
+</tr>
+<tr>
+<td>VP</td>
+<td>top-level</td>
+</tr>
+<tr>
+<td>CHAPI</td>
+<td><code>$.data</code></td>
 </tr>
 </tbody>
 </table>
@@ -702,7 +545,7 @@ For example:</li>
 <h3 id="embed-targets-2"><a class="toc-anchor" href="#embed-targets-2" >§</a> Embed Targets</h3>
 <p>The following section details where the <em>Credential Fulfillment</em> is to be embedded within a target data structure, as well as how to formulate the <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> expressions to select the <a class="term-reference" href="#term:claims">Claims</a> within the target data structure.</p>
 <h4 id="embed-locations-2"><a class="toc-anchor" href="#embed-locations-2" >§</a> Embed Locations</h4>
-<p>The following are the locations at which the <code>credential_manifest</code> object <strong><strong>MUST</strong></strong> be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.</p>
+<p>The following are the locations at which the <code>credential_fulfillment</code> object <strong><strong>MUST</strong></strong> be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.</p>
 <table>
 <thead>
 <tr>
@@ -712,8 +555,20 @@ For example:</li>
 </thead>
 <tbody>
 <tr>
+<td>OpenID</td>
+<td>top-level</td>
+</tr>
+<tr>
+<td>DIDComms</td>
+<td><code>$.presentations~attach.data.json</code></td>
+</tr>
+<tr>
 <td>VP</td>
 <td>top-level</td>
+</tr>
+<tr>
+<td>CHAPI</td>
+<td><code>$.data</code></td>
 </tr>
 </tbody>
 </table>
@@ -880,64 +735,7 @@ For example:</li>
 </code></pre>
 </section>
 <h2 id="references"><a class="toc-anchor" href="#references" >§</a> References</h2>
-<p>
-<dl class="reference-list">
-        <dt id="ref:RFC1034">RFC1034</dt>
-        <dd>
-          <cite><a href="https://tools.ietf.org/html/rfc1034">Domain names - concepts and facilities</a></cite>. 
-          P.V. Mockapetris; 1987-11. <span class="reference-status">Status: Internet Standard</span>.
-        </dd>
-      
-        <dt id="ref:RFC2373">RFC2373</dt>
-        <dd>
-          <cite><a href="https://tools.ietf.org/html/rfc2373">IP Version 6 Addressing Architecture</a></cite>. 
-          R. Hinden; S. Deering; 1998-07. <span class="reference-status">Status: Proposed Standard</span>.
-        </dd>
-      
-        <dt id="ref:RFC2673">RFC2673</dt>
-        <dd>
-          <cite><a href="https://tools.ietf.org/html/rfc2673">Binary Labels in the Domain Name System</a></cite>. 
-          M. Crawford; 1999-08. <span class="reference-status">Status: Historic</span>.
-        </dd>
-      
-        <dt id="ref:RFC3339">RFC3339</dt>
-        <dd>
-          <cite><a href="https://tools.ietf.org/html/rfc3339">Date and Time on the Internet: Timestamps</a></cite>. 
-          G. Klyne; C. Newman; 2002-07. <span class="reference-status">Status: Proposed Standard</span>.
-        </dd>
-      
-        <dt id="ref:RFC3986">RFC3986</dt>
-        <dd>
-          <cite><a href="https://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a></cite>. 
-          T. Berners-Lee; R. Fielding; L. Masinter; 2005-01. <span class="reference-status">Status: Internet Standard</span>.
-        </dd>
-      
-        <dt id="ref:RFC3987">RFC3987</dt>
-        <dd>
-          <cite><a href="https://tools.ietf.org/html/rfc3987">Internationalized Resource Identifiers (IRIs)</a></cite>. 
-          M. Duerst; M. Suignard; 2005-01. <span class="reference-status">Status: Proposed Standard</span>.
-        </dd>
-      
-        <dt id="ref:RFC5322">RFC5322</dt>
-        <dd>
-          <cite><a href="https://tools.ietf.org/html/rfc5322">Internet Message Format</a></cite>. 
-          P. Resnick, Ed.; 2008-10. <span class="reference-status">Status: Draft Standard</span>.
-        </dd>
-      
-        <dt id="ref:RFC5890">RFC5890</dt>
-        <dd>
-          <cite><a href="https://tools.ietf.org/html/rfc5890">Internationalized Domain Names for Applications (IDNA): Definitions and Document Framework</a></cite>. 
-          J. Klensin; 2010-08. <span class="reference-status">Status: Proposed Standard</span>.
-        </dd>
-      
-        <dt id="ref:RFC6531">RFC6531</dt>
-        <dd>
-          <cite><a href="https://tools.ietf.org/html/rfc6531">SMTP Extension for Internationalized Email</a></cite>. 
-          J. Yao; W. Mao; 2012-02. <span class="reference-status">Status: Proposed Standard</span>.
-        </dd>
-      
-</dl>
-</p>
+<p>[[spec]]</p>
 </div>
 </div>
 </div>
@@ -978,11 +776,8 @@ For example:</li>
 </ul>
 </li>
 <li><a href="#styles-properties" ><code>styles</code> properties</a></li>
-<li><a href="#display-properties" ><code>display</code> properties</a></li>
-<li><a href="#display-mapping-object" >Display Mapping Object</a>
+<li><a href="#display-properties" ><code>display</code> properties</a>
 <ul>
-<li><a href="#using-path" >Using <code>path</code></a></li>
-<li><a href="#using-text" >Using <code>text</code></a></li>
 <li><a href="#json-schema" >JSON Schema</a></li>
 </ul>
 </li>

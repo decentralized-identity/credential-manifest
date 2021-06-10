@@ -96,33 +96,24 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
 <h2 id="resource-definition"><a class="toc-anchor" href="#resource-definition" >§</a> Resource Definition</h2>
 <p><em>Entity Style Descriptors</em> are a resource format that defines a set of suggested visual styling elements that a consuming party <strong><strong>MAY</strong></strong> apply to their presentation of associated entities.</p>
 <div id="credential-manifest---all-features-exercised-1" class="notice example"><a class="notice-link" href="#credential-manifest---all-features-exercised-1">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
-  <span class="token property">"styles"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-      <span class="token property">"thumbnail"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://dol.wa.com/logo.png"</span><span class="token punctuation">,</span>
-        <span class="token property">"alt"</span><span class="token operator">:</span> <span class="token string">"Washington State Seal"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"hero"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://dol.wa.com/people-working.png"</span><span class="token punctuation">,</span>
-        <span class="token property">"alt"</span><span class="token operator">:</span> <span class="token string">"People working on serious things"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"background"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#ff0000"</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      <span class="token property">"text"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
-        <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#d4d400"</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+  <span class="token property">"thumbnail"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://dol.wa.com/logo.png"</span><span class="token punctuation">,</span>
+    <span class="token property">"alt"</span><span class="token operator">:</span> <span class="token string">"Washington State Seal"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"hero"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"https://dol.wa.com/people-working.png"</span><span class="token punctuation">,</span>
+    <span class="token property">"alt"</span><span class="token operator">:</span> <span class="token string">"People working on serious things"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"background"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#ff0000"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"text"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"color"</span><span class="token operator">:</span> <span class="token string">"#d4d400"</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 </div>
-<h3 id="general-composition"><a class="toc-anchor" href="#general-composition" >§</a> General Composition</h3>
-<p><em>Entity Styles</em> are JSON objects composed as follows:</p>
-<ul>
-<li>The object <strong><strong>MUST</strong></strong> contain a <code>styles</code> property, and its value <strong><strong>must</strong></strong> be an object composed as defined in the <a href="#styles-properties" ><code>styles</code> properties</a> section.</li>
-</ul>
-<h3 id="styles-properties"><a class="toc-anchor" href="#styles-properties" >§</a> <code>styles</code> properties</h3>
-<p>Within a <code>Credential Manifest</code>, there are two areas where styling affordances are provided: under the <code>issuer</code> property, where the Issuer expresses information about themselves - including how a User Agent should style UI that represents the Issuer, and under the <code>credential</code> property, where the Issuer expresses information about the credntial itself - including how a User Agent should style UI for the credential itself. Under each of these areas an implementer <strong><strong>MAY</strong></strong> include a <code>styles</code> property, and if present, its value <strong><strong>must</strong></strong> be an object composed of the following properties:</p>
+<p>An <em>Entity Style Descriptor</em>, value <strong><strong>must</strong></strong> be an object composed of the following properties:</p>
 <ul>
 <li>The object <strong><strong>MAY</strong></strong> contain a <code>thumbnail</code> property, and if present, its value <strong><strong>MUST</strong></strong> be an object with the following optional properties:
 <ul>
@@ -173,12 +164,7 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
                         <ul class="toc">
 <li><a href="#abstract" >Abstract</a></li>
 <li><a href="#terminology" >Terminology</a></li>
-<li><a href="#resource-definition" >Resource Definition</a>
-<ul>
-<li><a href="#general-composition" >General Composition</a></li>
-<li><a href="#styles-properties" ><code>styles</code> properties</a></li>
-</ul>
-</li>
+<li><a href="#resource-definition" >Resource Definition</a></li>
 </ul>
 
                       </div>

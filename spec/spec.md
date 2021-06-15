@@ -75,6 +75,7 @@ _Credential Manifests_ are a resource format that defines preconditional require
 ```json
 [[insert: ./test/credential-manifest/all_features.json]]
 ```
+:::
 
 </section>
 
@@ -140,6 +141,7 @@ _Credential Manifests_ are JSON objects composed as follows:
 ```json
 [[insert: ./test/output-descriptors/simple.json]]
 ```
+:::
 
 </section>
 
@@ -272,6 +274,7 @@ The following JSON Schema Draft 7 definition summarizes the format-related rules
 ```json
 [[insert: ./test/display-mapping/schema.json]]
 ```
+:::
 
 </section>
 
@@ -283,27 +286,25 @@ Credential Manifests ****SHOULD**** be retrievable at known, semantic locations 
 
 Credential Submission are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]
 
-- The [[ref:Credential Submission]] object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a UUID
-- The [[ref:Credential Submission]] object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the id of a valid Credential Manifest.
-- The [[ref:Credential Submission]] ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be an object with the following optional properties:
-  - The `format` object ****MUST*** include a `format` property. The value of this property ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to recieve the [[ref:Claims]] in.
+- The [[red: Credential Submission]] object ****MUST*** contain a `credential_submission` property. Its value ****MUST**** be an object with the following properties:
+  - The `credential_submission` object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a UUID
+  - The `credential_submission` object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the id of a valid Credential Manifest.
+  - The `credential_submission` ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to recieve the [[ref:Claims]] in.
+- The [[red: Credential Submission]] object ****MUST**** contain a `presentation_submission` property IF the related [[ref:Credential Manifest]] contains a `presentation_definition`. Its value ****MUST**** be be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission):
 
-```json
-{
-  "credential_submission": {
-    "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-    "manifest_id": "WA-DL-CLASS-A",
-    "format": {
-      "ldp_vc": {
-        "proof_type": [
-          "JsonWebSignature2020",
-          "EcdsaSecp256k1Signature2019"
-        ]
-      }
-    }
-  }
-}
 ```
+// NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer
+```
+
+<section>
+
+::: example Credential Submission - Simple Example
+```json
+[[insert: ./test/credential-submission/sample.json]]
+```
+:::
+
+</section>
 
 ### Embed Targets
 
@@ -311,14 +312,25 @@ The following section details where the _Credential Submission_ is to be embedde
 
 #### Embed Locations
 
-The following are the locations at which the `credential_submission` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
+The following are the locations at which the `credential_submission` and, conditionally, the `presentation_submission` objects ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
 
-Target     | Location      
+Target     | Location
 ---------- | --------
-OpenID     | top-level 
+OpenID     | top-level
 DIDComms   | `$.presentations~attach.data.json`
 VP         | top-level
 CHAPI      | `$.data`
+
+### JSON Schema
+The following JSON Schema Draft 7 definition summarizes the rules above:
+
+<section>
+
+::: example Credential Fulfimment - Schema
+```json
+[[insert: ./test/credential-submission/schema.json]]
+```
+:::
 
 ## Credential Fulfillment
 
@@ -339,6 +351,7 @@ CHAPI      | `$.data`
 ```json
 [[insert: ./test/credential-fulfillment/sample.json]]
 ```
+:::
 
 </section>
 
@@ -350,9 +363,9 @@ The following section details where the _Credential Fulfillment_ is to be embedd
 
 The following are the locations at which the `credential_fulfillment` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
 
-Target     | Location      
+Target     | Location
 ---------- | --------
-OpenID     | top-level 
+OpenID     | top-level
 DIDComms   | `$.presentations~attach.data.json`
 VP         | top-level
 CHAPI      | `$.data`
@@ -366,6 +379,7 @@ The following JSON Schema Draft 7 definition summarizes the rules above:
 ```json
 [[insert: ./test/credential-fulfillment/schema.json]]
 ```
+:::
 
 </section>
 
@@ -387,6 +401,25 @@ The following JSON Schema Draft 7 definition summarizes the rules above:
 ```json
 [[insert: ./test/credential-fulfillment/appendix.json]]
 ```
+:::
+
+</section>
+
+#### Credential Submission
+
+<tab-panels selected-index="0">
+
+<nav>
+  <button type="button">Verifiable Presentation</button>
+</nav>
+
+<section>
+
+::: example Credential Submission - Verifiable Presentation
+```json
+[[insert: ./test/credential-submission/appendix.json]]
+```
+:::
 
 </section>
 

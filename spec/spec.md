@@ -286,11 +286,11 @@ Credential Manifests ****SHOULD**** be retrievable at known, semantic locations 
 
 Credential Submission are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]
 
-- The [[red: Credential Submission]] object ****MUST*** contain a `credential_submission` property. Its value ****MUST**** be an object with the following properties:
+- The [[ref: Credential Submission]] object ****MUST*** contain a `credential_submission` property. Its value ****MUST**** be an object with the following properties:
   - The `credential_submission` object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a UUID
   - The `credential_submission` object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the id of a valid Credential Manifest.
   - The `credential_submission` ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to recieve the [[ref:Claims]] in.
-- The [[red: Credential Submission]] object ****MUST**** contain a `presentation_submission` property IF the related [[ref:Credential Manifest]] contains a `presentation_definition`. Its value ****MUST**** be be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission):
+- The [[ref: Credential Submission]] object ****MUST**** contain a `presentation_submission` property IF the related [[ref:Credential Manifest]] contains a `presentation_definition`. Its value ****MUST**** be be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission):
 
 ```
 // NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer

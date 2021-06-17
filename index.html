@@ -148,6 +148,7 @@ Credential, Assertion, Attestation, etc.</dd>
   <span class="token property">"presentation_definition"</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+</div>
 </section>
 <h3 id="general-composition"><a class="toc-anchor" href="#general-composition" >§</a> General Composition</h3>
 <p><em>Credential Manifests</em> are JSON objects composed as follows:</p>
@@ -243,6 +244,7 @@ For example:</li>
   <span class="token punctuation">}</span><span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
+</div>
 </section>
 <h4 id="output-descriptor-object"><a class="toc-anchor" href="#output-descriptor-object" >§</a> Output Descriptor Object</h4>
 <p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> are composed as follows:</p>
@@ -346,8 +348,6 @@ For example:</li>
 <span class="token punctuation">}</span>
 </code></pre>
 </div>
-</div>
-</div>
 <p><a class="term-reference" href="#term:labeled-display-mapping-objects">Labeled Display Mapping Objects</a> extend from <a class="term-reference" href="#term:display-mapping-objects">Display Mapping Objects</a>. In addition to the base Display Mapping Objects they have the following extra fields:</p>
 <ul>
 <li>The object <strong><strong>MUST</strong></strong> include a <code>label</code> property and its value <strong><strong>MUST</strong></strong> be a string that is rendered in the UI where a labled display of the <code>path</code>/<code>fallback</code> or <code>text</code> value is appropriate.</li>
@@ -446,21 +446,26 @@ For example:</li>
   <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">false</span>
 <span class="token punctuation">}</span>
 </code></pre>
+</div>
 </section>
 <h2 id="resource-location"><a class="toc-anchor" href="#resource-location" >§</a> Resource Location</h2>
 <p>Credential Manifests <strong><strong>SHOULD</strong></strong> be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers <strong><strong>SHOULD</strong></strong> make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).</p>
 <h2 id="credential-submission"><a class="toc-anchor" href="#credential-submission" >§</a> Credential Submission</h2>
 <p>Credential Submission are objects embedded within target claim negotiation formats that pass information from the <a class="term-reference" href="#term:holder">Holder</a> to the <a class="term-reference" href="#term:issuer">Issuer</a></p>
 <ul>
-<li>The <a class="term-reference" href="#term:credential-submission">Credential Submission</a> object <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a unique identifier, such as a UUID</li>
-<li>The <a class="term-reference" href="#term:credential-submission">Credential Submission</a> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code> property. The value of this property <strong><strong>MUST</strong></strong> be the id of a valid Credential Manifest.</li>
-<li>The <a class="term-reference" href="#term:credential-submission">Credential Submission</a> <strong><strong>MUST</strong></strong> have a <code>format</code> property if the related <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> specifies a <code>format</code> property. Its value <strong><strong>MUST</strong></strong> be an object with the following optional properties:
+<li>The <a class="term-reference" href="#term:credential-submission">Credential Submission</a> object *<em><strong>MUST</strong></em> contain a <code>credential_submission</code> property. Its value <strong><strong>MUST</strong></strong> be an object with the following properties:
 <ul>
-<li>The <code>format</code> object *<em><strong>MUST</strong></em> include a <code>format</code> property. The value of this property <strong><strong>MUST</strong></strong> be a <em>subset</em> of the <code>format</code> property in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:credential-submission">Credential Submission</a> is related to. This object informs the <a class="term-reference" href="#term:issuer">Issuer</a> which formats the <a class="term-reference" href="#term:holder">Holder</a> wants to recieve the <a class="term-reference" href="#term:claims">Claims</a> in.</li>
+<li>The <code>credential_submission</code> object <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a unique identifier, such as a UUID</li>
+<li>The <code>credential_submission</code> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code> property. The value of this property <strong><strong>MUST</strong></strong> be the id of a valid Credential Manifest.</li>
+<li>The <code>credential_submission</code> <strong><strong>MUST</strong></strong> have a <code>format</code> property if the related <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> specifies a <code>format</code> property. Its value <strong><strong>MUST</strong></strong> be a <em>subset</em> of the <code>format</code> property in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:credential-submission">Credential Submission</a> is related to. This object informs the <a class="term-reference" href="#term:issuer">Issuer</a> which formats the <a class="term-reference" href="#term:holder">Holder</a> wants to recieve the <a class="term-reference" href="#term:claims">Claims</a> in.</li>
 </ul>
 </li>
+<li>The <a class="term-reference" href="#term:credential-submission">Credential Submission</a> object <strong><strong>MUST</strong></strong> contain a <code>presentation_submission</code> property IF the related <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> contains a <code>presentation_definition</code>. Its value <strong><strong>MUST</strong></strong> be be a valid <a path-0="identity.foundation"path-1="presentation-exchange"path-2="#presentation-submission"href="https://identity.foundation/presentation-exchange/#presentation-submission" >Presentation Submission</a>:</li>
 </ul>
-<pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<pre><code>// NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer
+</code></pre>
+<section>
+<div id="credential-submission---simple-example" class="notice example"><a class="notice-link" href="#credential-submission---simple-example">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"credential_submission"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"</span><span class="token punctuation">,</span>
     <span class="token property">"manifest_id"</span><span class="token operator">:</span> <span class="token string">"WA-DL-CLASS-A"</span><span class="token punctuation">,</span>
@@ -472,13 +477,37 @@ For example:</li>
         <span class="token punctuation">]</span>
       <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"presentation_submission"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"a30e3b91-fb77-4d22-95fa-871689c322e2"</span><span class="token punctuation">,</span>
+    <span class="token property">"definition_id"</span><span class="token operator">:</span> <span class="token string">"32f54163-7166-48f1-93d8-ff217bdb0653"</span><span class="token punctuation">,</span>
+    <span class="token property">"descriptor_map"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"input_1"</span><span class="token punctuation">,</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"jwt_vc"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"$.verifiableCredential[0]"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"input_2"</span><span class="token punctuation">,</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"ldp_vc"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"$.verifiableCredential[1]"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"input_3"</span><span class="token punctuation">,</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"ldp_vc"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"$.verifiableCredential[2]"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
+
 </code></pre>
+</div>
+</section>
 <h3 id="embed-targets"><a class="toc-anchor" href="#embed-targets" >§</a> Embed Targets</h3>
 <p>The following section details where the <em>Credential Submission</em> is to be embedded within a target data structure.</p>
 <h4 id="embed-locations"><a class="toc-anchor" href="#embed-locations" >§</a> Embed Locations</h4>
-<p>The following are the locations at which the <code>credential_submission</code> object <strong><strong>MUST</strong></strong> be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.</p>
+<p>The following are the locations at which the <code>credential_submission</code> and, conditionally, the <code>presentation_submission</code> objects <strong><strong>MUST</strong></strong> be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.</p>
 <table>
 <thead>
 <tr>
@@ -505,6 +534,92 @@ For example:</li>
 </tr>
 </tbody>
 </table>
+<h3 id="json-schema-3"><a class="toc-anchor" href="#json-schema-3" >§</a> JSON Schema</h3>
+<p>The following JSON Schema Draft 7 definition summarizes the rules above:</p>
+<section>
+<div id="credential-fulfimment---schema" class="notice example"><a class="notice-link" href="#credential-fulfimment---schema">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"$schema"</span><span class="token operator">:</span> <span class="token string">"http://json-schema.org/draft-07/schema#"</span><span class="token punctuation">,</span>
+  <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"Credential Submission"</span><span class="token punctuation">,</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+  <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"credential_submission"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+      <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"manifest_id"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+          <span class="token property">"patternProperties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"^jwt$|^jwt_vc$|^jwt_vp$"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+              <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+              <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                <span class="token property">"alg"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"array"</span><span class="token punctuation">,</span>
+                  <span class="token property">"minItems"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                  <span class="token property">"items"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span> <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span><span class="token punctuation">,</span>
+              <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"alg"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token property">"^ldp_vc$|^ldp_vp$|^ldp$"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+              <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+              <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                <span class="token property">"proof_type"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+                  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"array"</span><span class="token punctuation">,</span>
+                  <span class="token property">"minItems"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                  <span class="token property">"items"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span> <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+              <span class="token punctuation">}</span><span class="token punctuation">,</span>
+              <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"proof_type"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"id"</span><span class="token punctuation">,</span> <span class="token string">"manifest_id"</span><span class="token punctuation">,</span> <span class="token string">"format"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"presentation_submission"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+      <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"definition_id"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"descriptor_map"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"array"</span><span class="token punctuation">,</span>
+          <span class="token property">"items"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"#/definitions/descriptor"</span> <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"id"</span><span class="token punctuation">,</span> <span class="token string">"definition_id"</span><span class="token punctuation">,</span> <span class="token string">"descriptor_map"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"definitions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"descriptor"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+      <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"path_nested"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+          <span class="token property">"$ref"</span><span class="token operator">:</span> <span class="token string">"#/definitions/descriptor"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+          <span class="token property">"enum"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"jwt"</span><span class="token punctuation">,</span> <span class="token string">"jwt_vc"</span><span class="token punctuation">,</span> <span class="token string">"jwt_vp"</span><span class="token punctuation">,</span> <span class="token string">"ldp"</span><span class="token punctuation">,</span> <span class="token string">"ldp_vc"</span><span class="token punctuation">,</span> <span class="token string">"ldp_vp"</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"id"</span><span class="token punctuation">,</span> <span class="token string">"path"</span><span class="token punctuation">,</span> <span class="token string">"format"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"credential_submission"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"additionalProperties"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+</div>
 <h2 id="credential-fulfillment"><a class="toc-anchor" href="#credential-fulfillment" >§</a> Credential Fulfillment</h2>
 <p><a class="term-reference" href="#term:credential-fulfillments">Credential Fulfillments</a> are objects embedded within target <a class="term-reference" href="#term:claim">Claim</a> negotiation formats that express how the outputs presented as proofs to a <a class="term-reference" href="#term:holder">Holder</a> are provided in accordance with the outpus specified in a <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>. Embedded <a class="term-reference" href="#term:credential-fulfillment">Credential Fulfillment</a> objects <strong><strong>MUST</strong></strong> be located within target data format as the value of a <code>credential_fulfillment</code> property, which is composed and embedded as follows:</p>
 <ul>
@@ -541,6 +656,7 @@ For example:</li>
 <span class="token punctuation">}</span>
 
 </code></pre>
+</div>
 </section>
 <h3 id="embed-targets-2"><a class="toc-anchor" href="#embed-targets-2" >§</a> Embed Targets</h3>
 <p>The following section details where the <em>Credential Fulfillment</em> is to be embedded within a target data structure, as well as how to formulate the <a path-0="goessner.net"path-1="articles"path-2="JsonPath"path-3=""href="https://goessner.net/articles/JsonPath/" >JSONPath</a> expressions to select the <a class="term-reference" href="#term:claims">Claims</a> within the target data structure.</p>
@@ -572,10 +688,10 @@ For example:</li>
 </tr>
 </tbody>
 </table>
-<h3 id="json-schema-3"><a class="toc-anchor" href="#json-schema-3" >§</a> JSON Schema</h3>
+<h3 id="json-schema-4"><a class="toc-anchor" href="#json-schema-4" >§</a> JSON Schema</h3>
 <p>The following JSON Schema Draft 7 definition summarizes the rules above:</p>
 <section>
-<div id="credential-fulfimment---schema" class="notice example"><a class="notice-link" href="#credential-fulfimment---schema">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="credential-fulfimment---schema-1" class="notice example"><a class="notice-link" href="#credential-fulfimment---schema-1">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"$schema"</span><span class="token operator">:</span> <span class="token string">"http://json-schema.org/draft-07/schema#"</span><span class="token punctuation">,</span>
   <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"Credential Fulfillment"</span><span class="token punctuation">,</span>
   <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
@@ -619,6 +735,7 @@ For example:</li>
 
 
 </code></pre>
+</div>
 </section>
 <h2 id="appendix"><a class="toc-anchor" href="#appendix" >§</a> Appendix</h2>
 <h3 id="embed-target-examples"><a class="toc-anchor" href="#embed-target-examples" >§</a> Embed Target Examples</h3>
@@ -732,14 +849,138 @@ For example:</li>
     <span class="token property">"jws"</span><span class="token operator">:</span> <span class="token string">"..."</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
+
 </code></pre>
+</div>
+</section>
+<h4 id="credential-submission-2"><a class="toc-anchor" href="#credential-submission-2" >§</a> Credential Submission</h4>
+<tab-panels selected-index="0">
+<nav>
+  <button type="button">Verifiable Presentation</button>
+</nav>
+<section>
+<div id="credential-submission---verifiable-presentation" class="notice example"><a class="notice-link" href="#credential-submission---verifiable-presentation">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"https://www.w3.org/2018/credentials/v1"</span><span class="token punctuation">,</span>
+    <span class="token string">"https://identity.foundation/credential-manifest/submission/v1"</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"VerifiablePresentation"</span><span class="token punctuation">,</span>
+    <span class="token string">"CredentialSubmission"</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"credential_submission"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d"</span><span class="token punctuation">,</span>
+    <span class="token property">"manifest_id"</span><span class="token operator">:</span> <span class="token string">"WA-DL-CLASS-A"</span><span class="token punctuation">,</span>
+    <span class="token property">"format"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"ldp_vc"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"proof_type"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token string">"JsonWebSignature2020"</span><span class="token punctuation">,</span>
+          <span class="token string">"EcdsaSecp256k1Signature2019"</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"presentation_submission"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"a30e3b91-fb77-4d22-95fa-871689c322e2"</span><span class="token punctuation">,</span>
+    <span class="token property">"definition_id"</span><span class="token operator">:</span> <span class="token string">"32f54163-7166-48f1-93d8-ff217bdb0653"</span><span class="token punctuation">,</span>
+    <span class="token property">"descriptor_map"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"input_1"</span><span class="token punctuation">,</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"jwt_vc"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"$.verifiableCredential[0]"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"input_2"</span><span class="token punctuation">,</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"ldp_vc"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"$.verifiableCredential[1]"</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"input_3"</span><span class="token punctuation">,</span>
+        <span class="token property">"format"</span><span class="token operator">:</span> <span class="token string">"ldp_vc"</span><span class="token punctuation">,</span>
+        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"$.verifiableCredential[2]"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"verifiableCredential"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"comment"</span><span class="token operator">:</span> <span class="token string">"IN REALWORLD VPs, THIS WILL BE A BIG UGLY OBJECT INSTEAD OF THE DECODED JWT PAYLOAD THAT FOLLOWS"</span><span class="token punctuation">,</span>
+      <span class="token property">"vc"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token string">"https://www.w3.org/2018/credentials/v1"</span><span class="token punctuation">,</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://eu.com/claims/DriversLicense"</span><span class="token punctuation">,</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"EUDriversLicense"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:example:123"</span><span class="token punctuation">,</span>
+        <span class="token property">"issuanceDate"</span><span class="token operator">:</span> <span class="token string">"2010-01-01T19:73:24Z"</span><span class="token punctuation">,</span>
+        <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:ebfeb1f712ebc6f1c276e12ec21"</span><span class="token punctuation">,</span>
+          <span class="token property">"accounts"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">{</span>
+              <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"1234567890"</span><span class="token punctuation">,</span>
+              <span class="token property">"route"</span><span class="token operator">:</span> <span class="token string">"DE-9876543210"</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">{</span>
+              <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"2457913570"</span><span class="token punctuation">,</span>
+              <span class="token property">"route"</span><span class="token operator">:</span> <span class="token string">"DE-0753197542"</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token string">"https://www.w3.org/2018/credentials/v1"</span><span class="token punctuation">,</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://business-standards.org/schemas/employment-history.json"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"VerifiableCredential"</span><span class="token punctuation">,</span> <span class="token string">"GenericEmploymentCredential"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:foo:123"</span><span class="token punctuation">,</span>
+      <span class="token property">"issuanceDate"</span><span class="token operator">:</span> <span class="token string">"2010-01-01T19:73:24Z"</span><span class="token punctuation">,</span>
+      <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:ebfeb1f712ebc6f1c276e12ec21"</span><span class="token punctuation">,</span>
+        <span class="token property">"active"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"proof"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"EcdsaSecp256k1VerificationKey2019"</span><span class="token punctuation">,</span>
+        <span class="token property">"created"</span><span class="token operator">:</span> <span class="token string">"2017-06-18T21:19:10Z"</span><span class="token punctuation">,</span>
+        <span class="token property">"proofPurpose"</span><span class="token operator">:</span> <span class="token string">"assertionMethod"</span><span class="token punctuation">,</span>
+        <span class="token property">"verificationMethod"</span><span class="token operator">:</span> <span class="token string">"https://example.edu/issuers/keys/1"</span><span class="token punctuation">,</span>
+        <span class="token property">"jws"</span><span class="token operator">:</span> <span class="token string">"..."</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"@context"</span><span class="token operator">:</span> <span class="token string">"https://www.w3.org/2018/credentials/v1"</span><span class="token punctuation">,</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"https://eu.com/claims/DriversLicense"</span><span class="token punctuation">,</span>
+      <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"EUDriversLicense"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"issuer"</span><span class="token operator">:</span> <span class="token string">"did:foo:123"</span><span class="token punctuation">,</span>
+      <span class="token property">"issuanceDate"</span><span class="token operator">:</span> <span class="token string">"2010-01-01T19:73:24Z"</span><span class="token punctuation">,</span>
+      <span class="token property">"credentialSubject"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"did:example:ebfeb1f712ebc6f1c276e12ec21"</span><span class="token punctuation">,</span>
+        <span class="token property">"license"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token property">"number"</span><span class="token operator">:</span> <span class="token string">"34DGE352"</span><span class="token punctuation">,</span>
+          <span class="token property">"dob"</span><span class="token operator">:</span> <span class="token string">"07/13/80"</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">"proof"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"RsaSignature2018"</span><span class="token punctuation">,</span>
+        <span class="token property">"created"</span><span class="token operator">:</span> <span class="token string">"2017-06-18T21:19:10Z"</span><span class="token punctuation">,</span>
+        <span class="token property">"proofPurpose"</span><span class="token operator">:</span> <span class="token string">"assertionMethod"</span><span class="token punctuation">,</span>
+        <span class="token property">"verificationMethod"</span><span class="token operator">:</span> <span class="token string">"https://example.edu/issuers/keys/1"</span><span class="token punctuation">,</span>
+        <span class="token property">"jws"</span><span class="token operator">:</span> <span class="token string">"..."</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"proof"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"RsaSignature2018"</span><span class="token punctuation">,</span>
+    <span class="token property">"created"</span><span class="token operator">:</span> <span class="token string">"2018-09-14T21:19:10Z"</span><span class="token punctuation">,</span>
+    <span class="token property">"proofPurpose"</span><span class="token operator">:</span> <span class="token string">"authentication"</span><span class="token punctuation">,</span>
+    <span class="token property">"verificationMethod"</span><span class="token operator">:</span> <span class="token string">"did:example:ebfeb1f712ebc6f1c276e12ec21#keys-1"</span><span class="token punctuation">,</span>
+    <span class="token property">"challenge"</span><span class="token operator">:</span> <span class="token string">"1f44d55f-f161-4938-a659-f8026467f126"</span><span class="token punctuation">,</span>
+    <span class="token property">"domain"</span><span class="token operator">:</span> <span class="token string">"4jt78h47fh47"</span><span class="token punctuation">,</span>
+    <span class="token property">"jws"</span><span class="token operator">:</span> <span class="token string">"..."</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+</div>
 </section>
 <h2 id="references"><a class="toc-anchor" href="#references" >§</a> References</h2>
 <p>[[spec]]</p>
-</div>
-</div>
-</div>
-</div>
 
                     </article>    
       
@@ -796,6 +1037,7 @@ For example:</li>
 <li><a href="#embed-locations" >Embed Locations</a></li>
 </ul>
 </li>
+<li><a href="#json-schema-3" >JSON Schema</a></li>
 </ul>
 </li>
 <li><a href="#credential-fulfillment" >Credential Fulfillment</a>
@@ -805,7 +1047,7 @@ For example:</li>
 <li><a href="#embed-locations-2" >Embed Locations</a></li>
 </ul>
 </li>
-<li><a href="#json-schema-3" >JSON Schema</a></li>
+<li><a href="#json-schema-4" >JSON Schema</a></li>
 </ul>
 </li>
 <li><a href="#appendix" >Appendix</a>
@@ -813,6 +1055,7 @@ For example:</li>
 <li><a href="#embed-target-examples" >Embed Target Examples</a>
 <ul>
 <li><a href="#credential-fulfillment-2" >Credential Fulfillment</a></li>
+<li><a href="#credential-submission-2" >Credential Submission</a></li>
 </ul>
 </li>
 </ul>

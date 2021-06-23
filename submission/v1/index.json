@@ -1,0 +1,19 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "CredentialSubmission": {
+      "@id": "https://identity.foundation/credential-manifest/#credential-submission",
+      "@context": {
+        "@version": 1.1,
+        "credential_submission": {
+          "@id": "https://identity.foundation/credential-manifest/#credential-submission",
+          "@type": "@json"
+        },
+        "presentation_submission": {
+          "@id": "https://identity.foundation/presentation-exchange/#presentation-submission",
+          "@type": "@json"
+        }
+      }
+    }
+  }
+}

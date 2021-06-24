@@ -1,4 +1,5 @@
-Wallet Renderer
+
+Wallet Rendering
 ==================
 
 **Specification Status:** Strawman

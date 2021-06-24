@@ -79,7 +79,6 @@ _Credential Manifests_ are a resource format that defines preconditional require
 
 </section>
 
-
 ### General Composition
 
 _Credential Manifests_ are JSON objects composed as follows:
@@ -153,127 +152,9 @@ _Credential Manifests_ are JSON objects composed as follows:
 - The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be an array composed of schema objects for the schema(s) of the credentials to be issued.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI, as defined by the Entity Styles specification.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****MUST**** be an object composed as defined in the [`display` properties](#display-properties) section.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `style` property, and its value ****MUST**** be an object or URI, as defined by the [DIF Entity Styles](https://identity.foundation/credential-manifest/wallet-rendering/#entity-styles) specification.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****MUST**** be an object composed as defined in the [DIF Data Display](https://identity.foundation/credential-manifest/wallet-rendering/#data-display) specification.
 
-### `styles` properties
-
-Within a `Credential Manifest`, there are two areas where styling affordances are provided: under the `issuer` property, where the Issuer may express styling information about themselves, and under the `credential` property, where the Issuer may express styling information about the credential itself. Under each of these areas, an implementer ****MAY**** include a `styles` property, and if present, its value ****MUST**** be an object or URI that conforms to the [Wallet Rendering](https://identity.foundation/credential-manifest/wallet-rendering) specification.
-
-### `display` properties
-
-[[ref:Output Descriptor Objects]] ****MAY**** contain a `display` property defining various content and data pointers for representation of a credential in UI. The object is used to assign text and data about the credential to common UI presentation elements, either by selecting data from the credential itself or providing it directly. If present, the `display` property value ****MUST**** be an object or URI that conforms to the [Wallet Rendering](https://identity.foundation/credential-manifest/wallet-rendering) specification.
-
-#### JSON Schema
-
-The following JSON Schema Draft 7 definition summarizes the format-related rules above:
-
-```json
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
-    "schema": {
-      "oneOf": [
-        {
-          "type": "object",
-          "properties": {
-            "type": {
-              "const": "string",
-            },
-            "format": {
-              "type": "string",
-              "enum": [
-                "date-time",
-                "time",
-                "date",
-                "email",
-                "idn-email",
-                "hostname",
-                "idn-hostname",
-                "ipv4",
-                "ipv6",
-                "uri",
-                "uri-reference",
-                "iri",
-                "iri-reference"
-              ]
-            }
-          },
-          "required": ["type"],
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "properties": {
-            "type": {
-              "type": "string",
-              "enum": ["boolean", "number", "integer"]
-            },
-          },
-          "required": ["type"],
-          "additionalProperties": false
-        }
-      ]
-    }
-  },
-  "oneOf": [
-    {
-      "type": "object",
-      "properties": {
-        "path": {
-          "type": "array",
-          "items": { "type": "string" }
-        },
-        "schema": { "$ref": "#/definitions/schema" },
-        "fallback": { "type": "string" }
-      },
-      "required": ["path", "schema"],
-      "additionalProperties": false
-    },
-    {
-      "type": "object",
-      "properties": {
-        "text": { "type": "string" }
-      },
-      "required": ["text"],
-      "additionalProperties": false
-    }
-  ],
-}
-```
-
-### Labeled Display Mapping Object
-
-:::example Display Mapping Object with path
-```json
-{
-  "properties": [
-    {
-      "label": "Organ Donor",
-      "path": ["$.donor", "$.vc.donor"],
-      "schema": {
-        "type": "boolean"
-      }
-    }
-  ]
-}
-```
-:::
-
-[[ref:Labeled Display Mapping Objects]] extend from [[ref:Display Mapping Objects]]. In addition to the base Display Mapping Objects they have the following extra fields:
-
-- The object ****MUST**** include a `label` property and its value ****MUST**** be a string that is rendered in the UI where a labled display of the `path`/`fallback` or `text` value is appropriate.
-
-#### JSON Schema
-
-The following JSON Schema Draft 7 definition summarizes the format-related rules above:
-
-<section>
-
-::: example Display Mapping - Schema
-```json
-[[insert: ./test/display-mapping/schema.json]]
-```
 :::
 
 </section>
@@ -344,7 +225,6 @@ The following JSON Schema Draft 7 definition summarizes the rules above:
 ```
 // NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer
 ```
-
 <section>
 
 ::: example Credential Fulfillment - Simple Example

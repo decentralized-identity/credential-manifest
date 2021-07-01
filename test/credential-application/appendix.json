@@ -1,13 +1,13 @@
 {
   "@context": [
     "https://www.w3.org/2018/credentials/v1",
-    "https://identity.foundation/credential-manifest/submission/v1"
+    "https://identity.foundation/credential-manifest/application/v1"
   ],
   "type": [
     "VerifiablePresentation",
-    "CredentialSubmission"
+    "CredentialApplication"
   ],
-  "credential_submission": {
+  "credential_application": {
     "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "manifest_id": "WA-DL-CLASS-A",
     "format": {

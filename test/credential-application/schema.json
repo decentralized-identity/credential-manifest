@@ -3,7 +3,7 @@
   "title": "Credential Submission",
   "type": "object",
   "properties": {
-    "credential_submission": {
+    "credential_application": {
       "type": "object",
       "properties": {
         "id": { "type": "string" },
@@ -75,6 +75,6 @@
       "additionalProperties": false
     }
   },
-  "required": ["credential_submission"],
+  "required": ["credential_application"],
   "additionalProperties": false
 }

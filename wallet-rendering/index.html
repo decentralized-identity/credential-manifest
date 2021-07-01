@@ -47,7 +47,7 @@ customElements.define("slide-panels",class extends HTMLElement{static get observ
                     </header>
       
                     <article id="content">
-                      <h1 id="wallet-renderer"><a class="toc-anchor" href="#wallet-renderer" >§</a> Wallet Renderer</h1>
+                      <h1 id="wallet-rendering"><a class="toc-anchor" href="#wallet-rendering" >§</a> Wallet Rendering</h1>
 <p><strong>Specification Status:</strong> Strawman</p>
 <p><strong>Latest Draft:</strong>
 <a path-0="identity.foundation"path-1="credential-manifest"href="https://identity.foundation/credential-manifest" >identity.foundation/credential-manifest</a></p>
@@ -174,7 +174,7 @@ Credential, Assertion, Attestation, etc.</dd>
 </div>
 <p><a class="term-reference" href="#term:display-mapping-objects">Display Mapping Objects</a> can be used to either pull data from the target Claim with the <code>path</code> property OR display infomation about the target Claim with the <code>text</code> property</p>
 <h4 id="using-path"><a class="toc-anchor" href="#using-path" >§</a> Using <code>path</code></h4>
-<div id="display-mapping-object-with-path-1" class="notice example"><a class="notice-link" href="#display-mapping-object-with-path-1">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
+<div id="display-mapping-object-with-path" class="notice example"><a class="notice-link" href="#display-mapping-object-with-path">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
     <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"$.name"</span><span class="token punctuation">,</span> <span class="token string">"$.vc.name"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
     <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">{</span>

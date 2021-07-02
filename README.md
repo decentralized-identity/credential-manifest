@@ -1,4 +1,4 @@
-# Credential Mmanifest
+# Credential Manifest
 Format that normalizes the definition of requirements for the issuance of a credential
 
 ## [Latest Editor's Draft](https://identity.foundation/credential-manifest/)

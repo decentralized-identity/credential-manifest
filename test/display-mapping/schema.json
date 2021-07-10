@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "definitions": {
+    "schema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "format": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "display_mapping": {
+      "type": "object",
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fallback": {
+          "type": "string"
+        },
+        "schema": {
+          "$ref": "#/definitions/schema"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": [
+    "display"
+  ],
+  "properties": {
+    "display": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/display_mapping"
+        },
+        "subtitle": {
+          "$ref": "#/definitions/display_mapping"
+        },
+        "properties": {
+          "type": "array",
+          "additionalItems": false,
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "path",
+                  "schema"
+                ],
+                "properties": {
+                  "path": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  },
+                  "schema": {
+                    "$ref": "#/definitions/schema"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

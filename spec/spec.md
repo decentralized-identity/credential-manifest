@@ -303,7 +303,6 @@ The following JSON Schema Draft 7 definition summarizes the rules above:
 
 </section>
 
-
 ## References
 
 [[spec]]

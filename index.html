@@ -108,11 +108,7 @@ Credential, Assertion, Attestation, etc.</dd>
   <span class="token punctuation">}</span><span class="token punctuation">,</span>
   <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
     <span class="token punctuation">{</span>
-      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
-        <span class="token punctuation">{</span>
-          <span class="token property">"uri"</span><span class="token operator">:</span> <span class="token string">"http://washington-state-schemas.org/1.0.0/driver-license.json"</span>
-        <span class="token punctuation">}</span>
-      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"schema"</span><span class="token operator">:</span> <span class="token string">"http://washington-state-schemas.org/1.0.0/driver-license.json"</span><span class="token punctuation">,</span>
       <span class="token property">"display"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"title"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
           <span class="token property">"path"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
@@ -160,7 +156,7 @@ Credential, Assertion, Attestation, etc.</dd>
 <li>The object <strong><strong>MAY</strong></strong> contain a <code>styles</code> property, and its value <strong><strong>MUST</strong></strong> be an object or URI, as defined by the Entity Styles specification.</li>
 </ul>
 </li>
-<li>The object <strong><strong>MUST</strong></strong> contain an <code>output_descriptors</code> property. It’s vault <strong><strong>MUST</strong></strong> be an array of Output Descriptor Objects, the composition of which are described in the <a href="#output-descriptor" ><code>Output Descriptor</code></a> section below</li>
+<li>The object <strong><strong>MUST</strong></strong> contain an <code>output_descriptors</code> property. Its value <strong><strong>MUST</strong></strong> be an array of Output Descriptor Objects, the composition of which are described in the <a href="#output-descriptor" ><code>Output Descriptor</code></a> section below</li>
 <li>The <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> <strong><strong>MAY</strong></strong> include a <code>format</code> property. If present, its value <strong><strong>MUST</strong></strong> be the same structure as <a path-0="identity.foundation"path-1="presentation-exchange"path-2="#presentation-definition"href="https://identity.foundation/presentation-exchange/#presentation-definition" >Presentation Definition’s <code>format</code> property</a>. This property informs the <a class="term-reference" href="#term:holder">Holder</a> of the <a class="term-reference" href="#term:calim">Calim</a> format the <a class="term-reference" href="#term:issuer">Issuer</a> can issuer in.
 For example:</li>
 </ul>
@@ -201,7 +197,7 @@ For example:</li>
 </ul>
 <h3 id="output-descriptor"><a class="toc-anchor" href="#output-descriptor" >§</a> Output Descriptor</h3>
 <p><a class="term-reference" href="#term:output-descriptors">Output Descriptors</a> are objects used to describe the <a class="term-reference" href="#term:claims">Claims</a> a <a class="term-reference" href="#term:issuer">Issuer</a> if offering to a <a class="term-reference" href="#term:holder">Holder</a>.</p>
-<p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> contain schema URI that links to the schema of the offered output data, and information about how to display the output to the Holder.</p>
+<p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> contain type URI that links to the type of the offered output data, and information about how to display the output to the Holder.</p>
 <section>
 <div id="output-descriptors---simple-example" class="notice example"><a class="notice-link" href="#output-descriptors---simple-example">EXAMPLE</a><pre class="language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"output_descriptors"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
@@ -250,7 +246,7 @@ For example:</li>
 <p><a class="term-reference" href="#term:output-descriptor-objects">Output Descriptor Objects</a> are composed as follows:</p>
 <ul>
 <li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of the <code>id</code> property <strong><strong>MUST</strong></strong> be a string that does not conflict with the <code>id</code> of another <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> in the same <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a>.</li>
-<li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MUST</strong></strong> contain a <code>schema</code> property, and its value <strong><strong>MUST</strong></strong> be an array composed of schema objects for the schema(s) of the credentials to be issued.</li>
+<li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MUST</strong></strong> contains a <code>schema</code> property, and its value <strong><strong>MUST</strong></strong> be a string specifying the schema of the credential to be issued.</li>
 <li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MAY</strong></strong> contain a <code>name</code> property, and if present its value <strong><strong>SHOULD</strong></strong> be a human-friendly name that describes what the credential represents.</li>
 <li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MAY</strong></strong> contain a <code>description</code> property, and if present its value <strong><strong>MUST</strong></strong> be a string that describes what the credential is in greater detail.</li>
 <li>The <a class="term-reference" href="#term:output-descriptor-object">Output Descriptor Object</a> <strong><strong>MAY</strong></strong> contain a <code>style</code> property, and its value <strong><strong>MUST</strong></strong> be an object or URI, as defined by the <a path-0="identity.foundation"path-1="credential-manifest"path-2="wallet-rendering"path-3="#entity-styles"href="https://identity.foundation/credential-manifest/wallet-rendering/#entity-styles" >DIF Entity Styles</a> specification.</li>
@@ -265,9 +261,9 @@ For example:</li>
 <ul>
 <li>The <a class="term-reference" href="#term:credential-application">Credential Application</a> object <strong><strong>MUST</strong></strong> contain a <code>credential_application</code> property. Its value <strong><strong>MUST</strong></strong> be an object with the following properties:
 <ul>
-<li>The <code>credential_submission</code> object <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a unique identifier, such as a UUID</li>
-<li>The <code>credential_submission</code> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code> property. The value of this property <strong><strong>MUST</strong></strong> be the id of a valid Credential Manifest.</li>
-<li>The <code>credential_submission</code> <strong><strong>MUST</strong></strong> have a <code>format</code> property if the related <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> specifies a <code>format</code> property. Its value <strong><strong>MUST</strong></strong> be a <em>subset</em> of the <code>format</code> property in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:credential-submission">Credential Submission</a> is related to. This object informs the <a class="term-reference" href="#term:issuer">Issuer</a> which formats the <a class="term-reference" href="#term:holder">Holder</a> wants to recieve the <a class="term-reference" href="#term:claims">Claims</a> in.</li>
+<li>The <code>credential_application</code> object <strong><strong>MUST</strong></strong> contain an <code>id</code> property. The value of this property <strong><strong>MUST</strong></strong> be a unique identifier, such as a UUID</li>
+<li>The <code>credential_application</code> object <strong><strong>MUST</strong></strong> contain a <code>manifest_id</code> property. The value of this property <strong><strong>MUST</strong></strong> be the id of a valid Credential Manifest.</li>
+<li>The <code>credential_application</code> <strong><strong>MUST</strong></strong> have a <code>format</code> property if the related <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> specifies a <code>format</code> property. Its value <strong><strong>MUST</strong></strong> be a <em>subset</em> of the <code>format</code> property in the <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> that this <a class="term-reference" href="#term:credential-submission">Credential Submission</a> is related to. This object informs the <a class="term-reference" href="#term:issuer">Issuer</a> which formats the <a class="term-reference" href="#term:holder">Holder</a> wants to recieve the <a class="term-reference" href="#term:claims">Claims</a> in.</li>
 </ul>
 </li>
 <li>The <a class="term-reference" href="#term:credential-application">Credential Application</a> object <strong><strong>MUST</strong></strong> contain a <code>presentation_submission</code> property IF the related <a class="term-reference" href="#term:credential-manifest">Credential Manifest</a> contains a <code>presentation_definition</code>. Its value <strong><strong>MUST</strong></strong> be be a valid <a path-0="identity.foundation"path-1="presentation-exchange"path-2="#presentation-submission"href="https://identity.foundation/presentation-exchange/#presentation-submission" >Presentation Submission</a>:</li>

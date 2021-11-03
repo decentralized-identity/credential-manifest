@@ -64,7 +64,8 @@
                     "type": "object",
                     "required": [
                       "path",
-                      "fallback"
+                      "fallback",
+                      "schema"
                     ],
                     "properties": {
                       "path": {
@@ -80,6 +81,17 @@
                       },
                       "fallback": {
                         "type": "string"
+                      },
+                      "schema": {
+                        "type": "object",
+                        "required": [
+                          "type"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          }
+                        }
                       }
                     },
                     "additionalProperties": false
@@ -88,7 +100,8 @@
                     "type": "object",
                     "required": [
                       "path",
-                      "fallback"
+                      "fallback",
+                      "schema"
                     ],
                     "properties": {
                       "path": {
@@ -104,6 +117,17 @@
                       },
                       "fallback": {
                         "type": "string"
+                      },
+                      "schema": {
+                        "type": "object",
+                        "required": [
+                          "type"
+                        ],
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          }
+                        }
                       }
                     },
                     "additionalProperties": false
@@ -130,7 +154,8 @@
                           "required": [
                             "path",
                             "fallback",
-                            "label"
+                            "label",
+                            "schema"
                           ],
                           "properties": {
                             "path": {
@@ -149,6 +174,17 @@
                             },
                             "label": {
                               "type": "string"
+                            },
+                            "schema": {
+                              "type": "object",
+                              "required": [
+                                "type"
+                              ],
+                              "properties": {
+                                "type": {
+                                  "type": "string"
+                                }
+                              }
                             }
                           },
                           "additionalProperties": false

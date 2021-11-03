@@ -15,6 +15,9 @@
             "$.name",
             "$.vc.name"
           ],
+          "schema": {
+            "type": "string"
+          },
           "fallback": "Washington State Driver License"
         },
         "subtitle": {
@@ -22,6 +25,9 @@
             "$.class",
             "$.vc.class"
           ],
+          "schema": {
+            "type": "string"
+          },
           "fallback": "Class A, Commercial"
         },
         "description": {
@@ -33,6 +39,9 @@
               "$.donor",
               "$.vc.donor"
             ],
+            "schema": {
+              "type": "boolean"
+            },
             "fallback": "Unknown",
             "label": "Organ Donor"
           }

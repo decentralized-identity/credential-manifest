@@ -48,24 +48,8 @@
             ],
             "properties": {
               "schema": {
-                "type": "array",
-                "additionalItems": false,
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "required": [
-                        "uri"
-                      ],
-                      "properties": {
-                        "uri": {
-                          "type": "string"
-                        }
-                      },
-                      "additionalProperties": false
-                    }
-                  ]
-                }
+                "type": "string",
+                "format": "uri"
               },
               "display": {
                 "type": "object",

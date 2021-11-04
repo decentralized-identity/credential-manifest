@@ -10,7 +10,7 @@ git clone git@github.com:decentralized-identity/credential-manifest.git
 cd credential-manifest
 npm i
 npm run edit
-npx serve .
+npx serve build
 ```
 
 Visit http://localhost:5000/

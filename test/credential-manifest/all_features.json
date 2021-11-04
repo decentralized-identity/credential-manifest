@@ -8,11 +8,7 @@
   },
   "output_descriptors": [
     {
-      "schema": [
-        {
-          "uri": "http://washington-state-schemas.org/1.0.0/driver-license.json"
-        }
-      ],
+      "schema": "http://washington-state-schemas.org/1.0.0/driver-license.json",
       "display": {
         "title": {
           "path": [

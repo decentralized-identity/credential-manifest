@@ -171,7 +171,10 @@ Credential Application are objects embedded within target claim negotiation form
   - The `credential_application` object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a UUID
   - The `credential_application` object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the id of a valid Credential Manifest.
   - The `credential_application` ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to recieve the [[ref:Claims]] in.
-- The [[ref: Credential Application]] object ****MUST**** contain a `presentation_submission` property IF the related [[ref:Credential Manifest]] contains a `presentation_definition`. Its value ****MUST**** be be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission):
+
+- IF the related [[ref:Credential Manifest]] contains a `presentation_definition` object, `presentation_submission` object ****MUST**** be returned. `presentation_submission` object MAY be sent in a same or separate transaction as the [[ref: Credential Application]] object. For example, two objects may be sent separately, when the Issuer is generating a challenge to request input credentials sent in `presentation_submission` to be bound to a particular transaction to prevent them from being replayed. `presentation_submission` value ****MUST**** be be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission).
+  - When `presentation_submission` is sent in a transaction following a transaction in which `credential_application` was sent, `credential_application` ****MUST**** include `submission_id` that equals to the `id` property in the `presentation_submission` to prevent `presentation_submission` from being replayed.
+
 
 ```
 // NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer

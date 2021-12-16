@@ -5,10 +5,16 @@
       "display": {
           "title": {
               "path": ["$.name", "$.vc.name"],
+              "schema": {
+                  "type": "string"
+              },
               "fallback": "Washington State Driver License"
           },
           "subtitle": {
               "path": ["$.class", "$.vc.class"],
+              "schema": {
+                "type": "string"
+              },
               "fallback": "Class A, Commercial"
           },
           "description": {
@@ -16,6 +22,9 @@
           },
           "properties": [{
               "path": ["$.donor", "$.vc.donor"],
+              "schema": {
+                "type": "boolean"
+              },
               "fallback": "Unknown",
               "label": "Organ Donor"
           }]

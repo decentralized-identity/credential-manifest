@@ -152,8 +152,8 @@ _Credential Manifests_ are JSON objects composed as follows:
 - The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be a string specifying the schema of the credential to be issued.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `style` property, and its value ****MUST**** be an object or URI, as defined by the [DIF Entity Styles](https://identity.foundation/credential-manifest/wallet-rendering/#entity-styles) specification.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****MUST**** be an object composed as defined in the [DIF Data Display](https://identity.foundation/credential-manifest/wallet-rendering/#data-display) specification.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `style` property, and its value ****MUST**** be an object or URI, as defined by the [DIF Entity Styles](https://identity.foundation/wallet-rendering/#entity-styles) specification.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****MUST**** be an object composed as defined in the [DIF Data Display](https://identity.foundation/wallet-rendering/#data-display) specification.
 
 :::
 

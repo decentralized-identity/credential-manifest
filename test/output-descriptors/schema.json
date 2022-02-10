@@ -105,6 +105,9 @@
                           ]
                         }
                       },
+                      "schema": {
+                        "$ref": "#/definitions/schema"
+                      },
                       "fallback": {
                         "type": "string"
                       },

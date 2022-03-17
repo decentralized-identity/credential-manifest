@@ -26,12 +26,6 @@
           },
           "display": {
             "type": "object",
-            "required": [
-              "title",
-              "subtitle",
-              "description",
-              "properties"
-            ],
             "properties": {
               "title": {
                 "$ref": "https://identity.foundation/wallet-rendering/schemas/display-mapping-object.json"

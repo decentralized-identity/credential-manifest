@@ -159,7 +159,15 @@ _Credential Manifests_ are JSON objects composed as follows:
 
 :::
 
+#### JSON Schema
+
+The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Output Descriptors]] [can be found after the appendix here](#output-descriptors). 
+
 </section>
+
+### JSON Schema
+
+The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Manifest]] [can be found after the appendix here](#credential-manifest-3). 
 
 ## Resource Location
 
@@ -205,15 +213,9 @@ VP         | top-level
 CHAPI      | `$.data`
 
 ### JSON Schema
-The following JSON Schema Draft 7 definition summarizes the rules above:
 
-<section>
+The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Application]] [can be found after the appendix here](#credential-application-3). 
 
-::: example Credential Application - Schema
-```json
-[[insert: ./test/credential-application/schema.json]]
-```
-:::
 
 ## Credential Fulfillment
 
@@ -253,17 +255,8 @@ VP         | top-level
 CHAPI      | `$.data`
 
 ### JSON Schema
-The following JSON Schema Draft 7 definition summarizes the rules above:
 
-<section>
-
-::: example Credential Fulfimment - Schema
-```json
-[[insert: ./test/credential-fulfillment/schema.json]]
-```
-:::
-
-</section>
+The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Fulfillment]] [can be found after the appendix here](#credential-fulfillment-3). 
 
 ## Appendix
 

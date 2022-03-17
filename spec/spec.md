@@ -52,14 +52,11 @@ Credential, Assertion, Attestation, etc.
 [[def:Output Descriptor Object, Output Descriptor Objects]]
 ~ Output Descriptor Objects are populated with properties describing the [[ref:Claims]] the [[ref:Issuer]] is offering the [[ref:Holder]]
 
+[[def:Output Descriptor Display Object, Output Descriptor Display Objects]]
+~ Output Descriptor Display Objects are populated with [DIF Data Display](https://identity.foundation/wallet-rendering/#data-display) properties
+
 [[def:Credential Application, Credential Applications]]
 ~ Credential Application are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]. See [Credential Application](#credential-application)
-
-[[def:Display Mapping Object, Display Mapping Objects]]
-~ Display Mapping Objects are used to render UI based on information from and about a [[ref:Claim]]. See [Display Mapping Object](#display-mapping-object)
-
-[[def:Labeled Display Mapping Object, Labeled Display Mapping Objects]]
-~ ref:Labeled Display Mapping Objects extend from [[ref:Display Mapping Objects]]. See [Labeled Display Mapping Object](#labeled-display-mapping-object)
 
 [[def:Credential Fulfillment, Credential Fulfillments]]
 ~ Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. See [Credential Fulfillment](#credential-fulfillment).
@@ -83,12 +80,13 @@ _Credential Manifests_ are a resource format that defines preconditional require
 
 _Credential Manifests_ are JSON objects composed as follows:
 
+- The object ****MUST**** contain an `id` property, and it's vaule ****MUST**** be a string.
 - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
     - The object ****MUST**** contain a `id` property, and its value ****MUST**** be a valid URI string that identifies who the issuer of the credential(s) will be.
     - The object ****MAY**** contain a `name` property, and its value ****MUST**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
-    - The object ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI, as defined by the Entity Styles specification.
+    - The object ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI, as defined by the [DIF Entity Styles](https://identity.foundation/wallet-rendering/v0.0.1/#entity-styles) specification.
 - The object ****MUST**** contain an `output_descriptors` property. Its value ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below
-- The [[ref:Credential Manifest]] ****MAY**** include a `format` property. If present, its value ****MUST**** be the same structure as [Presentation Definition's `format` property](https://identity.foundation/presentation-exchange/#presentation-definition). This property informs the [[ref:Holder]] of the [[ref:Calim]] format the [[ref:Issuer]] can issuer in.
+- The [[ref:Credential Manifest]] ****MAY**** include a `format` property. If present, its value ****MUST**** be the same structure as [Presentation Definition's `format` property](https://identity.foundation/presentation-exchange/#presentation-definition). This property informs the [[ref:Holder]] of the [[ref:Claim]] format the [[ref:Issuer]] can issuer in.
     For example:
 
 ```json
@@ -152,8 +150,12 @@ _Credential Manifests_ are JSON objects composed as follows:
 - The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be a string specifying the schema of the credential to be issued.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `style` property, and its value ****MUST**** be an object or URI, as defined by the [DIF Entity Styles](https://identity.foundation/wallet-rendering/#entity-styles) specification.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****MUST**** be an object composed as defined in the [DIF Data Display](https://identity.foundation/wallet-rendering/#data-display) specification.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI, as defined by the [DIF Entity Styles](https://identity.foundation/wallet-rendering/v0.0.1/#entity-styles) specification.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****MUST**** be an object composed as follows:
+  - The [[ref:Output Descriptor Display Object]] ****MAY**** contain a `title` property and it's value ****MUST**** be an object as defined by the [DIF Display Mapping Object](https://identity.foundation/wallet-rendering/v0.0.1/#display-mapping-object.json)
+  - The [[ref:Output Descriptor Display Object]] ****MAY**** contain a `subtitle` property and it's value ****MUST**** be an object as defined by the [DIF Display Mapping Object](https://identity.foundation/wallet-rendering/v0.0.1/#display-mapping-object.json)
+  - The [[ref:Output Descriptor Display Object]] ****MAY**** contain a `description` property and it's value ****MUST**** be an object as defined by the [DIF Display Mapping Object](https://identity.foundation/wallet-rendering/v0.0.1/#display-mapping-object.json)
+  - The [[ref:Output Descriptor Display Object]] ****MAY**** contain a `properties` property and it's value ****MUST**** be an array of objects as defined by the [DIF Labeled Display Mapping Object](https://identity.foundation/wallet-rendering/v0.0.1/#labeled-display-mapping-object.json)
 
 :::
 
@@ -302,6 +304,49 @@ The following JSON Schema Draft 7 definition summarizes the rules above:
 :::
 
 </section>
+
+## JSON Schemas
+
+### Vocabulary Definition
+
+The _Wallet Rendering_ specification adopts and defines the following JSON
+Schema data format and processing variant, which implementers ****MUST****
+support for evaluation of the portions of the _Wallet Rendering_
+specification that call for JSON Schema validation:
+https://tools.ietf.org/html/draft-handrews-json-schema-02
+
+### Credential Manifest
+
+::: example Credential Manifest - Schema
+```json
+[[insert: ./test/credential-manifest/schema.json]]
+```
+:::
+
+### Output Descriptors
+
+::: example Output Descriptors - Schema
+```json
+[[insert: ./test/output-descriptors/schema.json]]
+```
+:::
+
+### Credential Application
+
+::: example Credential Application - Schema
+```json
+[[insert: ./test/credential-application/schema.json]]
+```
+:::
+
+### Credential Fulfillment
+
+::: example Credential Fulfillment - Schema
+```json
+[[insert: ./test/credential-fulfillment/schema.json]]
+```
+:::
+
 
 ## References
 

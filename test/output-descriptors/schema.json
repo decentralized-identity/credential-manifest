@@ -1,206 +1,55 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "definitions": {
-    "schema": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string"
-        },
-        "format": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "type"
-      ]
-    },
-    "display_mapping": {
-      "type": "object",
-      "required": [
-        "path"
-      ],
-      "properties": {
-        "path": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "fallback": {
-          "type": "string"
-        },
-        "schema": {
-          "$ref": "#/definitions/schema"
-        }
-      }
-    },
-    "output_descriptors": {
-      "type": "object",
-      "required": [
-        "id",
-        "schema"
-      ],
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "schema": {
-          "type": "string"
-        },
-        "display": {
-          "type": "object",
-          "required": [
-            "title",
-            "subtitle",
-            "description",
-            "properties"
-          ],
-          "properties": {
-            "title": {
-              "$ref": "#/definitions/display_mapping"
-            },
-            "subtitle": {
-              "$ref": "#/definitions/display_mapping"
-            },
-            "description": {
-              "type": "object",
-              "required": [
-                "text"
-              ],
-              "properties": {
-                "text": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false
-            },
-            "properties": {
-              "type": "array",
-              "additionalItems": false,
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "object",
-                    "required": [
-                      "path",
-                      "fallback",
-                      "label"
-                    ],
-                    "properties": {
-                      "path": {
-                        "type": "array",
-                        "additionalItems": false,
-                        "items": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            }
-                          ]
-                        }
-                      },
-                      "schema": {
-                        "$ref": "#/definitions/schema"
-                      },
-                      "fallback": {
-                        "type": "string"
-                      },
-                      "label": {
-                        "type": "string"
-                      }
-                    },
-                    "additionalProperties": false
-                  }
-                ]
-              }
-            }
-          },
-          "additionalProperties": false
-        },
-        "styles": {
-          "type": "object",
-          "required": [
-            "thumbnail",
-            "hero",
-            "background",
-            "text"
-          ],
-          "properties": {
-            "thumbnail": {
-              "type": "object",
-              "required": [
-                "uri",
-                "alt"
-              ],
-              "properties": {
-                "uri": {
-                  "type": "string"
-                },
-                "alt": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false
-            },
-            "hero": {
-              "type": "object",
-              "required": [
-                "uri",
-                "alt"
-              ],
-              "properties": {
-                "uri": {
-                  "type": "string"
-                },
-                "alt": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false
-            },
-            "background": {
-              "type": "object",
-              "required": [
-                "color"
-              ],
-              "properties": {
-                "color": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false
-            },
-            "text": {
-              "type": "object",
-              "required": [
-                "color"
-              ],
-              "properties": {
-                "color": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          "additionalProperties": false
-        }
-      },
-      "additionalProperties": false
-    }
-  },
   "type": "object",
   "properties": {
     "output_descriptors": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/output_descriptors"
+        "type": "object",
+        "required": [
+          "id",
+          "schema"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "schema": {
+            "type": "string",
+            "format": "uri"
+          },
+          "display": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "$ref": "https://identity.foundation/wallet-rendering/schemas/display-mapping-object.json"
+              },
+              "subtitle": {
+                "$ref": "https://identity.foundation/wallet-rendering/schemas/display-mapping-object.json"
+              },
+              "description": {
+                "$ref": "https://identity.foundation/wallet-rendering/schemas/display-mapping-object.json"
+              },
+              "properties": {
+                "type": "array",
+                "items": {
+                  "$ref": "https://identity.foundation/wallet-rendering/schemas/labeled-display-mapping-object.json"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "styles": {
+            "$ref": "https://identity.foundation/wallet-rendering/schemas/entity-styles.json"
+          }
+        },
+        "additionalProperties": false
       }
     }
   },

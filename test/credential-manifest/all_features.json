@@ -1,27 +1,42 @@
 {
   "id": "WA-DL-CLASS-A",
-  "version": "0.1.0",
   "issuer": {
     "id": "did:example:123?linked-domains=3",
     "name": "Washington State Government",
-    "styles": {}
+    "styles": {
+      "thumbnail": {
+        "uri": "https://dol.wa.com/logo.png",
+        "alt": "Washington State Seal"
+      },
+      "hero": {
+        "uri": "https://dol.wa.com/people-working.png",
+        "alt": "People working on serious things"
+      },
+      "background": {
+        "color": "#ff0000"
+      },
+      "text": {
+        "color": "#d4d400"
+      }
+    }
   },
   "output_descriptors": [
     {
-      "schema": "http://washington-state-schemas.org/1.0.0/driver-license.json",
+      "id": "driver_license_output",
+      "schema": "https://schema.org/EducationalOccupationalCredential",
       "display": {
         "title": {
-          "path": [
-            "$.name",
-            "$.vc.name"
-          ],
+          "path": ["$.name", "$.vc.name"],
+          "schema": {
+            "type": "string"
+          },
           "fallback": "Washington State Driver License"
         },
         "subtitle": {
-          "path": [
-            "$.class",
-            "$.vc.class"
-          ],
+          "path": ["$.class", "$.vc.class"],
+          "schema": {
+            "type": "string"
+          },
           "fallback": "Class A, Commercial"
         },
         "description": {
@@ -29,16 +44,31 @@
         },
         "properties": [
           {
-            "path": [
-              "$.donor",
-              "$.vc.donor"
-            ],
+            "path": ["$.donor", "$.vc.donor"],
+            "schema": {
+              "type": "boolean"
+            },
             "fallback": "Unknown",
             "label": "Organ Donor"
           }
         ]
       },
-      "styles": {}
+      "styles": {
+        "thumbnail": {
+          "uri": "https://dol.wa.com/logo.png",
+          "alt": "Washington State Seal"
+        },
+        "hero": {
+          "uri": "https://dol.wa.com/happy-people-driving.png",
+          "alt": "Happy people driving"
+        },
+        "background": {
+          "color": "#ff0000"
+        },
+        "text": {
+          "color": "#d4d400"
+        }
+      }
     }
   ],
   "presentation_definition": {}

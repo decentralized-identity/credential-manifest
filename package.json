@@ -9,7 +9,7 @@
     "url": "git://github.com/decentralized-identity/credential-manifest"
   },
   "dependencies": {
-    "markdown-it": "^9.1.0",
+    "markdown-it": "^12.3.2",
     "spec-up": "^0.10.3"
   },
   "devDependencies": {

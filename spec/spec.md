@@ -128,7 +128,7 @@ _Credential Manifests_ are JSON objects composed as follows:
 
 ### Output Descriptor
 
-[[ref:Output Descriptors]] are objects used to describe the [[ref:Claims]] a [[ref:Issuer]] if offering to a [[ref:Holder]].
+[[ref:Output Descriptors]] are objects used to describe the [[ref:Claims]] an [[ref:Issuer]] is offering to a [[ref:Holder]].
 
 [[ref:Output Descriptor Objects]] contain type URI that links to the type of the offered output data, and information about how to display the output to the Holder.
 

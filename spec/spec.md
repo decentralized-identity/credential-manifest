@@ -7,10 +7,11 @@ Credential Manifest
   [identity.foundation/credential-manifest](https://identity.foundation/credential-manifest)
 
 **Editors:**
-~ [Daniel Buchner](https://www.linkedin.com/in/dbuchner/) (Microsoft)
-~ [Brent Zundel](https://www.linkedin.com/in/bzundel/) (Evernym)
+~ [Daniel Buchner](https://www.linkedin.com/in/dbuchner/) (Block)
+~ [Brent Zundel](https://www.linkedin.com/in/bzundel/) (Avast)
 ~ [Jace Hensley](https://www.linkedin.com/in/jacehensley/) (Bloom)
 ~ [Daniel McGrogan](https://www.linkedin.com/in/dtmcgrogan/) (Workday)
+~ [Gabe Cohen](https://www.linkedin.com/in/cohengabe) (Block)
 
 <!-- -->
 **Participate:**
@@ -312,7 +313,7 @@ https://tools.ietf.org/html/draft-handrews-json-schema-02
 
 ::: example Credential Manifest - Schema
 ```json
-[[insert: ./test/credential-manifest/schema.json]]
+[[insert: ./schemas/credential-manifest.json]]
 ```
 :::
 
@@ -320,7 +321,7 @@ https://tools.ietf.org/html/draft-handrews-json-schema-02
 
 ::: example Output Descriptors - Schema
 ```json
-[[insert: ./test/output-descriptors/schema.json]]
+[[insert: ./schemas/output-descriptors.json]]
 ```
 :::
 
@@ -328,7 +329,7 @@ https://tools.ietf.org/html/draft-handrews-json-schema-02
 
 ::: example Credential Application - Schema
 ```json
-[[insert: ./test/credential-application/schema.json]]
+[[insert: ./schemas/credential-application.json]]
 ```
 :::
 
@@ -336,7 +337,7 @@ https://tools.ietf.org/html/draft-handrews-json-schema-02
 
 ::: example Credential Fulfillment - Schema
 ```json
-[[insert: ./test/credential-fulfillment/schema.json]]
+[[insert: ./schemas/credential-fulfillment.json]]
 ```
 :::
 

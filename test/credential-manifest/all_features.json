@@ -71,5 +71,12 @@
       }
     }
   ],
-  "presentation_definition": {}
+  "presentation_definition": {
+    "id": "test",
+    "input_descriptors": [
+      {
+        "id": "test input descriptor"
+      }
+    ]
+  }
 }

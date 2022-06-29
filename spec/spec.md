@@ -225,6 +225,7 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 - The `credential_fulfillment` object ****MUST**** be included at the top-level of an Embed Target, or in the specific location described in the [Embed Locations table](#embed-locations) in the [Embed Target](#embed-target) section below.
 - The `credential_fulfillment` object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a [UUID](https://tools.ietf.org/html/rfc4122).
 - The `credential_fulfillment` object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Manifest]].
+- The `credential_fulfillment` object ****MAY**** contain an `application_id` property. If present, the value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Application]].
 - The `credential_fulfillment` object ****MUST**** include a `descriptor_map` property. The value of this property ****MUST**** be an array of _Output Descriptor Mapping Objects_, just like [Presentation Submission's](https://identity.foundation/presentation-exchange/#presentation-submission) `descriptor_map` property.
 
 ```

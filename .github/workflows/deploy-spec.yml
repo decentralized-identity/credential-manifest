@@ -4,7 +4,6 @@ name: render-specs
 on:
   push:
     branches:
-      - master
       - main
 
 jobs:

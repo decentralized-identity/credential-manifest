@@ -17,7 +17,7 @@ Credential Manifest
 **Participate:**
 ~ [GitHub repo](https://github.com/decentralized-identity/credential-manifest)
 ~ [File a bug](https://github.com/decentralized-identity/credential-manifest/issues)
-~ [Commit history](https://github.com/decentralized-identity/credential-manifest/commits/master)
+~ [Commit history](https://github.com/decentralized-identity/credential-manifest/commits/main)
 
 ------------------------------------
 

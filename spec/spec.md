@@ -1,4 +1,4 @@
-Credential Manifest
+Credential Manifest 0.0.1
 ==================
 
 **Specification Status:** Strawman
@@ -29,7 +29,7 @@ _Credential Manifests_ do not themselves define the contents of the output crede
 
 ## Status of This Document
 
-Credential Manifest is a draft specification being developed within the [Decentralized Identity Foundation](https://identity.foundation) (DIF), and intended for ratification as a DIF recommended data format. This spec will be updated to reflect relevant changes, and participants are encouraged to contribute at the following repository location: https://github.com/decentralized-identity/credential-manifest
+Credential Manifest is a draft specification being developed within the [Decentralized Identity Foundation](https://identity.foundation) (DIF), and intended for ratification as a DIF recommended data format. This spec will be updated to reflect relevant changes, and participants are encouraged to contribute at [the following repository location](https://github.com/decentralized-identity/credential-manifest).
 
 
 ## Terminology
@@ -45,7 +45,7 @@ Credential, Assertion, Attestation, etc.
 ~ Issuers are entities that issue credentials to a [[ref:Holder]].
 
 [[def:Holder, Holders]]
-~ Holders are entities that recieve credentials from [[ref:Issuers]], possibly first submitting proofs the the Issuer to satisfy the requirements described in a Presentation Definition.
+~ Holders are entities that receive credentials from [[ref:Issuers]], possibly first submitting proofs the the Issuer to satisfy the requirements described in a Presentation Definition.
 
 [[def:Output Descriptor, Output Descriptors]]
 ~ Output Descriptors are used by an Issuer to describe the credentials they are offering to a [[ref:Holder]]. See [Output Descriptor](#output-descriptor)
@@ -61,6 +61,16 @@ Credential, Assertion, Attestation, etc.
 
 [[def:Credential Fulfillment, Credential Fulfillments]]
 ~ Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. See [Credential Fulfillment](#credential-fulfillment).
+
+## Versioning
+
+As this specification evolves, so will its object models. Future iterations of the specifications should aim to provide backwards-compatibility and minimize breaking changes. To track the evolution of this specification, all object models this specification defines ****MUST**** include a `version` property, corresponding to the revision of the specification the object models comport with.
+
+Versioning is to be done following [Semantic Versioning 2.0.0 rules](https://semver.org/spec/v2.0.0.html):
+
+1. MAJOR version when you make incompatible changes,
+2. MINOR version when you add functionality in a backwards compatible manner, and
+3. PATCH version when you make backwards compatible bug fixes.
 
 ## Credential Manifest
 
@@ -81,7 +91,7 @@ _Credential Manifests_ are a resource format that defines preconditional require
 
 _Credential Manifests_ are JSON objects composed as follows:
 
-- The object ****MUST**** contain an `id` property, and it's vaule ****MUST**** be a string.
+- The object ****MUST**** contain an `id` property, and it's value ****MUST**** be a string.
 - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
     - The object ****MUST**** contain a `id` property, and its value ****MUST**** be a valid URI string that identifies who the issuer of the credential(s) will be.
     - The object ****MAY**** contain a `name` property, and its value ****MUST**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
@@ -172,7 +182,7 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 
 ## Resource Location
 
-Credential Manifests ****SHOULD**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
+Credential Manifests ****SHOULD**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal data-store standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
 
 ## Credential Application
 

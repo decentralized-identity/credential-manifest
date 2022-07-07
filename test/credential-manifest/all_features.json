@@ -1,4 +1,5 @@
 {
+  "version": "1.0.0",
   "id": "WA-DL-CLASS-A",
   "issuer": {
     "id": "did:example:123?linked-domains=3",

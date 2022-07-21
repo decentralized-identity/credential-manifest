@@ -1,15 +1,13 @@
 {
-  "credential_application": {
-    "version": "1.0.0",
-    "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-    "manifest_id": "WA-DL-CLASS-A",
-    "format": {
-      "ldp_vc": {
-        "proof_type": [
-          "JsonWebSignature2020",
-          "EcdsaSecp256k1Signature2019"
-        ]
-      }
+  "version": "1.0.0",
+  "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+  "manifest_id": "WA-DL-CLASS-A",
+  "format": {
+    "ldp_vc": {
+      "proof_type": [
+        "JsonWebSignature2020",
+        "EcdsaSecp256k1Signature2019"
+      ]
     }
   },
   "presentation_submission": {

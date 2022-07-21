@@ -81,7 +81,11 @@ _Credential Manifests_ are a resource format that defines preconditional require
 
 _Credential Manifests_ are JSON objects composed as follows:
 
-- The object ****MUST**** contain an `id` property, and it's vaule ****MUST**** be a string.
+- The object ****MUST**** contain an `id` property, and it's value ****MUST****
+  be a string. The string ****SHOULD**** provide a unique ID for the desired
+  context. For example, a UUID such as 32f54163-7166-48f1-93d8-f f217bdb0653
+  could provide an ID that is unique in a global context, while a simple string
+  such as my_credential_manifest_1 could be suitably unique in a local context.
 - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
     - The object ****MUST**** contain a `id` property, and its value ****MUST**** be a valid URI string that identifies who the issuer of the credential(s) will be.
     - The object ****MAY**** contain a `name` property, and its value ****MUST**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.

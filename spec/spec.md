@@ -1,4 +1,4 @@
-Credential Manifest
+Credential Manifest 0.0.1
 ==================
 
 **Specification Status:** Strawman
@@ -29,7 +29,7 @@ _Credential Manifests_ do not themselves define the contents of the output crede
 
 ## Status of This Document
 
-Credential Manifest is a draft specification being developed within the [Decentralized Identity Foundation](https://identity.foundation) (DIF), and intended for ratification as a DIF recommended data format. This spec will be updated to reflect relevant changes, and participants are encouraged to contribute at the following repository location: https://github.com/decentralized-identity/credential-manifest
+Credential Manifest is a draft specification being developed within the [Decentralized Identity Foundation](https://identity.foundation) (DIF), and intended for ratification as a DIF recommended data format. This spec will be updated to reflect relevant changes, and participants are encouraged to contribute at [the following repository location](https://github.com/decentralized-identity/credential-manifest).
 
 
 ## Terminology
@@ -45,7 +45,7 @@ Credential, Assertion, Attestation, etc.
 ~ Issuers are entities that issue credentials to a [[ref:Holder]].
 
 [[def:Holder, Holders]]
-~ Holders are entities that recieve credentials from [[ref:Issuers]], possibly first submitting proofs the the Issuer to satisfy the requirements described in a Presentation Definition.
+~ Holders are entities that receive credentials from [[ref:Issuers]], possibly first submitting proofs the the Issuer to satisfy the requirements described in a Presentation Definition.
 
 [[def:Output Descriptor, Output Descriptors]]
 ~ Output Descriptors are used by an Issuer to describe the credentials they are offering to a [[ref:Holder]]. See [Output Descriptor](#output-descriptor)
@@ -61,6 +61,18 @@ Credential, Assertion, Attestation, etc.
 
 [[def:Credential Fulfillment, Credential Fulfillments]]
 ~ Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. See [Credential Fulfillment](#credential-fulfillment).
+
+## Versioning
+
+As this specification evolves, so will its object models. Future iterations of the specifications should aim to provide backwards-compatibility and minimize breaking changes. To track the evolution of this specification, all object models this specification defines ****MUST**** include a `spec_version` property, corresponding to the URI of the specification revision the object models comport with.
+
+::: example Spec Reference
+  ```json
+  {
+    "spec_version": "https://identity.foundation/credential-manifest/spec/v1.0.0/"
+  }
+  ```
+:::
 
 ## Credential Manifest
 
@@ -88,6 +100,7 @@ _Credential Manifests_ are JSON objects composed as follows:
   such as my_credential_manifest_1 could be suitably unique in a local context.
 - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
     - The object ****MUST**** contain a `id` property, and its value ****MUST**** be a valid URI string that identifies who the issuer of the credential(s) will be.
+    - The object ****MUST**** contain a `spec_version` property, and its value ****MUST**** be a valid spec URI according to the rules set in the [versioning section](#versioning).
     - The object ****MAY**** contain a `name` property, and its value ****MUST**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
     - The object ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI, as defined by the [DIF Entity Styles](https://identity.foundation/wallet-rendering/v0.0.1/#entity-styles) specification.
 - The object ****MUST**** contain an `output_descriptors` property. Its value ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below.
@@ -162,7 +175,6 @@ _Credential Manifests_ are JSON objects composed as follows:
   - The [[ref:Output Descriptor Display Object]] ****MAY**** contain a `description` property and it's value ****MUST**** be an object as defined by the [DIF Display Mapping Object](https://identity.foundation/wallet-rendering/v0.0.1/#display-mapping-object.json)
   - The [[ref:Output Descriptor Display Object]] ****MAY**** contain a `properties` property and it's value ****MUST**** be an array of objects as defined by the [DIF Labeled Display Mapping Object](https://identity.foundation/wallet-rendering/v0.0.1/#labeled-display-mapping-object.json)
 
-:::
 
 #### JSON Schema
 
@@ -176,15 +188,15 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 
 ## Resource Location
 
-Credential Manifests ****SHOULD**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal datastore standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
+Credential Manifests ****SHOULD**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal data-store standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
 
 ## Credential Application
 
 Credential Application are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]].
 
 _Credential Applications_ are JSON objects composed as follows:
-
-  - The object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a UUID
+  - The object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a UUID.
+  - The object ****MUST**** contain a `spec_version` property, and its value ****MUST**** be a valid spec URI according to the rules set in the [versioning section](#versioning).
   - The object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the id of a valid Credential Manifest.
   - The ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to recieve the [[ref:Claims]] in.
 - The [[ref: Credential Application]] object ****MUST**** contain a `presentation_submission` property IF the related [[ref:Credential Manifest]] contains a `presentation_definition`. Its value ****MUST**** be be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission):
@@ -229,6 +241,7 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 
 - The object ****MUST**** be included at the top-level of an Embed Target, or in the specific location described in the [Embed Locations table](#embed-locations) in the [Embed Target](#embed-target) section below.
 - The object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a [UUID](https://tools.ietf.org/html/rfc4122).
+- The object ****MUST**** contain a `spec_version` property, and its value ****MUST**** be a valid spec URI according to the rules set in the [versioning section](#versioning).
 - The object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Manifest]].
 - The object ****MAY**** contain an `application_id` property. If present, the value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Application]].
 - The object ****MUST**** include a `descriptor_map` property. The value of this property ****MUST**** be an array of _Output Descriptor Mapping Objects_, just like [Presentation Submission's](https://identity.foundation/presentation-exchange/#presentation-submission) `descriptor_map` property.

@@ -8,7 +8,6 @@
       "items": {
         "type": "object",
         "properties": {
-          "version": { "type" : "string" },
           "id": { "type": "string" },
           "name": { "type": "string" },
           "description": { "type": "string" },
@@ -38,7 +37,7 @@
             "$ref": "https://identity.foundation/wallet-rendering/schemas/entity-styles.json"
           }
         },
-        "required": ["version", "id", "schema"],
+        "required": ["id", "schema"],
         "additionalProperties": false
       }
     }

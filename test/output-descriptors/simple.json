@@ -1,7 +1,6 @@
 {
   "output_descriptors": [
     {
-      "version": "1.0.0",
       "id": "driver_license_output",
       "schema": "https://schema.org/EducationalOccupationalCredential",
       "display": {

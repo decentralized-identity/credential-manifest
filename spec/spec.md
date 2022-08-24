@@ -59,8 +59,8 @@ Credential, Assertion, Attestation, etc.
 [[def:Credential Application, Credential Applications]]
 ~ Credential Application are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]. See [Credential Application](#credential-application)
 
-[[def:Credential Fulfillment, Credential Fulfillments]]
-~ Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. See [Credential Fulfillment](#credential-fulfillment).
+[[def:Credential Responses, Credential Responses]]
+~ Credential Responses are objects embedded within target claim negotiation formats that unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. See [Credential Response](#credential-response).
 
 ## Versioning
 
@@ -221,7 +221,7 @@ The following section details where the `credential_application` object is to be
 
 #### Embed Locations
 
-The following are the locations at which the _Crdential Application_ object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
+The following are the locations at which the _Credential Application_ object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
 
 Target     | Location
 ---------- | --------
@@ -235,9 +235,15 @@ CHAPI      | `$.data`
 The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Application]] [can be found after the appendix here](#credential-application-3). 
 
 
-## Credential Fulfillment
+## Credential Response
 
-[[ref:Credential Fulfillments]] are objects embedded within target [[ref:Claim]] negotiation formats that express how the outputs presented as proofs to a [[ref:Holder]] are provided in accordance with the outputs specified in a [[ref:Credential Manifest]]. Embedded [[ref:Credential Fulfillment]] objects ****MUST**** be located within target data format as the value of a `credential_fulfillment` property, which is composed and embedded as follows:
+[[ref:Credential Response]] are objects embedded within target [[ref:Claim]] negotiation formats that express how the outputs presented as proofs to a [[ref:Holder]] are provided in accordance with the outputs specified in a [[ref:Credential Manifest]]. Embedded [[ref:Credential Response]] objects ****MUST**** be located within target data format as the value of a `credential_response` property, which is composed and embedded as follows:
+
+
+- cred application id
+- reason?
+- group conditions that were not passed
+- inputs that were not satisfied
 
 - The object ****MUST**** be included at the top-level of an Embed Target, or in the specific location described in the [Embed Locations table](#embed-locations) in the [Embed Target](#embed-target) section below.
 - The object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a [UUID](https://tools.ietf.org/html/rfc4122).
@@ -251,9 +257,9 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 ```
 <section>
 
-::: example Credential Fulfillment - Simple Example
+::: example Credential Response - Simple Example
 ```json
-[[insert: ./test/credential-fulfillment/sample.json]]
+[[insert: ./test/credential-response/sample.json]]
 ```
 :::
 
@@ -261,11 +267,11 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 
 ### Embed Targets
 
-The following section details where the _Credential Fulfillment_ is to be embedded within a target data structure, as well as how to formulate the [JSONPath](https://goessner.net/articles/JsonPath/) expressions to select the [[ref:Claims]] within the target data structure.
+The following section details where the _Credential Response_ is to be embedded within a target data structure, as well as how to formulate the [JSONPath](https://goessner.net/articles/JsonPath/) expressions to select the [[ref:Claims]] within the target data structure.
 
 #### Embed Locations
 
-The following are the locations at which the `credential_fulfillment` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
+The following are the locations at which the `credential_response` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
 
 Target     | Location
 ---------- | --------
@@ -276,13 +282,13 @@ CHAPI      | `$.data`
 
 ### JSON Schema
 
-The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Fulfillment]] [can be found after the appendix here](#credential-fulfillment-3). 
+The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Response]] [can be found after the appendix here](#credential-response-3). 
 
 ## Appendix
 
 ### Embed Target Examples
 
-#### Credential Fulfillment
+#### Credential Response
 
 <tab-panels selected-index="0">
 
@@ -292,9 +298,9 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 
 <section>
 
-::: example Credential Fulfillment - Verifiable Presentation
+::: example Credential Response - Verifiable Presentation
 ```json
-[[insert: ./test/credential-fulfillment/appendix.json]]
+[[insert: ./test/credential-response/appendix.json]]
 ```
 :::
 
@@ -352,11 +358,11 @@ https://tools.ietf.org/html/draft-handrews-json-schema-02
 ```
 :::
 
-### Credential Fulfillment
+### Credential Response
 
-::: example Credential Fulfillment - Schema
+::: example Credential Response - Schema
 ```json
-[[insert: ./schemas/credential-fulfillment.json]]
+[[insert: ./schemas/credential-response.json]]
 ```
 :::
 

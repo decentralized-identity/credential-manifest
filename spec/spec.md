@@ -98,9 +98,10 @@ _Credential Manifests_ are JSON objects composed as follows:
   context. For example, a [UUID](https://www.ietf.org/rfc/rfc4122.txt) such as `32f54163-7166-48f1-93d8-f f217bdb0653`
   could provide an ID that is unique in a global context, while a simple string
   such as `my_credential_manifest_1` could be suitably unique in a local context.
+- The object ****MUST**** contain a `spec_version` property, and its value ****MUST****
+  be a valid spec URI according to the rules set in the [versioning section](#versioning).
 - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
     - The object ****MUST**** contain a `id` property, and its value ****MUST**** be a valid URI string that identifies who the issuer of the credential(s) will be.
-    - The object ****MUST**** contain a `spec_version` property, and its value ****MUST**** be a valid spec URI according to the rules set in the [versioning section](#versioning).
     - The object ****MAY**** contain a `name` property, and its value ****MUST**** be a string that ****SHOULD**** reflect the human-readable name the Issuer wishes to be recognized by.
     - The object ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI, as defined by the [DIF Entity Styles](https://identity.foundation/wallet-rendering/v0.0.1/#entity-styles) specification.
 - The object ****MUST**** contain an `output_descriptors` property. Its value ****MUST**** be an array of Output Descriptor Objects, the composition of which are described in the [`Output Descriptor`](#output-descriptor) section below.
@@ -246,7 +247,6 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 - The object ****MUST**** contain a `spec_version` property, and its value ****MUST**** be a valid spec URI according to the rules set in the [versioning section](#versioning).
 - The object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Manifest]].
 - The object ****MAY**** contain an `application_id` property. If present, the value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Application]].
-
 - The object ****MUST**** contain **one of** the following properties depending on whether the application is to be fulfilled or rejected.
   - For _fulfillment_ the object ****MUST**** contain a `fulfillment` property and its value ****MUST**** be an object composed as follows: 
     - The object ****MUST**** include a `descriptor_map` property. The value of this property ****MUST**** be an array of _Output Descriptor Mapping Objects_, just like [Presentation Submission's](https://identity.foundation/presentation-exchange/#presentation-submission) `descriptor_map` property.

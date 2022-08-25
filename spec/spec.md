@@ -1,7 +1,7 @@
 Credential Manifest 0.0.1
 ==================
 
-**Specification Status:** Strawman
+**Specification Status:** _Strawman_
 
 **Latest Draft:**
   [identity.foundation/credential-manifest](https://identity.foundation/credential-manifest)
@@ -59,8 +59,8 @@ Credential, Assertion, Attestation, etc.
 [[def:Credential Application, Credential Applications]]
 ~ Credential Application are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]. See [Credential Application](#credential-application)
 
-[[def:Credential Fulfillment, Credential Fulfillments]]
-~ Credential Fulfillments are objects embedded within target claim negotiation formats that unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. See [Credential Fulfillment](#credential-fulfillment).
+[[def:Credential Responses, Credential Responses]]
+~ Credential Responses are objects embedded within target claim negotiation formats that enable a binary response to a [[ref:Credential Application]]. _Fulfillments_ unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. _Denials_ provide insight into why a given application did not result in a fulfillment. See [Credential Response](#credential-response).
 
 ## Versioning
 
@@ -95,9 +95,9 @@ _Credential Manifests_ are JSON objects composed as follows:
 
 - The object ****MUST**** contain an `id` property, and it's value ****MUST****
   be a string. The string ****SHOULD**** provide a unique ID for the desired
-  context. For example, a UUID such as 32f54163-7166-48f1-93d8-f f217bdb0653
+  context. For example, a [UUID](https://www.ietf.org/rfc/rfc4122.txt) such as `32f54163-7166-48f1-93d8-f f217bdb0653`
   could provide an ID that is unique in a global context, while a simple string
-  such as my_credential_manifest_1 could be suitably unique in a local context.
+  such as `my_credential_manifest_1` could be suitably unique in a local context.
 - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
     - The object ****MUST**** contain a `id` property, and its value ****MUST**** be a valid URI string that identifies who the issuer of the credential(s) will be.
     - The object ****MUST**** contain a `spec_version` property, and its value ****MUST**** be a valid spec URI according to the rules set in the [versioning section](#versioning).
@@ -107,6 +107,7 @@ _Credential Manifests_ are JSON objects composed as follows:
 - The [[ref:Credential Manifest]] ****MAY**** include a `format` property. If present, its value ****MUST**** be the same structure as [Presentation Definition's `format` property](https://identity.foundation/presentation-exchange/#presentation-definition). This property informs the [[ref:Holder]] of the [[ref:Claim]] format the [[ref:Issuer]] can issuer in.
     For example:
 
+::: example Credential Manifest Format
 ```json
 {
   "credential_manifest": {
@@ -140,6 +141,7 @@ _Credential Manifests_ are JSON objects composed as follows:
   }
 }
 ```
+:::
 
 - The object ****MAY**** contain a `presentation_definition` object, and its value ****MUST**** be a [Presentation Definition](https://identity.foundation/presentation-exchange/#presentation-definition) object, as defined by the [DIF Presentation Exchange](https://identity.foundation/presentation-exchange) specification.
 
@@ -188,7 +190,7 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 
 ## Resource Location
 
-Credential Manifests ****SHOULD**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal data-store standard being developed by DIF, W3C, and other groups (e.g. Identity Hubs).
+Credential Manifests ****SHOULD**** be retrievable at known, semantic locations that are generalized across all entities, protocols, and transports. This specification does not stipulate how Credential Manifests must be located, hosted, or retrieved, but does advise that Issuers ****SHOULD**** make their Credential Manifests available via an instance of the forthcoming semantic personal data-store standard being developed by DIF, W3C, and other groups (e.g. Decentralized Web Nodes).
 
 ## Credential Application
 
@@ -221,7 +223,7 @@ The following section details where the `credential_application` object is to be
 
 #### Embed Locations
 
-The following are the locations at which the _Crdential Application_ object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
+The following are the locations at which the _Credential Application_ object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
 
 Target     | Location
 ---------- | --------
@@ -235,37 +237,64 @@ CHAPI      | `$.data`
 The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Application]] [can be found after the appendix here](#credential-application-3). 
 
 
-## Credential Fulfillment
+## Credential Response
 
-[[ref:Credential Fulfillments]] are objects embedded within target [[ref:Claim]] negotiation formats that express how the outputs presented as proofs to a [[ref:Holder]] are provided in accordance with the outputs specified in a [[ref:Credential Manifest]]. Embedded [[ref:Credential Fulfillment]] objects ****MUST**** be located within target data format as the value of a `credential_fulfillment` property, which is composed and embedded as follows:
+[[ref:Credential Responses]] are objects that encapsulate possible responses from a [[ref:Credential Application]], with two possible outcomes: _fulfillment_ or _denial_. _Fulfillment_ is the case where a [[ref:Credential Application]] is _accepted_, and results in credential issuance. Fulfillments are embedded within target [[ref:Claim]] negotiation formats that express how the outputs presented as proofs to a [[ref:Holder]] are provided in accordance with the outputs specified in a [[ref:Credential Manifest]]. _Rejection_ is the case where a [[ref:Credential Application]] is _denied_, and results in a response of pertitent information about the rejection. Embedded [[ref:Credential Response]] objects ****MUST**** be located within target data format as the value of a `credential_response` property, which is composed and embedded as follows:
 
 - The object ****MUST**** be included at the top-level of an Embed Target, or in the specific location described in the [Embed Locations table](#embed-locations) in the [Embed Target](#embed-target) section below.
 - The object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a [UUID](https://tools.ietf.org/html/rfc4122).
 - The object ****MUST**** contain a `spec_version` property, and its value ****MUST**** be a valid spec URI according to the rules set in the [versioning section](#versioning).
 - The object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Manifest]].
 - The object ****MAY**** contain an `application_id` property. If present, the value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Application]].
-- The object ****MUST**** include a `descriptor_map` property. The value of this property ****MUST**** be an array of _Output Descriptor Mapping Objects_, just like [Presentation Submission's](https://identity.foundation/presentation-exchange/#presentation-submission) `descriptor_map` property.
+
+- The object ****MUST**** contain **one of** the following properties depending on whether the application is to be fulfilled or rejected.
+  - For _fulfillment_ the object ****MUST**** contain a `fulfillment` property and its value ****MUST**** be an object composed as follows: 
+    - The object ****MUST**** include a `descriptor_map` property. The value of this property ****MUST**** be an array of _Output Descriptor Mapping Objects_, just like [Presentation Submission's](https://identity.foundation/presentation-exchange/#presentation-submission) `descriptor_map` property.
+  - For _denial_ the object ****MUST**** contain a `denial` property and its value ****MUST**** be an object composed as follows:
+    - The object ****MUST**** contain a `reason` property . The value of this property ****MUST**** be a string which states why the [[ref:Credential Application]] was not successful.
+    - The object ****MAY**** contain an `input_descriptors` property IF the related [[ref:Credential Application]] contains a `presentation_submission`. It's
+    value ****MUST**** be an array of `input_descriptor` string identifiers from the `descriptor_map` property of a [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) corresponding to the claims that failed to fulfill the [[ref:Credential Application]].
 
 ```
 // NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer
 ```
+
+<tab-panels selected-index="0">
+
+<nav>
+  <button type="button">Fulfillment Example</button>
+  <button type="button">Denial Example</button>
+</nav>
+
 <section>
 
-::: example Credential Fulfillment - Simple Example
+::: example Credential Response - Fulfillment Example
 ```json
-[[insert: ./test/credential-fulfillment/sample.json]]
+[[insert: ./test/credential-response/sample-fulfillment.json]]
 ```
 :::
 
 </section>
 
+<section>
+
+::: example Credential Response - Denial Example
+```json
+[[insert: ./test/credential-response/sample-denial.json]]
+```
+:::
+
+</section>
+
+</tab-panels>
+
 ### Embed Targets
 
-The following section details where the _Credential Fulfillment_ is to be embedded within a target data structure, as well as how to formulate the [JSONPath](https://goessner.net/articles/JsonPath/) expressions to select the [[ref:Claims]] within the target data structure.
+The following section details where the _Credential Response_ is to be embedded within a target data structure, as well as how to formulate the [JSONPath](https://goessner.net/articles/JsonPath/) expressions to select the [[ref:Claims]] within the target data structure.
 
 #### Embed Locations
 
-The following are the locations at which the `credential_fulfillment` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
+The following are the locations at which the `credential_response` object ****MUST**** be embedded for known target formats. For any location besides the top level of the embed target, the location is described in JSONPath syntax.
 
 Target     | Location
 ---------- | --------
@@ -276,13 +305,13 @@ CHAPI      | `$.data`
 
 ### JSON Schema
 
-The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Fulfillment]] [can be found after the appendix here](#credential-fulfillment-3). 
+The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Response]] [can be found after the appendix here](#credential-response-3). 
 
 ## Appendix
 
 ### Embed Target Examples
 
-#### Credential Fulfillment
+#### Credential Response
 
 <tab-panels selected-index="0">
 
@@ -292,9 +321,9 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 
 <section>
 
-::: example Credential Fulfillment - Verifiable Presentation
+::: example Credential Response - Verifiable Presentation
 ```json
-[[insert: ./test/credential-fulfillment/appendix.json]]
+[[insert: ./test/credential-response/appendix.json]]
 ```
 :::
 
@@ -352,11 +381,11 @@ https://tools.ietf.org/html/draft-handrews-json-schema-02
 ```
 :::
 
-### Credential Fulfillment
+### Credential Response
 
-::: example Credential Fulfillment - Schema
+::: example Credential Response - Schema
 ```json
-[[insert: ./schemas/credential-fulfillment.json]]
+[[insert: ./schemas/credential-response.json]]
 ```
 :::
 

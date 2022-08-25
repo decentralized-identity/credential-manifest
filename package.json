@@ -27,7 +27,7 @@
     "build:specs": "node -e \"require('spec-up')({ nowatch: true })\"",
     "dev": "npm run clean && npm run resources && npm run dev:specs",
     "dev:specs": "node -e \"require('spec-up')()\"",
-    "resources": "cp -r fulfillment build/. && cp -r application build/. && cp -r schemas build/.",
+    "resources": "cp -r response build/. && cp -r application build/. && cp -r schemas build/.",
     "clean": "del build && mkdir build"
   }
 }

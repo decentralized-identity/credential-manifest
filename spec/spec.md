@@ -71,7 +71,7 @@ The following representative sequence contextualizes the top-level objects descr
 
 ```mermaid
 sequenceDiagram
-    Issuer->>User Agent: Send Credential Manifest
+    Issuer->>User Agent: Credential Manifest
     User Agent->>Issuer: Send Credential Application
     alt Application accepted ("fulfillment")
         Issuer->>Issuer: Issue Claim(s) and wrap in Credential Response

@@ -71,21 +71,20 @@ The following representative sequence of steps contextualize the top-level objec
 
 ```mermaid
 sequenceDiagram
-  Issuer->>Issuer: Define Credential Manifest
-  User Agent->>Issuer: Retrieve Credential Manifest
-  Note over User Agent, Issuer: Discovery and exchange of the Credential Manifest is determined by the protocol. For example, the Issuer may publish a QR code which, when scanned, allows a User Agent to retrieve the Credential Manifest
-  User Agent->>User Agent: Parse Credential Manifest
-  User Agent->>User Agent: Build Credential Application
-  User Agent->>Issuer: Send Credential Application
-  alt Application accepted ("fulfillment")
-        Issuer->>Issuer: Issue Claim(s)
-        Issuer->>Issuer: Wrap Claim(s) in Credential Response
-        Issuer->>User Agent: Send Credential Response
+    Issuer->>User Agent: Send Credential Manifest
+    User Agent->>Issuer: Send Credential Application
+    alt Application accepted ("fulfillment")
+        Issuer->>Issuer: Issue Claim(s) and wrap in Credential Response
+        Issuer-->>User Agent: Send Credential Response
   else Application rejected ("denial")
-       Issuer->>User Agent: Send Credential Response with denial reason
+       Issuer-->>User Agent: Send Credential Response with denial reason
   end
-  Note user User Agent, Issuer: Credential Response may be delivered in a synchronous or asynchronous manner, depending on the protocol. E.g., the Issuer may define an endpoint at which the issuance status and Credential Response may be retrieved to enable an asynchronous flow.
+
 ```
+This specification covers the data models and not exchange protocols; specifically:
+
+- [[ref:User Agent]] discovery of the [[ref:Credential Manifest]] is determined by the protocol. For example, the [[ref:Issuer]] may post a QR code which, when scanned, allows a [[ref:User Agent]] to retrieve the [[ref:Credential Manifest]]
+- The [[ref:Credential Response]] may be delivered in a synchronous or asynchronous manner, depending on the protocol. As an example of an asynchronous flow, the [[ref:Issuer]] may define an endpoint at which the [[ref:User Agent]] may check the issuance status and/or obtain [[ref:Credential Response]]
 
 ## Versioning
 

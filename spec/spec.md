@@ -45,7 +45,7 @@ Credential, Assertion, Attestation, etc.
 ~ Issuers are entities that issue credentials to a [[ref:Holder]].
 
 [[def:Holder, Holders]]
-~ Holders are entities that receive credentials from [[ref:Issuers]], possibly first submitting proofs the the Issuer to satisfy the requirements described in a Presentation Definition.
+~ Holders are entities that receive credentials from [[ref:Issuers]], possibly first submitting proofs to the [[ref:Issuer]] to satisfy the requirements described in a Presentation Definition. These interactions are facilitated by [[ref:User Agents]]
 
 [[def:Output Descriptor, Output Descriptors]]
 ~ Output Descriptors are used by an Issuer to describe the credentials they are offering to a [[ref:Holder]]. See [Output Descriptor](#output-descriptor)
@@ -59,8 +59,33 @@ Credential, Assertion, Attestation, etc.
 [[def:Credential Application, Credential Applications]]
 ~ Credential Application are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]. See [Credential Application](#credential-application)
 
-[[def:Credential Responses, Credential Responses]]
+[[def:Credential Response, Credential Responses]]
 ~ Credential Responses are objects embedded within target claim negotiation formats that enable a binary response to a [[ref:Credential Application]]. _Fulfillments_ unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. _Denials_ provide insight into why a given application did not result in a fulfillment. See [Credential Response](#credential-response).
+
+[[def:User Agent, User Agents]]
+~ User Agents are software, such as wallets or other services, acting on behalf of [[ref:Holders]], to facilitate credential acquisition and exchange. In the context of this specification, they retrieve[[ref:Credential Manifests]] and interpret them to determine issuance requirements, construct[[ref:Credential Applications]] to satisfy issuance requirements and submit them to [[ref:Issuers]], and receive and interpret [[ref:Credential Responses]].
+
+## Overview
+
+The following representative sequence of steps contextualize the top-level objects described in this specification:
+
+```mermaid
+sequenceDiagram
+  Issuer->>Issuer: Define Credential Manifest
+  User Agent->>Issuer: Retrieve Credential Manifest
+  Note over User Agent, Issuer: Discovery and exchange of the Credential Manifest is determined by the protocol. For example, the Issuer may publish a QR code which, when scanned, allows a User Agent to retrieve the Credential Manifest
+  User Agent->>User Agent: Parse Credential Manifest
+  User Agent->>User Agent: Build Credential Application
+  User Agent->>Issuer: Send Credential Application
+  alt Application accepted ("fulfillment")
+        Issuer->>Issuer: Issue Claim(s)
+        Issuer->>Issuer: Wrap Claim(s) in Credential Response
+        Issuer->>User Agent: Send Credential Response
+  else Application rejected ("denial")
+       Issuer->>User Agent: Send Credential Response with denial reason
+  end
+  Note user User Agent, Issuer: Credential Response may be delivered in a synchronous or asynchronous manner, depending on the protocol. E.g., the Issuer may define an endpoint at which the issuance status and Credential Response may be retrieved to enable an asynchronous flow.
+```
 
 ## Versioning
 

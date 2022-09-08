@@ -67,7 +67,7 @@ Credential, Assertion, Attestation, etc.
 
 ## Overview
 
-The following representative sequence of steps contextualize the top-level objects described in this specification:
+The following representative sequence contextualizes the top-level objects described in this specification:
 
 ```mermaid
 sequenceDiagram

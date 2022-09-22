@@ -375,11 +375,15 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 
 ### Vocabulary Definition
 
-The _Wallet Rendering_ specification adopts and defines the following JSON
-Schema data format and processing variant, which implementers ****MUST****
+The _Wallet Rendering_ specification adopts and defines the following JSON Schema data format and processing variant. 
+If _Wallet Rendering_ is used, the implementers ****MUST****
 support for evaluation of the portions of the _Wallet Rendering_
 specification that call for JSON Schema validation:
 https://tools.ietf.org/html/draft-handrews-json-schema-02
+
+```
+NOE: _Wallet Rendering_ is still under development and should be considered unstable. 
+```
 
 ### Credential Manifest
 

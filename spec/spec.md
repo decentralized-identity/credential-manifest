@@ -382,7 +382,7 @@ specification that call for JSON Schema validation:
 https://tools.ietf.org/html/draft-handrews-json-schema-02
 
 ```
-NOE: _Wallet Rendering_ is still under development and should be considered unstable. 
+NOTE: _Wallet Rendering_ is still under development (also at DIF) and should be considered unstable until a stable version is released. 
 ```
 
 ### Credential Manifest

@@ -413,6 +413,29 @@ https://tools.ietf.org/html/draft-handrews-json-schema-02
 ```
 :::
 
+## Use Cases
+
+### Credential Issuance Discovery
+
+As an Issuer, I want to provide a list of credential I offer, which wallets and other entities can find and digest.
+
+### Credential Requirement Discovery
+
+As an Issuer, I want to provide a list of VC requirements that a Holder would need to submit to acquire a given credential.
+
+### Credential Display
+
+As a Wallet Implementer, I want to know how to display a credential to the user.
+
+As a Holder, I want my wallet to be able to display the credential in UI before I apply for it and after it is issued to me:
+- Before applying for a credential:
+  - Show the user examples of information contained in the VC.
+  - Include the type of credential, how long it's valid for, etc.
+- After taking possession of a credential:
+  - Display information from the VC that is pertinent to the user.
+  - Provide a way to show Issuer branding and other differentiating UI features.
+
+As a Wallet Implementer, I want to display formatted data values.
 
 ## References
 

@@ -45,7 +45,10 @@ Credential, Assertion, Attestation, etc.
 ~ Issuers are entities that issue credentials to a [[ref:Holder]].
 
 [[def:Holder, Holders]]
-~ Holders are entities that receive credentials from [[ref:Issuers]], possibly first submitting proofs to the [[ref:Issuer]] to satisfy the requirements described in a Presentation Definition. These interactions are facilitated by [[ref:User Agents]]
+~ Holders are entities that receive credentials from [[ref:Issuers]], possibly first submitting proofs to the [[ref:Issuer]] to satisfy the requirements described in a [[ref:Presentation Definition]]. These interactions are facilitated by [[ref:User Agents]]
+
+[[def:Presentation Definition, Presentation Submission, Presentation Request]]
+~ [[ref:Presentation Exchange]] is a specification codifying a _Presentation Definition_ data format _Verifiers_ can use to articulate proof requirements in a _Presentation Request_, and a _Presentation Submission_ data format [[ref:Holders]] can use to describe proofs submitted in accordance with them.
 
 [[def:Output Descriptor, Output Descriptors]]
 ~ Output Descriptors are used by an Issuer to describe the credentials they are offering to a [[ref:Holder]]. See [Output Descriptor](#output-descriptor)
@@ -54,7 +57,7 @@ Credential, Assertion, Attestation, etc.
 ~ Output Descriptor Objects are populated with properties describing the [[ref:Claims]] the [[ref:Issuer]] is offering the [[ref:Holder]]
 
 [[def:Output Descriptor Display Object, Output Descriptor Display Objects]]
-~ Output Descriptor Display Objects are populated with [DIF Data Display](https://identity.foundation/wallet-rendering/#data-display) properties
+~ Output Descriptor Display Objects are populated with [Data Display](https://identity.foundation/wallet-rendering/#data-display) properties from the [[ref: Wallet Rendering]] specification.
 
 [[def:Credential Application, Credential Applications]]
 ~ Credential Application are objects embedded within target claim negotiation formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]. See [Credential Application](#credential-application)
@@ -63,7 +66,7 @@ Credential, Assertion, Attestation, etc.
 ~ Credential Responses are objects embedded within target claim negotiation formats that enable a binary response to a [[ref:Credential Application]]. _Fulfillments_ unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. _Denials_ provide insight into why a given application did not result in a fulfillment. See [Credential Response](#credential-response).
 
 [[def:User Agent, User Agents]]
-~ User Agents are software, such as wallets or other services, acting on behalf of [[ref:Holders]], to facilitate credential acquisition and exchange. In the context of this specification, they retrieve[[ref:Credential Manifests]] and interpret them to determine issuance requirements, construct[[ref:Credential Applications]] to satisfy issuance requirements and submit them to [[ref:Issuers]], and receive and interpret [[ref:Credential Responses]].
+~ User Agents are software, such as wallets or other services, acting on behalf of [[ref:Holders]], to facilitate credential acquisition and exchange. In the context of this specification, they retrieve [[ref:Credential Manifests]] and interpret them to determine issuance requirements, construct [[ref:Credential Applications]] to satisfy issuance requirements and submit them to [[ref:Issuers]], and receive and interpret [[ref:Credential Responses]].
 
 ## Overview
 
@@ -168,7 +171,7 @@ _Credential Manifests_ are JSON objects composed as follows:
 ```
 :::
 
-- The object ****MAY**** contain a `presentation_definition` object, and its value ****MUST**** be a [Presentation Definition](https://identity.foundation/presentation-exchange/#presentation-definition) object, as defined by the [DIF Presentation Exchange](https://identity.foundation/presentation-exchange) specification.
+- The object ****MAY**** contain a `presentation_definition` object, and its value ****MUST**** be a [Presentation Definition](https://identity.foundation/presentation-exchange/#presentation-definition) object, as defined by the [[ref:Presentation Exchange]] specification.
 
 
 ### Output Descriptor
@@ -205,13 +208,13 @@ _Credential Manifests_ are JSON objects composed as follows:
 
 #### JSON Schema
 
-The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Output Descriptors]] [can be found after the appendix here](#output-descriptors). 
+The [[ref:JSON Schema]] Draft 7 definition that summarizes the rules above for [[ref: Output Descriptors]] [can be found after the appendix here](#output-descriptors). 
 
 </section>
 
 ### JSON Schema
 
-The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Manifest]] [can be found after the appendix here](#credential-manifest-3). 
+The [[ref:JSON Schema]] Draft 7 definition that summarizes the rules above for [[ref: Credential Manifest]] [can be found after the appendix here](#credential-manifest-3). 
 
 ## Resource Location
 
@@ -226,7 +229,7 @@ _Credential Applications_ are JSON objects composed as follows:
   - The object ****MUST**** contain a `spec_version` property, and its value ****MUST**** be a valid spec URI according to the rules set in the [versioning section](#versioning).
   - The object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the id of a valid Credential Manifest.
   - The ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to recieve the [[ref:Claims]] in.
-- The [[ref: Credential Application]] object ****MUST**** contain a `presentation_submission` property IF the related [[ref:Credential Manifest]] contains a `presentation_definition`. Its value ****MUST**** be be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission):
+- The [[ref: Credential Application]] object ****MUST**** contain a `presentation_submission` property IF the related [[ref:Credential Manifest]] contains a `presentation_definition`. Its value ****MUST**** be be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) as defined in the [[ref:Presentation Exchange]] specification:
 
 ```
 // NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer
@@ -259,7 +262,7 @@ CHAPI      | `$.data`
 
 ### JSON Schema
 
-The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Application]] [can be found after the appendix here](#credential-application-3). 
+The [[ref:JSON Schema]] Draft 7 definition that summarizes the rules above for [[ref: Credential Application]] [can be found after the appendix here](#credential-application-3). 
 
 
 ## Credential Response
@@ -273,11 +276,11 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 - The object ****MAY**** contain an `application_id` property. If present, the value of this property ****MUST**** be the `id` value of a valid [[ref:Credential Application]].
 - The object ****MUST**** contain **one of** the following properties depending on whether the application is to be fulfilled or rejected.
   - For _fulfillment_ the object ****MUST**** contain a `fulfillment` property and its value ****MUST**** be an object composed as follows: 
-    - The object ****MUST**** include a `descriptor_map` property. The value of this property ****MUST**** be an array of _Output Descriptor Mapping Objects_, just like [Presentation Submission's](https://identity.foundation/presentation-exchange/#presentation-submission) `descriptor_map` property.
+    - The object ****MUST**** include a `descriptor_map` property. The value of this property ****MUST**** be an array of _Output Descriptor Mapping Objects_, just like [Presentation Submission's](https://identity.foundation/presentation-exchange/#presentation-submission) `descriptor_map` property as defined in the [[ref:Presentation Exchange]] specification.
   - For _denial_ the object ****MUST**** contain a `denial` property and its value ****MUST**** be an object composed as follows:
     - The object ****MUST**** contain a `reason` property . The value of this property ****MUST**** be a string which states why the [[ref:Credential Application]] was not successful.
     - The object ****MAY**** contain an `input_descriptors` property IF the related [[ref:Credential Application]] contains a `presentation_submission`. It's
-    value ****MUST**** be an array of `input_descriptor` string identifiers from the `descriptor_map` property of a [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) corresponding to the claims that failed to fulfill the [[ref:Credential Application]].
+    value ****MUST**** be an array of `input_descriptor` string identifiers from the `descriptor_map` property of a [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission), as defined in the [[ref:Presentation Exchange]] specification, corresponding to the claims that failed to fulfill the [[ref:Credential Application]].
 
 ```
 // NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer
@@ -329,7 +332,7 @@ CHAPI      | `$.data`
 
 ### JSON Schema
 
-The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Credential Response]] [can be found after the appendix here](#credential-response-3). 
+The [[ref:JSON Schema]] Draft 7 definition that summarizes the rules above for [[ref: Credential Response]] [can be found after the appendix here](#credential-response-3). 
 
 ## Appendix
 
@@ -375,14 +378,13 @@ The JSON Schema Draft 7 definition that summarizes the rules above for [[ref: Cr
 
 ### Vocabulary Definition
 
-The _Wallet Rendering_ specification adopts and defines the following JSON Schema data format and processing variant. 
-If _Wallet Rendering_ is used, the implementers ****MUST****
-support for evaluation of the portions of the _Wallet Rendering_
-specification that call for JSON Schema validation:
-https://tools.ietf.org/html/draft-handrews-json-schema-02
+The [[ref:Wallet Rendering]] specification adopts and defines the following [[ref:JSON Schema]] data format and processing variant. 
+If [[ref:Wallet Rendering]] is used, the implementers ****MUST****
+support for evaluation of the portions of the [[ref:Wallet Rendering]]
+specification that call for [[ref:JSON Schema]] [validation](https://tools.ietf.org/html/draft-handrews-json-schema-02).
 
 ```
-NOTE: _Wallet Rendering_ is still under development (also at DIF) and should be considered unstable until a stable version is released. 
+NOTE: Wallet Rendering is still under development (also at DIF) and should be considered unstable until a stable version is released. 
 ```
 
 ### Credential Manifest
@@ -443,4 +445,13 @@ As a Wallet Implementer, I want to display formatted data values.
 
 ## References
 
-[[spec]]
+[[def:Presentation Exchange]]
+  ~ [Presentation Exchange 2.0.0](https://identity.foundation/presentation-exchange). Daniel Buchner, Brent Zundel, Martin Riedel, Kim Hamilton Duffy. Status: _Working Group Draft_
+
+[[def:Wallet Rendering]]
+  ~ [Wallet Rendering](https://identity.foundation/wallet-rendering/#data-display). Daniel Buchner, Brent Zundel, Jace Hensley, Daniel McGrogan. Status: _Strawman_
+
+[[def:JSON Schema]]
+  ~ [JSON Schema](https://json-schema.org/)
+  ~ [JSON Schema: A Media Type for Describing JSON Documents](https://json-schema.org/draft/2020-12/json-schema-core.html). A. Wright, H. Andrews, B. Hutton, G. Dennis. Status: 28 January 2020. Internet-Draft.
+  ~ [JSON Schema Validation](https://tools.ietf.org/html/draft-handrews-json-schema-02). A. Wright, H. Andrews, B. Hutton. March 19, 2020. Status: Internet Draft.

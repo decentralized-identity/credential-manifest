@@ -417,7 +417,7 @@ https://tools.ietf.org/html/draft-handrews-json-schema-02
 
 ### Credential Issuance Discovery
 
-As an Issuer, I want to provide a list of credential I offer, which wallets and other entities can find and digest.
+As an Issuer, I want to provide a list of credentials I offer, for wallets and other entities to find and digest.
 
 ### Credential Requirement Discovery
 

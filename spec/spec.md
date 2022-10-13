@@ -421,7 +421,7 @@ As an Issuer, I want to provide a list of credentials I offer, for wallets and o
 
 ### Credential Requirement Discovery
 
-As an Issuer, I want to provide a list of VC requirements that a Holder would need to submit to acquire a given credential.
+As an Issuer, I want to provide a description of the information that a Holder would need to submit to acquire a given credential.
 
 ### Credential Display
 

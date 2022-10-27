@@ -141,6 +141,27 @@ _Credential Manifests_ are JSON objects composed as follows:
   "credential_manifest": {
     "id": "WA-DL-CLASS-A",
     "output_descriptors": [],
+    "spec_version": "https://identity.foundation/credential-manifest/spec/v1.0.0/",
+    "issuer": {
+      "id": "did:example:123?linked-domains=3",
+      "name": "Washington State Government",
+      "styles": {
+        "thumbnail": {
+          "uri": "https://dol.wa.com/logo.png",
+          "alt": "Washington State Seal"
+        },
+        "hero": {
+          "uri": "https://dol.wa.com/people-working.png",
+          "alt": "People working on serious things"
+        },
+        "background": {
+          "color": "#ff0000"
+        },
+        "text": {
+          "color": "#d4d400"
+        }
+      }
+    },
     "format": {
       "jwt": {
         "alg": ["EdDSA", "ES256K", "ES384"]

@@ -259,9 +259,9 @@ _Credential Applications_ are JSON objects composed as follows:
   - The ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to recieve the [[ref:Claims]] in.
 - The [[ref: Credential Application]] object ****MUST**** contain a `presentation_submission` property IF the related [[ref:Credential Manifest]] contains a `presentation_definition`. Its value ****MUST**** be be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) as defined in the [[ref:Presentation Exchange]] specification:
 
-```
-// NOTE: VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer
-```
+::: note
+VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer
+:::
 
 <section>
 

@@ -125,6 +125,11 @@ _Credential Manifests_ are JSON objects composed as follows:
   context. For example, a [UUID](https://www.ietf.org/rfc/rfc4122.txt) such as `32f54163-7166-48f1-93d8-f f217bdb0653`
   could provide an ID that is unique in a global context, while a simple string
   such as `my_credential_manifest_1` could be suitably unique in a local context.
+- The object ****MAY**** contain a `name` property, and its value ****MUST****
+  be a string that acts as a summarizing title for the Manifest in question.
+- The object ****MAY**** contain a `description` property, and its value ****MUST****
+  be a string that explains what the Manifest in question is generally offering in 
+  exchange for meeting its requirements.
 - The object ****MUST**** contain a `spec_version` property, and its value ****MUST****
   be a valid spec URI according to the rules set in the [versioning section](#versioning).
 - The object ****MUST**** contain an `issuer` property, and its value ****MUST**** be an object composed as follows:
@@ -140,6 +145,8 @@ _Credential Manifests_ are JSON objects composed as follows:
 {
   "credential_manifest": {
     "id": "WA-DL-CLASS-A",
+    "name": "Washington State Class A Driver's License Application",
+    "description": "This application is for the Washington State Class A Driver's License, which requires an applicant to be of at least 18 years of age and provide proof of CDL training completion.",
     "output_descriptors": [],
     "spec_version": "https://identity.foundation/credential-manifest/spec/v1.0.0/",
     "issuer": {

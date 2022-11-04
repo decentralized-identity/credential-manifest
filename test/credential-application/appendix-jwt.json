@@ -1,31 +1,32 @@
 {
-  "@context": [
-    "https://www.w3.org/2018/credentials/v1",
-    "https://identity.foundation/credential-manifest/response/v1"
-  ],
-  "type": [
-    "VerifiablePresentation",
-    "CredentialResponse"
-  ],
-  "credential_response": {
-    "id": "a30e3b91-fb77-4d22-95fa-871689c322e2",
+  "credential_application": {
+    "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
     "spec_version": "https://identity.foundation/credential-manifest/spec/v1.0.0/",
-    "manifest_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
-    "application_id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-    "fulfillment": {
+    "manifest_id": "WA-DL-CLASS-A",
+    "format": {
+      "ldp_vc": {
+        "proof_type": [
+          "JsonWebSignature2020",
+          "EcdsaSecp256k1Signature2019"
+        ]
+      }
+    },
+    "presentation_submission": {
+      "id": "a30e3b91-fb77-4d22-95fa-871689c322e2",
+      "definition_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
       "descriptor_map": [
         {
-          "id": "banking_output_2",
+          "id": "input_1",
           "format": "jwt_vc",
           "path": "$.verifiableCredential[0]"
         },
         {
-          "id": "employment_output",
+          "id": "input_2",
           "format": "ldp_vc",
           "path": "$.verifiableCredential[1]"
         },
         {
-          "id": "citizenship_output_1",
+          "id": "input_3",
           "format": "ldp_vc",
           "path": "$.verifiableCredential[2]"
         }
@@ -38,9 +39,7 @@
       "vc": {
         "@context": "https://www.w3.org/2018/credentials/v1",
         "id": "https://eu.com/claims/DriversLicense",
-        "type": [
-          "EUDriversLicense"
-        ],
+        "type": ["EUDriversLicense"],
         "issuer": "did:example:123",
         "issuanceDate": "2010-01-01T19:73:24Z",
         "credentialSubject": {
@@ -61,10 +60,7 @@
     {
       "@context": "https://www.w3.org/2018/credentials/v1",
       "id": "https://business-standards.org/schemas/employment-history.json",
-      "type": [
-        "VerifiableCredential",
-        "GenericEmploymentCredential"
-      ],
+      "type": ["VerifiableCredential", "GenericEmploymentCredential"],
       "issuer": "did:foo:123",
       "issuanceDate": "2010-01-01T19:73:24Z",
       "credentialSubject": {
@@ -82,9 +78,7 @@
     {
       "@context": "https://www.w3.org/2018/credentials/v1",
       "id": "https://eu.com/claims/DriversLicense",
-      "type": [
-        "EUDriversLicense"
-      ],
+      "type": ["EUDriversLicense"],
       "issuer": "did:foo:123",
       "issuanceDate": "2010-01-01T19:73:24Z",
       "credentialSubject": {
@@ -102,14 +96,5 @@
         "jws": "..."
       }
     }
-  ],
-  "proof": {
-    "type": "RsaSignature2018",
-    "created": "2018-09-14T21:19:10Z",
-    "proofPurpose": "authentication",
-    "verificationMethod": "did:example:ebfeb1f712ebc6f1c276e12ec21#keys-1",
-    "challenge": "1f44d55f-f161-4938-a659-f8026467f126",
-    "domain": "4jt78h47fh47",
-    "jws": "..."
-  }
+  ]
 }

@@ -226,12 +226,8 @@ _Credential Manifests_ are JSON objects composed as follows:
 - The [[ref:Output Descriptor Object]] ****MUST**** contain a `schema` property, and its value ****MUST**** be a string specifying the schema of the credential to be issued.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `name` property, and if present its value ****SHOULD**** be a human-friendly name that describes what the credential represents.
 - The [[ref:Output Descriptor Object]] ****MAY**** contain a `description` property, and if present its value ****MUST**** be a string that describes what the credential is in greater detail.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI, as defined by the [DIF Entity Styles](https://identity.foundation/wallet-rendering/v0.0.1/#entity-styles) specification.
-- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****MUST**** be an object composed as follows:
-  - The [[ref:Output Descriptor Display Object]] ****MAY**** contain a `title` property and it's value ****MUST**** be an object as defined by the [DIF Display Mapping Object](https://identity.foundation/wallet-rendering/v0.0.1/#display-mapping-object.json)
-  - The [[ref:Output Descriptor Display Object]] ****MAY**** contain a `subtitle` property and it's value ****MUST**** be an object as defined by the [DIF Display Mapping Object](https://identity.foundation/wallet-rendering/v0.0.1/#display-mapping-object.json)
-  - The [[ref:Output Descriptor Display Object]] ****MAY**** contain a `description` property and it's value ****MUST**** be an object as defined by the [DIF Display Mapping Object](https://identity.foundation/wallet-rendering/v0.0.1/#display-mapping-object.json)
-  - The [[ref:Output Descriptor Display Object]] ****MAY**** contain a `properties` property and it's value ****MUST**** be an array of objects as defined by the [DIF Labeled Display Mapping Object](https://identity.foundation/wallet-rendering/v0.0.1/#labeled-display-mapping-object.json)
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `styles` property, and its value ****MUST**** be an object or URI string, whose content is adherent to the [Entity Styles](https://identity.foundation/wallet-rendering/v0.0.1/#entity-styles) JSON objects defined in the [DIF Wallet Rendering](https://identity.foundation/wallet-rendering/v0.0.1) specification.
+- The [[ref:Output Descriptor Object]] ****MAY**** contain a `display` property, and its value ****MUST****be an object or URI string, whose content is adherent to the [Display Mapping](https://identity.foundation/wallet-rendering/v0.0.1/#display-mapping-object) JSON objects defined in the [DIF Wallet Rendering](https://identity.foundation/wallet-rendering/v0.0.1) specification.
 
 
 #### JSON Schema
@@ -256,8 +252,8 @@ _Credential Applications_ are JSON objects composed as follows:
   - The object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a UUID.
   - The object ****MUST**** contain a `spec_version` property, and its value ****MUST**** be a valid spec URI according to the rules set in the [versioning section](#versioning).
   - The object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the id of a valid Credential Manifest.
-  - The ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to recieve the [[ref:Claims]] in.
-- The [[ref: Credential Application]] object ****MUST**** contain a `presentation_submission` property IF the related [[ref:Credential Manifest]] contains a `presentation_definition`. Its value ****MUST**** be be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) as defined in the [[ref:Presentation Exchange]] specification:
+  - The object ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to receive the [[ref:Claims]] in.
+- The [[ref: Credential Application]] object ****MUST**** contain a `presentation_submission` property IF the related [[ref:Credential Manifest]] contains a `presentation_definition`. Its value ****MUST**** be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) as defined in the [[ref:Presentation Exchange]] specification:
 
 ::: note
 VP, OIDC, DIDComm, or CHAPI outer wrapper properties would be at outer layer

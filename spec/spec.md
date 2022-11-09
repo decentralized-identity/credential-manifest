@@ -252,7 +252,7 @@ _Credential Applications_ are JSON objects composed as follows:
   - The object ****MUST**** contain an `id` property. The value of this property ****MUST**** be a unique identifier, such as a UUID.
   - The object ****MUST**** contain a `spec_version` property, and its value ****MUST**** be a valid spec URI according to the rules set in the [versioning section](#versioning).
   - The object ****MUST**** contain a `manifest_id` property. The value of this property ****MUST**** be the id of a valid Credential Manifest.
-  - The ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to receive the [[ref:Claims]] in.
+  - The object ****MUST**** have a `format` property if the related [[ref:Credential Manifest]] specifies a `format` property. Its value ****MUST**** be a _subset_ of the `format` property in the [[ref:Credential Manifest]] that this [[ref:Credential Submission]] is related to. This object informs the [[ref:Issuer]] which formats the [[ref:Holder]] wants to receive the [[ref:Claims]] in.
 - The [[ref: Credential Application]] object ****MUST**** contain a `presentation_submission` property IF the related [[ref:Credential Manifest]] contains a `presentation_definition`. Its value ****MUST**** be a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) as defined in the [[ref:Presentation Exchange]] specification:
 
 ::: note

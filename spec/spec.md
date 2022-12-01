@@ -465,9 +465,9 @@ If [[ref:Wallet Rendering]] is used, the implementers ****MUST****
 support for evaluation of the portions of the [[ref:Wallet Rendering]]
 specification that call for [[ref:JSON Schema]] [validation](https://tools.ietf.org/html/draft-handrews-json-schema-02).
 
-```
-NOTE: Wallet Rendering is still under development (also at DIF) and should be considered unstable until a stable version is released. 
-```
+::: note
+Wallet Rendering is still under development (also at DIF) and should be considered unstable until a stable version is released. 
+:::
 
 ### Credential Manifest
 

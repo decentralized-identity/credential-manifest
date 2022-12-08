@@ -12,6 +12,7 @@ Credential Manifest 0.0.1
 ~ [Jace Hensley](https://www.linkedin.com/in/jacehensley/) (Bloom)
 ~ [Daniel McGrogan](https://www.linkedin.com/in/dtmcgrogan/) (Workday)
 ~ [Gabe Cohen](https://www.linkedin.com/in/cohengabe) (Block)
+~ [Kim Hamilton Duffy](https://www.linkedin.com/in/kimdhamilton/) (Centre Consortium)
 
 <!-- -->
 **Participate:**
@@ -285,10 +286,6 @@ DIDComms   | `$.presentations~attach.data.json`
 VP         | top-level
 CHAPI      | `$.data`
 
-### Input Evaluation
-
-If a [[ref:Credential Manifest]] includes a `presentation_definition` property, the [[ref:User Agent]] ****MUST**** include a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) in the  `presentation_submission` property of its corresponding [[ref:Credential Application]]. The [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) must be processed as specified in [Presentation Exchange: Input Evaluation](https://identity.foundation/presentation-exchange/#input-evaluation).
-
 ### JSON Schema
 
 The [[ref:JSON Schema]] Draft 7 definition that summarizes the rules above for [[ref: Credential Application]] [can be found after the appendix here](#credential-application-3). 
@@ -363,6 +360,14 @@ CHAPI      | `$.data`
 ### JSON Schema
 
 The [[ref:JSON Schema]] Draft 7 definition that summarizes the rules above for [[ref: Credential Response]] [can be found after the appendix here](#credential-response-3). 
+
+## Input Evaluation
+
+Input is evaluated from two perspectives: that of the [[ref:Issuer]], who creates a [[ref:Credential Manifest]] and from that of the [[ref:User Agent]], who responds to a Manifest with a [[ref:Credential Application]].
+
+A [[ref:User Agent]] first processes a [[def:Credential Manifest]] in order to generate a valid [[ref:Credential Application]]. If a [[ref:Credential Manifest]] includes a `presentation_definition` property, the [[ref:User Agent]] ****MUST**** include a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) in the  `presentation_submission` property of its corresponding [[ref:Credential Application]].
+
+An [[ref:Issuer] upon receiving a [[ref:Credential Application]] must evalute the input against the associated [[ref:Credential Manifest]]. If the [[ref:Credential Application]] contains a [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission), it ****MUST**** be processed as specified in [Presentation Exchange: Input Evaluation](https://identity.foundation/presentation-exchange/#input-evaluation).
 
 ## Appendix
 

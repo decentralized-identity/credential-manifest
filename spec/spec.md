@@ -286,7 +286,7 @@ CHAPI      | `$.data`
 
 ### Input Evaluation
 
-A conformant consumer of a [[ref:Credential Manifest]] containing a `presentation_definition` property ****MUST**** include a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) in the  `presentation_submission` property of its corresponding [[ref:Credential Application]]. The [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) must be processed as specified in [Presentation Exchange: Input Evaluation](https://identity.foundation/presentation-exchange/#input-evaluation).
+If a [[ref:Credential Manifest]] includes a `presentation_definition` property, the [[ref:User Agent]] ****MUST**** include a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) in the  `presentation_submission` property of its corresponding [[ref:Credential Application]]. The [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) must be processed as specified in [Presentation Exchange: Input Evaluation](https://identity.foundation/presentation-exchange/#input-evaluation).
 
 ### JSON Schema
 

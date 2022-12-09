@@ -367,7 +367,7 @@ Input is evaluated from two perspectives: that of the [[ref:Issuer]], who create
 
 A [[ref:User Agent]] first processes a [[def:Credential Manifest]] in order to generate a valid [[ref:Credential Application]]. If a [[ref:Credential Manifest]] includes a `presentation_definition` property, the [[ref:User Agent]] ****MUST**** include a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) in the  `presentation_submission` property of its corresponding [[ref:Credential Application]].
 
-An [[ref:Issuer] upon receiving a [[ref:Credential Application]] must evalute the input against the associated [[ref:Credential Manifest]]. If the [[ref:Credential Application]] contains a [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission), it ****MUST**** be processed as specified in [Presentation Exchange: Input Evaluation](https://identity.foundation/presentation-exchange/#input-evaluation).
+An [[ref:Issuer] upon receiving a [[ref:Credential Application]] ****MUST**** evaluate the input against the associated [[ref:Credential Manifest]]. If the [[ref:Credential Application]] contains a [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission), it ****MUST**** be processed as specified in [Presentation Exchange: Input Evaluation](https://identity.foundation/presentation-exchange/#input-evaluation).
 
 ## Appendix
 

@@ -41,11 +41,11 @@ of the latter to understand and negotiate an issuance process.
 ## Status of This Document
 
 Credential Manifest is a draft specification being developed within the
-[Decentralized Identity Foundation](https://identity.foundation) (DIF), and
-intended for ratification as a DIF recommended data format. This spec will be
-updated to reflect relevant changes, and participants are encouraged to
-contribute at [the following repository
-location](https://github.com/decentralized-identity/credential-manifest).
+[Decentralized Identity Foundation](https://identity.foundation) (DIF). Design
+work on the Credential Manifest data model is ongoing, and participants are
+encouraged to open issues or otherwise contribute at [the DIF-hosted github
+repository](https://github.com/decentralized-identity/credential-manifest),
+whether as input to stable versions or as recommendations for future versions.
 
 
 ## Terminology

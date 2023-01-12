@@ -679,7 +679,7 @@ considered unstable until a stable version is released.
 
 ### Credential Issuance Discovery
 
-As an Issuer, I want to provide a list of credentials I offer, for wallets and
+As an Issuer, I want to publish a list of credentials I offer, for wallets and
 other entities to find and digest.
 
 ### Credential Requirement Discovery
@@ -691,11 +691,18 @@ would need to submit to acquire a given credential.
 
 As a Wallet Implementer, I want to know how to display a credential to the user.
 
-As a Holder, I want my wallet to be able to display the credential in UI before
-I apply for it and after it is issued to me:
+::: 
+Note: this use case requires [[ref: Wallet Rendering]]. Wallet Rendering is
+still under development (also at DIF) and should be considered unstable until a
+stable version is released. 
+:::
+
+As a Holder, I want my wallet to be able to display the credential (i.e. contents or payload) of a future verifiable credential in UI before I apply for it and after it is issued to me:
 - Before applying for a credential:
   - Show the user examples of information contained in the VC.
   - Include the type of credential, how long it's valid for, etc.
+  - Generate a interactive modal, form, etc. for user-inputted fields that can
+    interact with other software (such as a password manager or form-filler)
 - After taking possession of a credential:
   - Display information from the VC that is pertinent to the user.
   - Provide a way to show Issuer branding and other differentiating UI features.

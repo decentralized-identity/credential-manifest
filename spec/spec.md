@@ -689,15 +689,18 @@ would need to submit to acquire a given credential.
 
 ### Credential Display
 
+
+```
+Note: this set of use cases requires [[ref: Wallet Rendering]]. Wallet Rendering 
+is still under development (also at DIF) and should be considered unstable until 
+a stable version is released. 
+```
+
 As a Wallet Implementer, I want to know how to display a credential to the user.
 
-::: 
-Note: this use case requires [[ref: Wallet Rendering]]. Wallet Rendering is
-still under development (also at DIF) and should be considered unstable until a
-stable version is released. 
-:::
-
-As a Holder, I want my wallet to be able to display the credential (i.e. contents or payload) of a future verifiable credential in UI before I apply for it and after it is issued to me:
+As a Holder, I want my wallet to be able to display the credential (i.e.
+contents or payload) of a future verifiable credential in UI before I apply for
+it and after it is issued to me:
 - Before applying for a credential:
   - Show the user examples of information contained in the VC.
   - Include the type of credential, how long it's valid for, etc.

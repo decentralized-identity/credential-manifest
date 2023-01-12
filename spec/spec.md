@@ -125,7 +125,9 @@ sequenceDiagram
   end
 
 ```
-This specification covers the data models and not exchange protocols; specifically:
+This specification covers only the data models of these objects and not the
+exchange protocols or architectural assumptions about how they get transported.
+Specifically:
 
 - [[ref:User Agent]] discovery of the [[ref:Credential Manifest]] is determined
   by the protocol. For example, the [[ref:Issuer]] may post a QR code which,
@@ -144,7 +146,7 @@ the specifications should aim to provide backwards-compatibility and minimize
 breaking changes. To track the evolution of this specification, all object
 models this specification defines ****MUST**** include a `spec_version`
 property, corresponding to the URI of the specification revision the object
-models comport with.
+models conform to.
 
 ::: example Spec Reference
   ```json

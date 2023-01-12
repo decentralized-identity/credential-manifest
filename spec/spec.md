@@ -24,16 +24,19 @@ Credential Manifest 0.0.1
 ## Abstract
 
 For User Agents (e.g. wallets) and other service that wish to engage with
-Issuers to acquire credentials, there must exist a mechanism for assessing what
-inputs are required from a Subject to process a request for credential(s)
-issuance. The _Credential Manifest_ is a common data format for describing the
-inputs a Subject must provide to an Issuer for subsequent evaluation and
-issuance of the credential(s) indicated in the Credential Manifest.
+Issuers to acquire credentials, there must exist a mechanism for negotiating
+(via services and interfaces that are out of scope) what inputs are required
+from a Subject to process a request for credential(s) issuance. The _Credential
+Manifest_ is a common data format for describing the inputs a Subject must
+provide to an Issuer for subsequent evaluation and issuance of the credential(s)
+indicated in the Credential Manifest, i.e. for a Subject to become a Holder.
 
 _Credential Manifests_ do not themselves define the contents of the output
 credential(s), the process the Issuer uses to evaluate the submitted inputs, or
 the protocol Issuers, Subjects, and their User Agents rely on to negotiate
-credential issuance.
+credential issuance. Instead, Credential Manifests are a data model for issuers
+to publish and/or send individually to would-be holders, allowing the software
+of the latter to understand and negotiate an issuance process.
 
 ## Status of This Document
 

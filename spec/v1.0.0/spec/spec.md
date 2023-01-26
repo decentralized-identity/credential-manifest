@@ -1,7 +1,7 @@
-Credential Manifest 1.x Editor's Draft
+Credential Manifest 0.0.1
 ==================
 
-**Specification Status:** _Draft_
+**Specification Status:** _Strawman_
 
 **Latest Draft:**
   [identity.foundation/credential-manifest](https://identity.foundation/credential-manifest)

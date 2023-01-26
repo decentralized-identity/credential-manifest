@@ -12,6 +12,7 @@ Credential Manifest 1.x Editor's Draft
 ~ [Jace Hensley](https://www.linkedin.com/in/jacehensley/) (Bloom)
 ~ [Daniel McGrogan](https://www.linkedin.com/in/dtmcgrogan/) (Workday)
 ~ [Gabe Cohen](https://www.linkedin.com/in/cohengabe) (Block)
+~ [Kim Hamilton Duffy](https://www.linkedin.com/in/kimdhamilton/) (Centre Consortium)
 
 <!-- -->
 **Participate:**
@@ -529,6 +530,14 @@ The [[ref:JSON Schema]] Draft 7 definition that summarizes the rules above for
 [[ref: Credential Response]] [can be found after the appendix
 here](#credential-response-3). 
 
+## Input Evaluation
+
+Input is evaluated from two perspectives: that of the [[ref:Issuer]], who creates a [[ref:Credential Manifest]] and from that of the [[ref:User Agent]], who responds to a Manifest with a [[ref:Credential Application]].
+
+A [[ref:User Agent]] first processes a [[def:Credential Manifest]] in order to generate a valid [[ref:Credential Application]]. If a [[ref:Credential Manifest]] includes a `presentation_definition` property, the [[ref:User Agent]] ****MUST**** include a valid [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission) in the  `presentation_submission` property of its corresponding [[ref:Credential Application]].
+
+An [[ref:Issuer] upon receiving a [[ref:Credential Application]] ****MUST**** evaluate the input against the associated [[ref:Credential Manifest]]. If the [[ref:Credential Application]] contains a [Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission), it ****MUST**** be processed as specified in [Presentation Exchange: Input Evaluation](https://identity.foundation/presentation-exchange/#input-evaluation).
+
 ## Appendix
 
 ### Embed Target Examples
@@ -638,10 +647,11 @@ portions of the [[ref:Wallet Rendering]] specification that call for [[ref:JSON
 Schema]]
 [validation](https://tools.ietf.org/html/draft-handrews-json-schema-02).
 
-```
-NOTE: Wallet Rendering is still under development (also at DIF) and should be 
+::: note
+Wallet Rendering is still under development (also at DIF) and should be 
 considered unstable until a stable version is released. 
-```
+:::
+
 
 ### Credential Manifest
 

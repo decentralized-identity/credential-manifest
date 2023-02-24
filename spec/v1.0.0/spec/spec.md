@@ -719,12 +719,9 @@ would need to submit to acquire a given credential.
 
 ### Credential Display
 
-
-```
-Note: this set of use cases requires [[ref: Wallet Rendering]]. Wallet Rendering 
-is still under development (also at DIF) and should be considered unstable until 
-a stable version is released. 
-```
+*Note: This set of use cases requires [[ref: Wallet Rendering]]. Wallet
+Rendering is still under development (also at DIF) and should be considered
+unstable until a stable version is released.* 
 
 As a Wallet Implementer, I want to know how to display a credential to the user.
 
@@ -744,18 +741,22 @@ As a Wallet Implementer, I want to display formatted data values.
 
 ## References
 
-[[def:Presentation Exchange]] ~ [Presentation Exchange
-  2.0.0](https://identity.foundation/presentation-exchange). Daniel Buchner,
-  Brent Zundel, Martin Riedel, Kim Hamilton Duffy. Status: _Working Group Draft_
+[[def:Presentation Exchange]] 
+~ [Presentation Exchange 2.0.0](https://identity.foundation/presentation-exchange). 
+  Daniel Buchner, Brent Zundel, Martin Riedel, Kim Hamilton Duffy. 
+  Status: _Working Group Draft_
 
-[[def:Wallet Rendering]] ~ [Wallet
-  Rendering](https://identity.foundation/wallet-rendering/#data-display). Daniel
-  Buchner, Brent Zundel, Jace Hensley, Daniel McGrogan. Status: _Strawman_
+[[def:Wallet Rendering]] 
+~ [Wallet Rendering](https://identity.foundation/wallet-rendering/#data-display). 
+  Daniel Buchner, Brent Zundel, Jace Hensley, Daniel McGrogan. 
+  Status: _Strawman_
 
-[[def:JSON Schema]] ~ [JSON Schema](https://json-schema.org/) ~ [JSON Schema: A
-  Media Type for Describing JSON
-  Documents](https://json-schema.org/draft/2020-12/json-schema-core.html). A.
-  Wright, H. Andrews, B. Hutton, G. Dennis. Status: 28 January 2020.
-  Internet-Draft. ~ [JSON Schema
-  Validation](https://tools.ietf.org/html/draft-handrews-json-schema-02). A.
-  Wright, H. Andrews, B. Hutton. March 19, 2020. Status: Internet Draft.
+[[def:JSON Schema]] 
+~ [JSON Schema: A Media Type for Describing JSON Documents](https://json-schema.org/draft/2020-12/json-schema-core.html). 
+  A. Wright, H. Andrews, B. Hutton, G. Dennis. Status: 28 January 2020.
+  Status: Internet-Draft. 
+
+[[def: JSON Schema Validation]]  
+  ~ [JSON Schema Validation](https://tools.ietf.org/html/draft-handrews-json-schema-02). 
+  A. Wright, H. Andrews, B. Hutton. March 19, 2020. 
+  Status: Internet Draft.

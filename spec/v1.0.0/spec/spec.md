@@ -1,7 +1,7 @@
-Credential Manifest 0.0.1
+Credential Manifest 1.x Editor's Draft
 ==================
 
-**Specification Status:** _Strawman_
+**Specification Status:** _Draft_
 
 **Latest Draft:**
   [identity.foundation/credential-manifest](https://identity.foundation/credential-manifest)
@@ -12,6 +12,7 @@ Credential Manifest 0.0.1
 ~ [Jace Hensley](https://www.linkedin.com/in/jacehensley/) (Bloom)
 ~ [Daniel McGrogan](https://www.linkedin.com/in/dtmcgrogan/) (Workday)
 ~ [Gabe Cohen](https://www.linkedin.com/in/cohengabe) (Block)
+~ [Kim Hamilton Duffy](https://www.linkedin.com/in/kimdhamilton/) (Centre Consortium)
 
 <!-- -->
 **Participate:**
@@ -50,11 +51,11 @@ whether as input to stable versions or as recommendations for future versions.
 
 ## Terminology
 
-[[def:Decentralized Identifiers, Decentralized Identifier, DID]] ~ Unique ID URI
-string and PKI metadata document format for describing the cryptographic keys
-and other fundamental PKI values linked to a unique, user-controlled,
-self-sovereign identifier in a target system (i.e. blockchain, distributed
-ledger).
+[[def:Decentralized Identifiers, Decentralized Identifier, DID]] 
+~ Unique ID URI string and PKI metadata document format for describing the
+cryptographic keys and other fundamental PKI values linked to a unique,
+user-controlled, self-sovereign identifier in a target system (i.e. blockchain,
+distributed ledger).
 
 [[def:Claim, Claims]]
 ~ An assertion made about a [[ref:Subject]]. Used as an umbrella term for
@@ -63,50 +64,57 @@ Credential, Assertion, Attestation, etc.
 [[def:Issuer, Issuers]]
 ~ Issuers are entities that issue credentials to a [[ref:Holder]].
 
-[[def:Holder, Holders]] ~ Holders are entities that receive credentials from
-[[ref:Issuers]], possibly first submitting proofs to the [[ref:Issuer]] to
-satisfy the requirements described in a [[ref:Presentation Definition]]. These
-interactions are facilitated by [[ref:User Agents]]
+[[def:Holder, Holders]] 
+~ Holders are entities that receive credentials from [[ref:Issuers]], possibly
+first submitting proofs to the [[ref:Issuer]] to satisfy the requirements
+described in a [[ref:Presentation Definition]]. These interactions are
+facilitated by [[ref:User Agents]].
 
-[[def:Presentation Definition, Presentation Submission, Presentation Request]] ~
-[[ref:Presentation Exchange]] is a specification codifying a _Presentation
+[[def:Credential Manifest]] 
+~ A Credential Manifest is a document, hosted by an [[ref:Issuer]] and consumed
+by [[User Agents]], codifying the credentials that it issues in terms of
+pre-requisites and inputs. These can be static or dynamic, but their form and
+usage are detailed in this specification.
+
+[[def:Presentation Definition, Presentation Submission, Presentation Request]] 
+~ [[ref:Presentation Exchange]] is a specification codifying a _Presentation
 Definition_ data format _Verifiers_ can use to articulate proof requirements in
 a _Presentation Request_, and a _Presentation Submission_ data format
 [[ref:Holders]] can use to describe proofs submitted in accordance with them.
 
-[[def:Output Descriptor, Output Descriptors]] ~ Output Descriptors are used by
-an Issuer to describe the credentials they are offering to a [[ref:Holder]]. See
-[Output Descriptor](#output-descriptor)
+[[def:Output Descriptor, Output Descriptors]] 
+~ Output Descriptors are used by an Issuer to describe the credentials they are
+offering to a [[ref:Holder]]. See [Output Descriptor](#output-descriptor)
 
-[[def:Output Descriptor Object, Output Descriptor Objects]] ~ Output Descriptor
-Objects are populated with properties describing the [[ref:Claims]] the
-[[ref:Issuer]] is offering the [[ref:Holder]]
+[[def:Output Descriptor Object, Output Descriptor Objects]] 
+~ Output Descriptor Objects are populated with properties describing the
+[[ref:Claims]] the [[ref:Issuer]] is offering the [[ref:Holder]]
 
-[[def:Output Descriptor Display Object, Output Descriptor Display Objects]] ~
-Output Descriptor Display Objects are populated with [Data
+[[def:Output Descriptor Display Object, Output Descriptor Display Objects]] 
+~ Output Descriptor Display Objects are populated with [Data
 Display](https://identity.foundation/wallet-rendering/#data-display) properties
 from the [[ref: Wallet Rendering]] specification.
 
-[[def:Credential Application, Credential Applications]] ~ Credential Application
-are objects embedded within target claim negotiation formats that pass
-information from the [[ref:Holder]] to the [[ref:Issuer]]. See [Credential
-Application](#credential-application)
+[[def:Credential Application, Credential Applications]] 
+~ Credential Application are objects embedded within target claim negotiation
+formats that pass information from the [[ref:Holder]] to the [[ref:Issuer]]. See
+[Credential Application](#credential-application)
 
-[[def:Credential Response, Credential Responses]] ~ Credential Responses are
-objects embedded within target claim negotiation formats that enable a binary
-response to a [[ref:Credential Application]]. _Fulfillments_ unify the
-presentation of [[ref:Claims]] to a [[ref:Holder]] in accordance with the output
-an [[ref:Issuer]] specified in a [[ref:Credential Manifest]]. _Denials_ provide
-insight into why a given application did not result in a fulfillment. See
-[Credential Response](#credential-response).
+[[def:Credential Response, Credential Responses]] 
+~ Credential Responses are objects embedded within target claim negotiation
+formats that enable a binary response to a [[ref:Credential Application]].
+_Fulfillments_ unify the presentation of [[ref:Claims]] to a [[ref:Holder]] in
+accordance with the output an [[ref:Issuer]] specified in a [[ref:Credential
+Manifest]]. _Denials_ provide insight into why a given application did not
+result in a fulfillment. See [Credential Response](#credential-response).
 
-[[def:User Agent, User Agents]] ~ User Agents are software, such as wallets or
-other services, acting on behalf of [[ref:Holders]], to facilitate credential
-acquisition and exchange. In the context of this specification, they retrieve
-[[ref:Credential Manifests]] and interpret them to determine issuance
-requirements, construct [[ref:Credential Applications]] to satisfy issuance
-requirements and submit them to [[ref:Issuers]], and receive and interpret
-[[ref:Credential Responses]].
+[[def:User Agent, User Agents]] 
+~ User Agents are software, such as wallets or other services, acting on behalf
+of [[ref:Holders]], to facilitate credential acquisition and exchange. In the
+context of this specification, they retrieve [[ref:Credential Manifests]] and
+interpret them to determine issuance requirements, construct [[ref:Credential
+Applications]] to satisfy issuance requirements and submit them to
+[[ref:Issuers]], and receive and interpret [[ref:Credential Responses]].
 
 ## Overview
 
@@ -529,6 +537,27 @@ The [[ref:JSON Schema]] Draft 7 definition that summarizes the rules above for
 [[ref: Credential Response]] [can be found after the appendix
 here](#credential-response-3). 
 
+## Input Evaluation
+
+Input is evaluated from two perspectives: that of the [[ref:Issuer]], who
+creates a [[ref:Credential Manifest]] and from that of the [[ref:User Agent]],
+who responds to a Manifest with a [[ref:Credential Application]].
+
+A [[ref:User Agent]] first processes a [[ref:Credential Manifest]] in order to
+generate a valid [[ref:Credential Application]]. If a 
+[[ref:Credential Manifest]] includes a `presentation_definition` property, the
+[[ref:User Agent]] ****MUST**** include a valid [Presentation
+Submission](https://identity.foundation/presentation-exchange/#presentation-submission)
+in the  `presentation_submission` property of its corresponding [[ref:Credential
+Application]].
+
+An [[ref:Issuer] upon receiving a [[ref:Credential Application]] ****MUST****
+evaluate the input against the associated [[ref:Credential Manifest]]. If the
+[[ref:Credential Application]] contains a 
+[Presentation Submission](https://identity.foundation/presentation-exchange/#presentation-submission),
+it ****MUST**** be processed as specified in [Presentation Exchange: Input
+Evaluation](https://identity.foundation/presentation-exchange/#input-evaluation).
+
 ## Appendix
 
 ### Embed Target Examples
@@ -638,10 +667,11 @@ portions of the [[ref:Wallet Rendering]] specification that call for [[ref:JSON
 Schema]]
 [validation](https://tools.ietf.org/html/draft-handrews-json-schema-02).
 
-```
-NOTE: Wallet Rendering is still under development (also at DIF) and should be 
+::: note
+Wallet Rendering is still under development (also at DIF) and should be 
 considered unstable until a stable version is released. 
-```
+:::
+
 
 ### Credential Manifest
 

@@ -1,10 +1,14 @@
 Credential Manifest 1.x Editor's Draft
 ==================
 
-**Specification Status:** _Draft_
+**Specification Status:** _Working-Group Approved Draft_
 
-**Latest Draft:**
+**Latest Editor's Draft:**
   [identity.foundation/credential-manifest](https://identity.foundation/credential-manifest)
+
+**Stable Working-Group Approved Draft:**
+  [identity.foundation/credential-manifest](https://identity.foundation/credential-manifest/v1.0.0)
+
 
 **Editors:**
 ~ [Daniel Buchner](https://www.linkedin.com/in/dbuchner/) (Block)

@@ -7,7 +7,7 @@ Credential Manifest 1.x Editor's Draft
   [identity.foundation/credential-manifest](https://identity.foundation/credential-manifest)
 
 **Stable Working-Group Approved Draft:**
-  [identity.foundation/credential-manifest/v1.0.0](https://identity.foundation/credential-manifest/v1.0.0)
+  [identity.foundation/credential-manifest/spec/v1.0.0](https://identity.foundation/credential-manifest/v1.0.0)
 
 
 **Editors:**

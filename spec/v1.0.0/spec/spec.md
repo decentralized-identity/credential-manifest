@@ -376,6 +376,9 @@ _Credential Applications_ are JSON objects composed as follows:
   - The object ****MUST**** contain a `spec_version` property, and its value
     ****MUST**** be a valid spec URI according to the rules set in the
     [versioning section](#versioning).
+  - The object ****MUST**** contain an `applicant` property, and its value
+    ****MUST**** be a string. The value of this property ****MUST**** be a URI
+    which uniquely identifies the applicant.
   - The object ****MUST**** contain a `manifest_id` property. The value of this
     property ****MUST**** be the id of a valid Credential Manifest.
   - The object ****MUST**** have a `format` property if the related
@@ -453,6 +456,9 @@ objects ****MUST**** be located within target data format as the value of a
 - The object ****MUST**** contain a `spec_version` property, and its value
   ****MUST**** be a valid spec URI according to the rules set in the [versioning
   section](#versioning).
+- The object ****MUST**** contain an `applicant` property, and its
+  value****MUST**** be a string. The value of this property ****MUST**** be a
+  URI which uniquely identifies the applicant.
 - The object ****MUST**** contain a `manifest_id` property. The value of this
   property ****MUST**** be the `id` value of a valid [[ref:Credential
   Manifest]].

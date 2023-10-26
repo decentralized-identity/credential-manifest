@@ -1,23 +1,22 @@
 {
   "credential_response": {
     "application_id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-    "applicant": "did:example:123",
     "fulfillment": {
       "descriptor_map": [
         {
           "format": "jwt_vc",
-          "id": "license_output",
+          "id": "drivers_license",
           "path": "$.verifiableCredential[0]"
         },
         {
           "format": "jwt_vc",
-          "id": "employment_output",
+          "id": "employment_history",
           "path": "$.verifiableCredential[1]"
         }
       ]
     },
     "id": "a30e3b91-fb77-4d22-95fa-871689c322e2",
-    "manifest_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
+    "manifest_id": "WA-DL-CLASS-A",
     "spec_version": "https://identity.foundation/credential-manifest/spec/v1.0.0/"
   },
   "iat": 1667533615,

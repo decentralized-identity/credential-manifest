@@ -7,7 +7,9 @@
   "credential_application": {
     "format": {
       "jwt_vc": {
-        "alg": ["EdDSA"]
+        "alg": [
+          "EdDSA"
+        ]
       }
     },
     "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
@@ -17,12 +19,12 @@
       "descriptor_map": [
         {
           "format": "jwt_vc",
-          "id": "drivers_license",
+          "id": "license_input",
           "path": "$.verifiableCredential[0]"
         },
         {
           "format": "jwt_vc",
-          "id": "employment_history",
+          "id": "employment_input",
           "path": "$.verifiableCredential[1]"
         }
       ],

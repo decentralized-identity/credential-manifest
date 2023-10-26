@@ -1,5 +1,5 @@
 {
-  "credential_application": {
+  "credential_manifest": {
     "format": {
       "jwt_vc": {
         "alg": [
@@ -7,30 +7,74 @@
         ]
       }
     },
-    "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
-    "manifest_id": "WA-DL-CLASS-A",
-    "presentation_submission": {
-      "definition_id": "32f54163-7166-48f1-93d8-ff217bdb0653",
-      "descriptor_map": [
+    "id": "WA-DL-CLASS-A",
+    "issuer": {
+      "id": "did:example:ebfeb1f712ebc6f1c276e12ec21"
+    },
+    "output_descriptors": [
+      {
+        "description": "drivers license credential",
+        "id": "drivers_license",
+        "schema": "https://eu.com/claims/DriversLicense"
+      },
+      {
+        "description": "employment history credential",
+        "id": "employment_history",
+        "schema": "https://business-standards.org/schemas/employment-history.json"
+      }
+    ],
+    "presentation_definition": {
+      "id": "32f54163-7166-48f1-93d8-ff217bdb0653",
+      "input_descriptors": [
         {
-          "format": "jwt_vc",
-          "id": "input_1",
-          "path": "$.verifiableCredential[0]"
+          "constraints": {
+            "fields": [
+              {
+                "id": "license_schema",
+                "path": [
+                  "$.credentialSchema.id"
+                ]
+              },
+              {
+                "id": "license_number",
+                "path": [
+                  "$.credentialSubject.licenseNumber"
+                ]
+              },
+              {
+                "id": "license_state",
+                "path": [
+                  "$.credentialSubject.licenseState"
+                ]
+              }
+            ]
+          },
+          "id": "license_input"
         },
         {
-          "format": "jwt_vc",
-          "id": "input_2",
-          "path": "$.verifiableCredential[1]"
+          "constraints": {
+            "fields": [
+              {
+                "id": "employment_schema",
+                "path": [
+                  "$.credentialSchema.id"
+                ]
+              },
+              {
+                "id": "employer_name",
+                "path": [
+                  "$.credentialSubject.employerName"
+                ]
+              }
+            ]
+          },
+          "id": "employment_input"
         }
       ],
-      "id": "a30e3b91-fb77-4d22-95fa-871689c322e2"
+      "name": "Requirements for a new license and employment history"
     },
     "spec_version": "https://identity.foundation/credential-manifest/spec/v1.0.0/"
   },
-  "iat": 1667533138,
-  "iss": "did:example:ebfeb1f712ebc6f1c276e12ec21",
-  "verifiableCredentials": [
-    "eyJhbGciOiJFZERTQSIsImtpZCI6ImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJkaWQ6ZXhhbXBsZToxMjMiLCJqdGkiOiJodHRwczovL2V1LmNvbS9jbGFpbXMvRHJpdmVyc0xpY2Vuc2UiLCJuYmYiOjE2Njc1MzMxMzgxNzAxNjYwMDAsInN1YiI6ImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSIsInZjIjp7IkBjb250ZXh0IjpbImh0dHBzOi8vd3d3LnczLm9yZy8yMDE4L2NyZWRlbnRpYWxzL3YxIl0sImlkIjoiaHR0cHM6Ly9ldS5jb20vY2xhaW1zL0RyaXZlcnNMaWNlbnNlIiwidHlwZSI6WyJFVURyaXZlcnNMaWNlbnNlIl0sImlzc3VlciI6ImRpZDpleGFtcGxlOjEyMyIsImlzc3VhbmNlRGF0ZSI6IjIwMTAtMDEtMDFUMTk6NzM6MjRaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiYWNjb3VudHMiOlt7ImlkIjoiMTIzNDU2Nzg5MCIsInJvdXRlIjoiREUtOTg3NjU0MzIxMCJ9LHsiaWQiOiIyNDU3OTEzNTcwIiwicm91dGUiOiJERS0wNzUzMTk3NTQyIn1dLCJpZCI6ImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSJ9fX0.0Zs5pTrsndwqbrMVwSUUbL04u1lRM7knmCbAshXwPP1c_sPpqn9sBakPNOdAgD_AXLXPg8K0CZVl5mFdQ_eBDQ",
-    "eyJhbGciOiJFZERTQSIsImtpZCI6ImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJkaWQ6Zm9vOjEyMyIsImp0aSI6Imh0dHBzOi8vYnVzaW5lc3Mtc3RhbmRhcmRzLm9yZy9zY2hlbWFzL2VtcGxveW1lbnQtaGlzdG9yeS5qc29uIiwibmJmIjoxNjY3NTMzMTM4MTcwMzcyMDAwLCJzdWIiOiJkaWQ6ZXhhbXBsZTplYmZlYjFmNzEyZWJjNmYxYzI3NmUxMmVjMjEiLCJ2YyI6eyJAY29udGV4dCI6WyJodHRwczovL3d3dy53My5vcmcvMjAxOC9jcmVkZW50aWFscy92MSJdLCJpZCI6Imh0dHBzOi8vYnVzaW5lc3Mtc3RhbmRhcmRzLm9yZy9zY2hlbWFzL2VtcGxveW1lbnQtaGlzdG9yeS5qc29uIiwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCIsIkdlbmVyaWNFbXBsb3ltZW50Q3JlZGVudGlhbCJdLCJpc3N1ZXIiOiJkaWQ6Zm9vOjEyMyIsImlzc3VhbmNlRGF0ZSI6IjIwMTAtMDEtMDFUMTk6NzM6MjRaIiwiY3JlZGVudGlhbFN1YmplY3QiOnsiYWN0aXZlIjp0cnVlLCJpZCI6ImRpZDpleGFtcGxlOmViZmViMWY3MTJlYmM2ZjFjMjc2ZTEyZWMyMSJ9fX0.VzSo1f2LaCuGkSDeiIXbQsONbRI_75LYCNHCSVwOkY05oGj6kgxagHUW-8Qii5BheWCcBh3EU8jYrfqnNtFMAQ"
-  ]
+  "iat": 1667531796,
+  "iss": "did:example:ebfeb1f712ebc6f1c276e12ec21"
 }
